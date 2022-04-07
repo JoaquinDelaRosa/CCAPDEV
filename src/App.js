@@ -6,6 +6,7 @@ function App() {
   return (
     <div>
       <Link to="./registration">
+        {/* Change this button to a navigation bar*/}
         <button variant="outlined">
           Sign up
         </button>
