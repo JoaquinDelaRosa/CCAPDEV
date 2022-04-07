@@ -8,7 +8,7 @@ function App() {
       <Link to="./registration">
         {/* Change this button to a navigation bar*/}
 
-        <button className="button">
+        <button className="hover:bg-sky-600">
           Sign up
         </button>
       </Link>
