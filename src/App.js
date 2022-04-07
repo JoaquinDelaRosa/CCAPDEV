@@ -1,9 +1,18 @@
+import Main from './Main';
 import './App.css';
+import { Link } from "react-router-dom";
 
 function App() {
   return (
     <div>
-      <a href='./pages/registration.html'> Click here </a>
+      <Link to="./registration">
+        <button variant="outlined">
+          Sign up
+        </button>
+      </Link>
+
+      
+      <Main/>
     </div>
   );
 }
