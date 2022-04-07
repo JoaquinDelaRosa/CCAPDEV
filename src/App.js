@@ -7,7 +7,8 @@ function App() {
     <div>
       <Link to="./registration">
         {/* Change this button to a navigation bar*/}
-        <button variant="outlined">
+
+        <button className="button">
           Sign up
         </button>
       </Link>
