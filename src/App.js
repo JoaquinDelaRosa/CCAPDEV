@@ -13,6 +13,13 @@ function App() {
         </button>
       </Link>
 
+      <Link to="./postpage">
+        {/* Change this button to a navigation bar*/}
+
+        <button className="hover:bg-sky-600">
+          Posts
+        </button>
+      </Link>
       
       <Main/>
     </div>
