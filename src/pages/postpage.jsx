@@ -1,21 +1,24 @@
 /* eslint-disable no-multi-str */
 import React, { useState } from "react";
+import Comment from "./comment";
 
 function PostPage(){
   const [post, createPost] = useState({
+    "id": "",
     "postTitle": "",
     "postMediaPath" : "",
     "postBody" : "",
     "upvotes"  : "",
     "downvotes" : "",
     "views"     : "",
+    "author"    : "",
     "comments" : {
-
     }
   });
 
   // Placeholder values
   post.postTitle = "Introducing The turboencabulator";
+  post.author = "John Doe"
   post.postBody = 
   " The original machine has a base-plate of prefabulated amulite, surmounted by a malleable logarithmic \
     casing in such a way that the two spurving bearings were in a direct line with the pentametric fan. \
@@ -31,10 +34,16 @@ function PostPage(){
   return (
       <div className="mt-2">
         <div id="post-section" className= "w-full h-auto">
-          <div id="post-title-section" className="px-10 h-fit py-5">
+          <div id="post-title-section" className="px-10 h-fit pt-5 pb-3">
             <strong className="text-left font-extrabold font-sans text-4xl align-baseline tracking-wider"> 
-               {post.postTitle}
+              {post.postTitle}
             </strong>
+          </div>
+
+          <div id="post-author-section" className="px-10 h-fit pb-5">
+            <text className="text-left font-mono "> 
+              By: {post.author}
+            </text>
           </div>
 
           <div id="post-media-section" className="px-10 h-fit w-full pb-5 flex justify-center">
@@ -47,16 +56,23 @@ function PostPage(){
               </p>
             </div>
         </div>
-        <div id="rating-bar" className="px-10 flex"> 
+        <div id="rating-bar" className="px-10 flex h-fit"> 
+          <div className="w-full">
+            <input type="button" 
+            className="text-l font-semibold text-gray-200 hover:text-blue-900 hover:cursor-pointer" 
+            defaultValue={"Show Comments"}
+            /> 
+          </div>
+
           <div>
             <p className="mr-5 text-xl font-extrabold text-green-400"> {post.upvotes} </p>
           </div>
 
           <div>
-            <p className="text-xl font-extrabold text-red-400"> {post.downvotes} </p>
+            <p className="mr-5 text-xl font-extrabold text-red-400"> {post.downvotes} </p>
           </div>
 
-          <div className="w-full text-right text-xl  text-gray-400">
+          <div className="text-right text-xl  text-gray-400">
             <p className="font-bold"> {post.views} &nbsp; </p>
           </div>
 
@@ -65,9 +81,9 @@ function PostPage(){
           </div>
         </div>
 
-        
-        <div id="comment-section" className="bg-blue-50 w-full h-auto">
-          Comments
+
+        <div id="comment-section" className=" w-full h-auto px-10" >
+          <Comment  ></Comment>
         </div>
       </div>
   )
