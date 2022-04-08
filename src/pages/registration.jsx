@@ -39,12 +39,12 @@ function Registration(){
 
 
     return (
-        <div>
-          <div>
+        <div className="flex justify-center items-center h-screen">
+          <div className="flex max-w-fit">
             <form>
               <div className="m-2">
                 <span>
-                  <input type="email" id="reg-email-address" className="form-input bg-gray-100 text-left font-sans font-light w-1/4" 
+                  <input type="email" id="reg-email-address" className="form-input bg-gray-100 text-left font-sans font-light w-80" 
                     value={registration["email"]} 
                     onChange={(e)=> {
                       inputHandler("email", e.target.value);
@@ -63,7 +63,7 @@ function Registration(){
               </div> 
 
               <div className="m-2">
-                <input type="text" id="reg-username" className="form-input bg-gray-100 text-left font-sans font-light w-1/4"
+                <input type="text" id="reg-username" className="form-input bg-gray-100 text-left font-sans font-light w-80"
                   value={registration["username"]}
                   onChange={(e) => 
                     inputHandler("username", e.target.value)
@@ -81,7 +81,7 @@ function Registration(){
               </div>
 
               <div className="m-2">
-                <input type={passwordInputType} id="reg-password" className="form-input bg-gray-100 text-left font-sans font-light w-1/4"
+                <input type={passwordInputType} id="reg-password" className="form-input bg-gray-100 text-left font-sans font-light w-80"
                   value={registration["password"]}
                   onChange={(e)=> { 
                     inputHandler("password", e.target.value)
@@ -103,7 +103,7 @@ function Registration(){
               </div>
 
               <div className="m-2">  
-                <input type={confirmInputType} id="reg-confirm-password" className="form-input bg-gray-100 text-left font-sans font-light w-1/4"
+                <input type={confirmInputType} id="reg-confirm-password" className="form-input bg-gray-100 text-left font-sans font-light w-80"
                   value={registration["confirmPassword"]}
                   onChange={(e)=> 
                     inputHandler("confirmPassword", e.target.value)
@@ -124,13 +124,16 @@ function Registration(){
                 />
               </div>
 
-              <span>
+              <span className="flex justify-center items-center">
                   <input type="submit" value="Create Account" disabled={isSubmitDisabled()}
-                  className= {"border-2 rounded-full w-1/6 text-white " + 
+                  className= {"border-2 rounded-full w-auto text-white " + 
                   (isSubmitDisabled() ? "bg-blue-200" : "bg-green-500 hover:cursor-pointer")}
                   />
               </span>
+              <br/>
+              <p className="flex justify-center items-center font-mono"> Or if you have an account Log In!</p>
             </form>
+
           </div> 
         </div>
     )
