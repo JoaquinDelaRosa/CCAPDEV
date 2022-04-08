@@ -21,6 +21,22 @@ function Registration(){
     const [passwordInputType, setPasswordInputType] = useState("text");
     const [confirmInputType, setConfirmInputType] = useState("text");
     
+    const isComplete = () => {
+      let isComplete = true;
+      Object.values(registration).forEach((value) => {isComplete = isComplete && value!== ""})
+      return isComplete;
+    }
+
+    const isValid = () => {
+      // Input validation will go here later. For now just a placeholder will do
+      return registration.password === registration.confirmPassword && 
+      registration.email !== defaultEmail && registration.username !== defaultUserName;
+    }
+
+    const isSubmitDisabled = () => {
+      return !(isValid() && isComplete());
+    }
+
 
     return (
         <div>
@@ -41,6 +57,7 @@ function Registration(){
                       if(registration["email"] === "")
                         inputHandler("email", defaultEmail)
                     }}
+                    required
                   />
                 </span>
               </div> 
@@ -59,6 +76,7 @@ function Registration(){
                     if(registration["username"] === "")
                       inputHandler("username", defaultUserName);
                   }}
+                  required
                 />
               </div>
 
@@ -80,6 +98,7 @@ function Registration(){
                       setPasswordInputType("text");
                     }
                   }}
+                  required
                   />
               </div>
 
@@ -101,17 +120,14 @@ function Registration(){
                       setConfirmInputType("text");
                     }
                   }}
+                  required
                 />
               </div>
 
               <span>
-                  <input type="submit" value="Create Account" 
-                  className="border-2 rounded-full w-1/6 bg-blue-200 text-white hover:bg-blue-500 hover:text-white"
-                  
-                  onFocus = {(e) => {
-                    // Input validation will go here later. For now just a placeholder will do
-                    
-                  }}
+                  <input type="submit" value="Create Account" disabled={isSubmitDisabled()}
+                  className= {"border-2 rounded-full w-1/6 text-white " + 
+                  (isSubmitDisabled() ? "bg-blue-200" : "bg-green-500 hover:cursor-pointer")}
                   />
               </span>
             </form>
