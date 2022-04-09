@@ -101,7 +101,7 @@ function PostPage(){
         "author" : "Anonymous",
         "comments" : []
       })
-    },  []
+    },  [post.comments, reply]
   )
 
   return (
