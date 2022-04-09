@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from "react";
+import parseDate from "../utils/date";
 import TextBox from "./textbox";
 
 function Comment({ content }) {
   const [post, setPost] = useState({
     "id" : "",
     "title": "",
+    "author": "",
+    "date": new Date(),
     "mediaPath": null,
     "mediaAlt": "",
     "body": "",
     "upvotes": 0,
     "downvotes": 0,
     "views" : 0,
-    "author": "",
     "comments": []
   });
   const [showing, setShowing] = useState(false);
@@ -63,6 +65,9 @@ function Comment({ content }) {
         <div id="comment-author" className="h-fit mb-1 px-0">
           <p className="text-left font-mono text-lg font-semibold">
             {post.author}
+          </p>         
+          <p className="text-left font-mono"> 
+            {parseDate(post.date)}
           </p>
         </div>
 

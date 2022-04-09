@@ -1,13 +1,18 @@
 /* eslint-disable no-lone-blocks */
 /* eslint-disable no-multi-str */
 import React, { useEffect, useState } from "react";
+import parseDate from "../utils/date";
 import Comment from "./comment";
 import TextBox from "./textbox";
 
 // Placeholder 
 const p = {
+  "id" : 1,
   "title" : "Introducing The turboencabulator",
   "author" : "Anonymous",
+  "date": new Date(),
+  "mediaPath" : require("../images/sample.png"),
+  "mediaAlt" : "",
   "body" : 
   " The original machine has a base-plate of prefabulated amulite, surmounted by a malleable logarithmic \
     casing in such a way that the two spurving bearings were in a direct line with the pentametric fan. \
@@ -18,22 +23,23 @@ const p = {
   "upvotes": 10,
   "downvotes": 20,
   "views": 100,
-  "mediaPath" : require("../images/sample.png"),
-
   "comments" : [{
       "id": 1,
+      "author"    : "Jane Doe",
+      "date"      : new Date(),
       "mediaPath" : null,
       "mediaAlt" : "",
       "body" : "Wow! Great!",
       "upvotes"  : 15,
       "downvotes" : 12,
       "views"     : 20,
-      "author"    : "Jane Doe",
       "comments" : []
     },
   
     {
     "id": 2,
+    "author" : "Jane Doe",
+    "date"  : new Date(),
     "mediaPath" : null,
     "mediaAlt" : "",
     "body" :   " The original machine has a base-plate of prefabulated amulite, surmounted by a malleable logarithmic \
@@ -45,16 +51,16 @@ const p = {
     "upvotes"  : 1,
     "downvotes" : 10,
     "views"     : "12",
-    "author"    : "Jane Doe",
     "comments" : [{
         "id": 1,
+        "author"    : "Jane Doe",
+        "date"  : new Date(),
         "mediaPath" : null,
         "mediaAlt" : "",
         "body" : "Wow! Great!",
         "upvotes"  : 15,
         "downvotes" : 12,
         "views"     : 20,
-        "author"    : "Jane Doe",
         "comments" : []
       }]
     }
@@ -64,14 +70,15 @@ const p = {
 function PostPage(){
   const [post, setPost] = useState({
     "id" : "",
-    "title": "",
+    "title": "",    
+    "author": "",
+    "date" : new Date(),
     "mediaPath": null,
     "mediaAlt": "",
     "body": "",
     "upvotes": 0,
     "downvotes": 0,
     "views" : 0,
-    "author": "",
     "comments": []
   });
 
@@ -89,13 +96,14 @@ function PostPage(){
       if (reply !== ""){
           const comments = post.comments.push({
             "id": 1000,
+            "author" : "Anonymous",
+            "date": new Date(), /*  TO-DO get current date and time*/
             "mediaPath" : null,
             "mediaAlt" : "",
             "body" : reply, 
             "upvotes" : 0,
             "downvotes" : 0,
             "views" : 0,
-            "author" : "Anonymous",
             "comments" : []
           }
         )
@@ -140,9 +148,12 @@ function PostPage(){
             </strong>
           </div>
 
-          <div id="post-author-section" className="px-10 h-fit pb-5">
-            <p className="text-left font-mono "> 
+          <div id="post-author-section" className="px-10 h-fit mb-5">
+            <p className="text-left font-mono font-semibold mb-0"> 
               By: {post.author}
+            </p>            
+            <p className="text-left font-mono"> 
+              Posted: {parseDate(post.date).toString()}
             </p>
           </div>
 
