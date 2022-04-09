@@ -25,9 +25,9 @@ const p = {
       "mediaPath" : null,
       "mediaAlt" : "",
       "body" : "Wow! Great!",
-      "upvotes"  : "1",
-      "downvotes" : "10",
-      "views"     : "20",
+      "upvotes"  : 15,
+      "downvotes" : 12,
+      "views"     : 20,
       "author"    : "Jane Doe",
       "comments" : []
     },
@@ -42,28 +42,22 @@ const p = {
     that side fumbling was effectively prevented. The main winding was of the normal lotus-o-delta type placed \
     in panendermic semiboloid slots in the stator, every seventh conductor being connected by a non-reversible \
     tremie pipe to the differential girdlespring on the \"up\" end of the grammeters.",
-    "upvotes"  : "1",
-    "downvotes" : "10",
-    "views"     : "20",
+    "upvotes"  : 1,
+    "downvotes" : 10,
+    "views"     : "12",
     "author"    : "Jane Doe",
-    "comments" : [
-      {
-        "id": 23,
+    "comments" : [{
+        "id": 1,
         "mediaPath" : null,
         "mediaAlt" : "",
-        "body" :   " The original machine has a base-plate of prefabulated amulite, surmounted by a malleable logarithmic \
-        casing in such a way that the two spurving bearings were in a direct line with the pentametric fan. \
-        The latter consisted simply of six hydrocoptic marzelvanes, so fitted to the ambifacient lunar waneshaft \
-        that side fumbling was effectively prevented. The main winding was of the normal lotus-o-delta type placed \
-        in panendermic semiboloid slots in the stator, every seventh conductor being connected by a non-reversible \
-        tremie pipe to the differential girdlespring on the \"up\" end of the grammeters.",
-        "upvotes"  : "1",
-        "downvotes" : "10",
-        "views"     : "20",
+        "body" : "Wow! Great!",
+        "upvotes"  : 15,
+        "downvotes" : 12,
+        "views"     : 20,
         "author"    : "Jane Doe",
         "comments" : []
-      }
-    ]}
+      }]
+    }
   ]
 }
 
@@ -74,9 +68,9 @@ function PostPage(){
     "mediaPath": null,
     "mediaAlt": "",
     "body": "",
-    "upvotes": "",
-    "downvotes": "",
-    "views" : "",
+    "upvotes": 0,
+    "downvotes": 0,
+    "views" : 0,
     "author": "",
     "comments": []
   });
@@ -84,25 +78,58 @@ function PostPage(){
   const [showing, setShowing] = useState(true);
   const [replying, setReplying] = useState(false);
   const [reply, setReply] = useState("");
+  const [upvoted, setUpvoted] = useState(false);
+  const [downvoted, setDownVoted] = useState(false);
 
   useEffect(
     () => {setPost(p)}, []
   )
 
   useEffect( () => {
-      post.comments.push({
-        "id": 1000,
-        "mediaPath" : null,
-        "mediaAlt" : "",
-        "body" : reply, 
-        "upvotes" : 0,
-        "downvotes" : 0,
-        "views" : 0,
-        "author" : "Anonymous",
-        "comments" : []
-      })
+      if (reply !== ""){
+          const comments = post.comments.push({
+            "id": 1000,
+            "mediaPath" : null,
+            "mediaAlt" : "",
+            "body" : reply, 
+            "upvotes" : 0,
+            "downvotes" : 0,
+            "views" : 0,
+            "author" : "Anonymous",
+            "comments" : []
+          }
+        )
+        setPost(values => ({...values, "comments" : comments}))
+      }
     },  [post.comments, reply]
   )
+
+  const handleUpvote = () => {
+    if (upvoted)
+      setPost( values => ({...values, "upvotes" : post.upvotes - 1}))
+    else {
+      setPost( values => ({...values, "upvotes" : post.upvotes + 1}))
+      if (downvoted)
+        setPost( values => ({...values, "downvotes" : post.downvotes -1}))
+    }
+
+    setDownVoted(false);
+    setUpvoted(!upvoted);
+  }
+
+  const handleDownvotes = () => {
+    if (downvoted)
+      setPost( values => ({...values, "downvotes" : post.downvotes - 1}))
+    else {
+      setPost( values => ({...values, "downvotes" : post.downvotes + 1}))
+      if (upvoted)
+        setPost( values => ({...values, "upvotes" : post.upvotes -1}))
+    }
+
+    setUpvoted(false);
+    setDownVoted(!downvoted);
+  }
+
 
   return (
       <div className="mt-2">
@@ -146,11 +173,19 @@ function PostPage(){
           </div>
 
           <div>
-            <p className="w-fit mr-5 text-xl font-extrabold text-green-400"> {post.upvotes} </p>
+            <input type="button" 
+              className={"w-fit mr-5 text-xl text-green-400 " + (upvoted ? "font-extrabold" : "font-bold")}
+              onClick={(e) => {handleUpvote(); e.target.value = post.upvotes}}
+              value={post.upvotes}
+            />
           </div>
 
           <div>
-            <p className="w-fit mr-5 text-xl font-extrabold text-red-400"> {post.downvotes} </p>
+            <input type="button" 
+              className={"w-fit mr-5 text-xl text-red-400 " + (downvoted ? "font-extrabold" : "font-bold")}
+              onClick={(e) => {handleDownvotes(); e.target.value = post.downvotes}}
+              value={post.downvotes}
+            />
           </div>
 
           <div className="w-fit text-left text-xl mr-1 text-gray-400">
@@ -172,10 +207,10 @@ function PostPage(){
           {
             post.comments.map( (value) => {
               return (
-                showing && 
+                showing &&  
                 <div className="flex border-4 pr-4 py-2" key={value.id}>
                   <div className="w-5 h-full "> </div> 
-                  <Comment post={value} />
+                  <Comment content={value} />
                 </div>
               )
             })

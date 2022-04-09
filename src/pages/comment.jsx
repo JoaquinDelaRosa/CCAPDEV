@@ -1,12 +1,56 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import TextBox from "./textbox";
 
-function Comment({ post }) {
+function Comment({ content }) {
+  const [post, setPost] = useState({
+    "id" : "",
+    "title": "",
+    "mediaPath": null,
+    "mediaAlt": "",
+    "body": "",
+    "upvotes": 0,
+    "downvotes": 0,
+    "views" : 0,
+    "author": "",
+    "comments": []
+  });
   const [showing, setShowing] = useState(false);
   const [replying, setReplying] = useState(false);
   const [reply, setReply] = useState("");
 
+  const [upvoted, setUpvoted] = useState(false);
+  const [downvoted, setDownVoted] = useState(false);
   
+  useEffect( () => {
+    if (content !== undefined)
+      setPost(content);
+  }, [content]);
+
+  const handleUpvote = () => {
+    if (upvoted)
+      setPost( values => ({...values, "upvotes" : post.upvotes - 1}))
+    else {
+      setPost( values => ({...values, "upvotes" : post.upvotes + 1}))
+      if (downvoted)
+        setPost( values => ({...values, "downvotes" : post.downvotes -1}))
+    }
+
+    setDownVoted(false);
+    setUpvoted(!upvoted);
+  }
+
+  const handleDownvotes = () => {
+    if (downvoted)
+      setPost( values => ({...values, "downvotes" : post.downvotes - 1}))
+    else {
+      setPost( values => ({...values, "downvotes" : post.downvotes + 1}))
+      if (upvoted)
+        setPost( values => ({...values, "upvotes" : post.upvotes -1}))
+    }
+
+    setUpvoted(false);
+    setDownVoted(!downvoted);
+  }
   const onReply = (rep) => {
     if (rep !== "")
       setReply(reply);
@@ -54,12 +98,21 @@ function Comment({ post }) {
           </div>
 
           <div className="align-middle">
-            <p className="w-fit mr-3 font-extrabold text-green-400"> {post.upvotes} </p>
+            <input type="button" 
+              className={"w-fit mr-3 text-green-400 " + (upvoted ? "font-extrabold" : "font-bold")}
+              onClick={(e) => {handleUpvote()}}
+              value={post.upvotes}
+            />
           </div>
 
           <div>
-            <p className="w-fit mr-3 font-extrabold text-red-400"> {post.downvotes} </p>
+            <input type="button" 
+              className={"w-fit mr-3 text-red-400 " + (downvoted ? "font-extrabold" : "font-bold")}
+              onClick={(e) => {handleDownvotes()}}
+              value={post.downvotes}
+            />
           </div>
+
         </div>
 
         <div id="reply-box" className="w-full mt-2, mb-1">
@@ -71,10 +124,10 @@ function Comment({ post }) {
         {
           post.comments.map( (value) => {
             return (
-                showing && 
+                showing &&
                 <div className="flex border-2 pr-4 py-2 min-w-[10rem]" key={value.id}>
                   <div className="w-2 h-full"> </div>
-                  <Comment post={value}/>
+                  <Comment content={value}/>
                 </div>
               )
            })
