@@ -2,6 +2,7 @@
 /* eslint-disable no-multi-str */
 import React, { useEffect, useState } from "react";
 import Comment from "./comment";
+import TextBox from "./textbox";
 
 // Placeholder 
 const p = {
@@ -81,9 +82,26 @@ function PostPage(){
   });
 
   const [showing, setShowing] = useState(true);
+  const [replying, setReplying] = useState(false);
+  const [reply, setReply] = useState("");
 
   useEffect(
     () => {setPost(p)}, []
+  )
+
+  useEffect( () => {
+      post.comments.push({
+        "id": 1000,
+        "mediaPath" : null,
+        "mediaAlt" : "",
+        "body" : reply, 
+        "upvotes" : 0,
+        "downvotes" : 0,
+        "views" : 0,
+        "author" : "Anonymous",
+        "comments" : []
+      })
+    },  []
   )
 
   return (
@@ -114,10 +132,17 @@ function PostPage(){
         <div id="rating-bar" className="px-10 flex h-fit"> 
           <div className="w-full">
             <input type="button" 
-            className="text-l font-semibold text-gray-400 hover:text-blue-900 hover:cursor-pointer" 
+            className="text-l font-semibold text-gray-400 hover:text-blue-900 hover:cursor-pointer mr-5" 
             defaultValue={showing ? "Hide Comments ▲" : "Show Comments ▼"}
-            onClick = {(e) => {setShowing(!showing)}}
+            onClick = {() => {setShowing(!showing)}}
             /> 
+
+            <input type="button"
+            className="text-l font-semibold text-gray-400 hover:text-blue-900 hover:cursor-pointer"
+            defaultValue={"Reply"}
+            onClick = {() => {setReplying(!replying)}}
+            />
+
           </div>
 
           <div>
@@ -136,6 +161,12 @@ function PostPage(){
             <p className="font-thin">  views </p>
           </div>
         </div>
+        
+        <div id="reply-box" className="w-full px-10 mt-4 mb-2">
+          {
+            replying && <TextBox onReply={setReply}/>
+          }
+        </div>
 
         <div id="comment-section" className=" w-fit h-auto mx-10" >
           {
@@ -150,7 +181,7 @@ function PostPage(){
             })
           }
         </div>
-
+        
         <div id="footer" className="h-[3rem]">
 
         </div>

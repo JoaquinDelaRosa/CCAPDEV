@@ -1,10 +1,20 @@
 import React, {useState} from "react";
+import TextBox from "./textbox";
 
 function Comment({ post }) {
   const [showing, setShowing] = useState(false);
+  const [replying, setReplying] = useState(false);
+  const [reply, setReply] = useState("");
+
   
+  const onReply = (rep) => {
+    if (rep !== "")
+      setReply(reply);
+    console.log(reply);
+  }
+
   return (
-    <div className="p-0 w-fit">
+    <div className="p-0 w-full">
       <div id="comment-box" className="w-full h-auto">
         <div id="comment-author" className="h-fit mb-1 px-0">
           <p className="text-left font-mono text-lg font-semibold">
@@ -31,9 +41,15 @@ function Comment({ post }) {
         <div id="rating-bar" className="flex h-fit mb-2">
           <div className="w-fit mr-3">
             <input type="button"
-              className="text-sm font-semibold text-gray-400 hover:text-blue-900 hover:cursor-pointer"
+              className="text-sm mr-3 font-semibold text-gray-400 hover:text-blue-900 hover:cursor-pointer"
               defaultValue={showing ? "Hide Comments ▲" : "Show Comments ▼"}
-              onClick = {(e) => {setShowing(!showing)}}
+              onClick = {() => {setShowing(!showing)}}
+            />
+
+            <input type="button"
+              className="text-sm mr-3 font-semibold text-gray-400 hover:text-blue-900 hover:cursor-pointer"
+              defaultValue={"Reply"}
+              onClick = {() => {setReplying(!replying)}}
             />
           </div>
 
@@ -46,6 +62,11 @@ function Comment({ post }) {
           </div>
         </div>
 
+        <div id="reply-box" className="w-full mt-2, mb-1">
+          {
+            replying && <TextBox onReply={onReply}/>
+          }
+        </div>
         <div id="comment-section" className=" w-full h-auto " >
         {
           post.comments.map( (value) => {
