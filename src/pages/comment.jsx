@@ -104,7 +104,7 @@ function Comment({ content }) {
 
           <div className="align-middle">
             <input type="button" 
-              className={"w-fit mr-3 text-green-400 " + (upvoted ? "font-extrabold" : "font-bold")}
+              className={"w-fit mr-3 hover:cursor-pointer text-green-400 " + (upvoted ? "font-extrabold" : "font-bold")}
               onClick={(e) => {handleUpvote()}}
               value={post.upvotes}
             />
@@ -112,7 +112,7 @@ function Comment({ content }) {
 
           <div>
             <input type="button" 
-              className={"w-fit mr-3 text-red-400 " + (downvoted ? "font-extrabold" : "font-bold")}
+              className={"w-fit mr-3 hover:cursor-pointer text-red-400 " + (downvoted ? "font-extrabold" : "font-bold")}
               onClick={(e) => {handleDownvotes()}}
               value={post.downvotes}
             />
