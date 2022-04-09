@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 
 function Comment({ post }) {
+  const [showing, setShowing] = useState(false);
+  
   return (
     <div className="p-0 w-fit">
       <div id="comment-box" className="w-full h-auto">
@@ -30,7 +32,8 @@ function Comment({ post }) {
           <div className="w-fit mr-3">
             <input type="button"
               className="text-sm font-semibold text-gray-400 hover:text-blue-900 hover:cursor-pointer"
-              defaultValue={"Show Comments"}
+              defaultValue={showing ? "Hide Comments ▲" : "Show Comments ▼"}
+              onClick = {(e) => {setShowing(!showing)}}
             />
           </div>
 
@@ -46,13 +49,14 @@ function Comment({ post }) {
         <div id="comment-section" className=" w-full h-auto " >
         {
           post.comments.map( (value) => {
-              return (
-                <div className="flex">
+            return (
+                showing && 
+                <div className="flex border-2 pr-4 py-2 min-w-[10rem]" key={value.id}>
                   <div className="w-2 h-full"> </div>
-                  <Comment post={value} key={value.id}/>
+                  <Comment post={value}/>
                 </div>
               )
-            })
+           })
         }
         </div>
 
