@@ -43,6 +43,10 @@ function Registration(){
         <div className="flex justify-center items-center h-screen">
           <div className="flex max-w-fit">
             <form>
+              <span className="flex justify-center items-center">
+                <h2 className="m-0.5  text-center font-sans font-extrabold w-80 "> Create a new account </h2>
+              </span>
+
               <div className="m-2">
                 <span>
                   <input type="email" id="reg-email-address" className="form-input bg-gray-100 text-left font-sans font-light w-80" 
