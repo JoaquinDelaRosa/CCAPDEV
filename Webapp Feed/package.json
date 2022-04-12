@@ -1,0 +1,9 @@
+{
+  "name": "webapp-feed",
+  "version": "0.0.0",
+  "description": "Webapp Feed",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  }
+}
