@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Registration(){
 
@@ -131,7 +132,9 @@ function Registration(){
                   />
               </span>
               <br/>
-              <p className="flex justify-center items-center font-mono"> Or if you have an account Log In!</p>
+              <p className="flex justify-center items-center font-mono"> 
+                Or if you have an account &nbsp; <Link to="../login" className="text-blue-300 hover:text-blue-600"> Log in! </Link>
+              </p>
             </form>
 
           </div> 

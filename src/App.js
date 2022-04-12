@@ -21,6 +21,14 @@ function App() {
         </button>
       </Link>
       
+      <Link to="./login">
+        {/* Change this button to a navigation bar*/}
+
+        <button className="hover:bg-sky-600">
+          Login
+        </button>
+      </Link>
+
       <Main/>
     </div>
   );
