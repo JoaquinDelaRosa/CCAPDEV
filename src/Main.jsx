@@ -10,10 +10,10 @@ const Main = () => {
   /* All links must be added here. File path is relative to Main. These replace hrefs*/
   return (
     <Routes> 
-        <Route path='./' element={<Home/>}></Route>
-        <Route path="./registration" element={<Registration/>}></Route>
-        <Route path="./postpage" element={<PostPage/>}></Route>
-        <Route path="./login" element={<Login/>}></Route>
+        <Route path='/' element={<Home/>}></Route>
+        <Route path="/registration" element={<Registration/>}></Route>
+        <Route path="/postpage" element={<PostPage/>}></Route>
+        <Route path="/login" element={<Login/>}></Route>
     </Routes>
   );
 }
