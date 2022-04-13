@@ -185,7 +185,7 @@ function PostPage(){
 
           <div>
             <input type="button" 
-              className={"w-fit mr-5 hover:cursor-pointer text-xl text-green-400 " + (upvoted ? "font-extrabold" : "font-bold")}
+              className={`w-fit mr-5 hover:cursor-pointer text-xl text-green-400 ${upvoted ? "font-extrabold" : "font-bold"}`}
               onClick={(e) => {handleUpvote(); e.target.value = post.upvotes}}
               value={post.upvotes}
             />
@@ -193,7 +193,7 @@ function PostPage(){
 
           <div>
             <input type="button" 
-              className={"w-fit mr-5 hover:cursor-pointer text-xl text-red-400 " + (downvoted ? "font-extrabold" : "font-bold")}
+              className={`w-fit mr-5 hover:cursor-pointer text-xl text-red-400 ${downvoted ? "font-extrabold" : "font-bold"}`}
               onClick={(e) => {handleDownvotes(); e.target.value = post.downvotes}}
               value={post.downvotes}
             />
