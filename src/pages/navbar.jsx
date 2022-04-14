@@ -6,6 +6,14 @@ function Navbar(){
 
   return (
     <div className="flex flex-auto">
+      <div className="px-5 hover:bg-sky-600" >
+        <Link to="./">
+          <button className>
+            <p className="font-mono font-thin text-2xl"> Home </p>
+          </button>
+        </Link>
+      </div>
+
       <div className="px-5 hover:bg-sky-600" 
         hidden={loggedin}
       >
