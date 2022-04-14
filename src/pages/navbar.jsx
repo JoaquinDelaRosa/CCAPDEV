@@ -36,7 +36,7 @@ function Navbar(){
       </div>
     
       <div className="px-5 hover:bg-sky-600"
-        hidden={loggedin}
+        hidden={!loggedin}
       >
         <Link to="./postpage">
           <button>
