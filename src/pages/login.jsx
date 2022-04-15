@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Login(){
+function Login({profile, setProfile}){
 
     const defaultUserName = "ENTER USERNAME";
     const defaultPassword = "ENTER PASSWORD";
@@ -32,6 +32,14 @@ function Login(){
       return !(isValid() && isComplete());
     }
 
+    useEffect(() => {
+      setProfile(profile);
+    }, [profile, setProfile])
+
+    const handleLogin = (e) => {
+      if (e !== null)
+        setProfile(login);
+    }
 
     return (
       <div className="flex justify-center items-center h-screen">
@@ -82,9 +90,10 @@ function Login(){
             </div>
 
             <span className="flex justify-center items-center">
-              <input type="submit" value="Create Account" disabled={isSubmitDisabled()}
-                className= {"border-2 rounded-full w-auto text-white " + 
+              <input type="submit" value="Log In" disabled={isSubmitDisabled()}
+                className= {"border-2 rounded-full w-auto px-10 text-white " + 
                 (isSubmitDisabled() ? "bg-blue-200" : "bg-green-500 hover:cursor-pointer")}
+                
               />
             </span>
             

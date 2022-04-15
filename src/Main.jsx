@@ -7,16 +7,19 @@ import Login from './pages/login';
 import Feed from './pages/feed';
 
 
-const Main = () => {
+const Main = ({profile, setProfile}) => {
   /* All links must be added here. File path is relative to Main. These replace hrefs*/
   return (
-    <Routes> 
-        <Route path='/' element={<Home/>}></Route>
-        <Route path="/registration" element={<Registration/>}></Route>
-        <Route path="/postpage" element={<PostPage/>}></Route>
-        <Route path="/login" element={<Login/>}></Route>
-        <Route path="/feed" element={<Feed/>}></Route>
-    </Routes>
+    <div>
+      <Routes> 
+          <Route path='/' element={<Home/>}></Route>
+          <Route path="/registration" element={<Registration/>}></Route>
+          <Route path="/postpage" element={<PostPage/>}></Route>
+          <Route path="/login" element={<Login profile={profile} setProfile={setProfile}/>}></Route>
+          <Route path="/login?" element={<Home/>}></Route>
+          <Route path="/feed" element={<Feed/>}></Route>
+      </Routes>
+    </div>
   );
 }
 

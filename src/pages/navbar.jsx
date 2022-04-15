@@ -1,31 +1,38 @@
-import React, { useState }  from "react";
+import React, { useEffect }  from "react";
 import { Link } from "react-router-dom";
 
-function Navbar(){
-  const [loggedin, setLoggedIn] = useState(false);
+function Navbar({profile, setProfile}){
+  const logOut = (e) => {
+      if (e !== null)
+        setProfile(null);
+  }
 
+  useEffect(() => {
+    setProfile(profile);
+  }, [profile, setProfile])
+  
   return (
     <div className="flex flex-auto">
       <div className="px-5 hover:bg-sky-600" >
         <Link to="./">
-          <button className>
+          <button>
             <p className="font-mono font-thin text-2xl"> Home </p>
           </button>
         </Link>
       </div>
 
       <div className="px-5 hover:bg-sky-600" 
-        hidden={loggedin}
+        hidden={profile !== null}
       >
         <Link to="./registration">
-          <button className>
+          <button>
             <p className="font-mono font-thin text-2xl"> Sign up </p>
           </button>
         </Link>
       </div>
 
       <div className="px-5 hover:bg-sky-600"
-        hidden={loggedin}
+        hidden={profile !== null}
       >
         <Link to="./login">
           <button>
@@ -35,16 +42,15 @@ function Navbar(){
       </div>
 
       <div className="px-5 hover:bg-sky-600"
-        hidden={!loggedin}
+        hidden={profile === null}
       >
-          {/* Add functionality for logging out here*/}
-          <button>
+          <button onClick={(e) => logOut(e)}>
             <p className="font-mono font-thin text-2xl"> Log Out </p>
           </button>
       </div>
     
       <div className="px-5 hover:bg-sky-600"
-        hidden={!loggedin}
+        hidden={profile === null}
       >
         <Link to="./postpage">
           <button>
