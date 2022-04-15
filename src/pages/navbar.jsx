@@ -44,9 +44,11 @@ function Navbar({profile, setProfile}){
       <div className="px-5 hover:bg-sky-600"
         hidden={profile === null}
       >
+        <Link to="./">
           <button onClick={(e) => logOut(e)}>
             <p className="font-mono font-thin text-2xl"> Log Out </p>
           </button>
+        </Link>
       </div>
     
       <div className="px-5 hover:bg-sky-600"

@@ -93,7 +93,7 @@ function Login({profile, setProfile}){
               <input type="submit" value="Log In" disabled={isSubmitDisabled()}
                 className= {"border-2 rounded-full w-auto px-10 text-white " + 
                 (isSubmitDisabled() ? "bg-blue-200" : "bg-green-500 hover:cursor-pointer")}
-                
+                onSubmit={(e) => handleLogin(e)}
               />
             </span>
             
