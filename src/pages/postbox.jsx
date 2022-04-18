@@ -1,4 +1,5 @@
 ﻿import React, { useEffect, useState } from "react";
+import parseDate from "../utils/date";
 
 function Postbox({ content }) {
     const [post, setPost] = useState({
@@ -19,34 +20,44 @@ function Postbox({ content }) {
     }, [content]);
 
     return (
+      <div>
         <div>
-            <div>
-                <p>Title</p>
-                {post.title}
-            </div>
-
-            <div>
-                <p>Author</p>
-                {post.author}
-            </div>
-
-            <div>
-                <p>Date</p>
-                {post.date}
-            </div>
-
-            <div>
-                <p>Image</p>
-                {post.mediaPath}
-            </div>
-
-            <div>
-                <p>Statistics</p>
-                {post.upvotes}
-                {post.downvotes}
-                {post.views}
-            </div>
+          <p> 
+            {post.title} 
+          </p>
         </div>
+
+        <div>
+          <p>
+            {post.author}
+          </p>      
+        </div>
+
+        <div>
+           <p>
+            {parseDate(post.date)}
+          </p>
+        </div>
+
+        <div>
+          <img src={post.mediaPath} alt={post.mediaAlt}/>
+        </div>
+
+        <div>
+          <p>
+            {post.upvotes}
+          </p>
+
+          <p>
+            {post.downvotes}
+          </p>
+
+          <p>
+            {post.views}
+          </p>
+
+        </div>
+      </div>
     )
 }
 
