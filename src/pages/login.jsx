@@ -3,12 +3,7 @@ import { Link } from "react-router-dom";
 
 function Login({profile, setProfile}){
 
-    const defaultUserName = "ENTER USERNAME";
-    const defaultPassword = "ENTER PASSWORD";
-
     const [login, setLogin] = useState({
-      "username" : defaultUserName, 
-      "password" : defaultPassword,
       "username" : "", 
       "password" : "",
     })
@@ -16,8 +11,6 @@ function Login({profile, setProfile}){
     const inputHandler = (name, value) => {
       setLogin( values => ({...values, [name] : value}))
     }
-
-    const [passwordInputType, setPasswordInputType] = useState("text");
     
     const isComplete = () => {
       let isComplete = true;
@@ -27,7 +20,6 @@ function Login({profile, setProfile}){
 
     const isValid = () => {
       // Input validation will go here later. For now just a placeholder will do
-      return login.username !== defaultUserName && login.password !== defaultPassword;
       return login.username !== "" && login.password !== "";
     }
 
@@ -53,16 +45,11 @@ function Login({profile, setProfile}){
             </span>
             
             <div className="m-2">
-              <input type="text" id="reg-username" className="form-input bg-gray-100 text-left font-sans font-light w-80" placeholder="ENTER USERNAME" 
               <input type="text" id="reg-username" className="form-input bg-gray-100 text-left font-sans font-light w-80" 
                 placeholder="ENTER USERNAME" 
                 onChange={(e) => 
                   inputHandler("username", e.target.value)
                 }
-                onBlur={(e)=>{
-                  if(login["username"] === "")
-                    inputHandler("username", defaultUserName);
-                }}
                 required
                 />
               </div>
@@ -72,9 +59,6 @@ function Login({profile, setProfile}){
                 placeholder="ENTER PASSWORD"
                 onChange={(e)=> { 
                   inputHandler("password", e.target.value)
-                }}
-                    setPasswordInputType("text");
-                  }
                 }}
                 required
               />
