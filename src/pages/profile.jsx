@@ -23,18 +23,21 @@ function Profile(){
     }
 
     return (
-        <div className="flex flex-wrap h-screen w-screen p-5" id="main">
-            main
-            <div className="" id="left-box">
-                left-box
-                <div className="" id="saves-section">
-                    saves
+        <div className="flex flex-wrap h-screen p-4 bg-gray-800 text-white" id="main">
+
+            <div className="w-3/4 p-1 justify-start" id="left-box">
+                left
+                <div className="p-2" id="saves-section">
+                    <button className="text-cyan-500 font-mono rounded-lg border-white border-2 px-1 py-0.5">
+                        Saves
+                    </button>
                 </div>
             </div>
 
-            <div className="" id="right-box">
-                <div className="" id="pfp-section">
-
+            <div className="w-1/4 p-1 flex justify-center bg-gray-700 rounded-lg" id="right-box">
+                right
+                <div className="flex justify-center p-1 w-3/4 h-1/4" id="pfp-section">
+                    pfp
                 </div>
                 <div className="" id="info-section">
                     <span className="" id="settings-section">
