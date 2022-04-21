@@ -67,7 +67,7 @@ const p = {
   ]
 }
 
-function PostPage(){
+function PostPage({postData = p}){
   const [post, setPost] = useState({
     "id" : "",
     "title": "",    
@@ -89,7 +89,7 @@ function PostPage(){
   const [downvoted, setDownVoted] = useState(false);
 
   useEffect(
-    () => {setPost(p)}, []
+    () => {setPost(postData)}, [postData]
   )
 
   useEffect( () => {
