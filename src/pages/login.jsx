@@ -9,6 +9,8 @@ function Login({profile, setProfile}){
     const [login, setLogin] = useState({
       "username" : defaultUserName, 
       "password" : defaultPassword,
+      "username" : "", 
+      "password" : "",
     })
 
     const inputHandler = (name, value) => {
@@ -26,6 +28,7 @@ function Login({profile, setProfile}){
     const isValid = () => {
       // Input validation will go here later. For now just a placeholder will do
       return login.username !== defaultUserName && login.password !== defaultPassword;
+      return login.username !== "" && login.password !== "";
     }
 
     const isSubmitDisabled = () => {
@@ -51,6 +54,8 @@ function Login({profile, setProfile}){
             
             <div className="m-2">
               <input type="text" id="reg-username" className="form-input bg-gray-100 text-left font-sans font-light w-80" placeholder="ENTER USERNAME" 
+              <input type="text" id="reg-username" className="form-input bg-gray-100 text-left font-sans font-light w-80" 
+                placeholder="ENTER USERNAME" 
                 onChange={(e) => 
                   inputHandler("username", e.target.value)
                 }
@@ -63,13 +68,11 @@ function Login({profile, setProfile}){
               </div>
 
             <div className="m-2">
-              <input type="password" id="reg-password" className="form-input bg-gray-100 text-left font-sans font-light w-80" placeholder="ENTER PASSWORD"
+              <input type="password" id="reg-password" className="form-input bg-gray-100 text-left font-sans font-light w-80" 
+                placeholder="ENTER PASSWORD"
                 onChange={(e)=> { 
                   inputHandler("password", e.target.value)
                 }}
-                onBlur={(e)=>{
-                  if(login["password"] === ""){
-                    inputHandler("password", defaultPassword);
                     setPasswordInputType("text");
                   }
                 }}

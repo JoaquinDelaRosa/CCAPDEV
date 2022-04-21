@@ -3,24 +3,16 @@ import { Link } from "react-router-dom";
 
 function Registration(){
 
-    const defaultEmail = "EMAIL ADDRESS";
-    const defaultUserName = "ENTER USERNAME";
-    const defaultPassword = "ENTER PASSWORD";
-    const defaultConfirmPassword = "CONFIRM PASSWORD";
-
     const [registration, setRegistration] = useState({
-      "email" : defaultEmail,
-      "username" : defaultUserName, 
-      "password" : defaultPassword,
-      "confirmPassword" : defaultConfirmPassword
+      "email" : "",
+      "username" : "", 
+      "password" : "",
+      "confirmPassword" : ""
     })
 
     const inputHandler = (name, value) => {
       setRegistration( values => ({...values, [name] : value}))
     }
-
-    const [passwordInputType, setPasswordInputType] = useState("text");
-    const [confirmInputType, setConfirmInputType] = useState("text");
     
     const isComplete = () => {
       let isComplete = true;
@@ -31,7 +23,7 @@ function Registration(){
     const isValid = () => {
       // Input validation will go here later. For now just a placeholder will do
       return registration.password === registration.confirmPassword && 
-      registration.email !== defaultEmail && registration.username !== defaultUserName;
+      registration.email !== "" && registration.username !== "";
     }
 
     const isSubmitDisabled = () => {
@@ -50,17 +42,10 @@ function Registration(){
               <div className="m-2">
                 <span>
                   <input type="email" id="reg-email-address" className="form-input bg-gray-100 text-left font-sans font-light w-80" 
-                    value={registration["email"]} 
+                    value={registration["email"]}
+                    placeholder="ENTER EMAIL ADDRESS" 
                     onChange={(e)=> {
                       inputHandler("email", e.target.value);
-                    }}
-                    onFocus={(e) => {
-                      if(e.target.value === defaultEmail)
-                        inputHandler("email", "");
-                    }}
-                    onBlur={(e)=>{
-                      if(registration["email"] === "")
-                        inputHandler("email", defaultEmail)
                     }}
                     required
                   />
@@ -70,61 +55,32 @@ function Registration(){
               <div className="m-2">
                 <input type="text" id="reg-username" className="form-input bg-gray-100 text-left font-sans font-light w-80"
                   value={registration["username"]}
+                  placeholder="ENTER USERNAME"
                   onChange={(e) => 
                     inputHandler("username", e.target.value)
                   }
-                  onFocus={(e) =>{
-                    if(e.target.value === defaultUserName)
-                      inputHandler("username", "");
-                  }}
-                  onBlur={(e)=>{
-                    if(registration["username"] === "")
-                      inputHandler("username", defaultUserName);
-                  }}
                   required
                 />
               </div>
 
               <div className="m-2">
-                <input type={passwordInputType} id="reg-password" className="form-input bg-gray-100 text-left font-sans font-light w-80"
+                <input type="password" id="reg-password" className="form-input bg-gray-100 text-left font-sans font-light w-80"
+                  placeholder="ENTER PASSWORD"
                   value={registration["password"]}
                   onChange={(e)=> { 
                     inputHandler("password", e.target.value)
-                  }}
-                  onFocus = {(e) => {
-                    if(e.target.value === defaultPassword){
-                      setPasswordInputType("password");
-                      inputHandler("password", "");
-                    }
-                  }}
-                  onBlur={(e)=>{
-                    if(registration["password"] === ""){
-                      inputHandler("password", defaultPassword);
-                      setPasswordInputType("text");
-                    }
                   }}
                   required
                   />
               </div>
 
               <div className="m-2">  
-                <input type={confirmInputType} id="reg-confirm-password" className="form-input bg-gray-100 text-left font-sans font-light w-80"
+                <input type="password" id="reg-confirm-password" className="form-input bg-gray-100 text-left font-sans font-light w-80"
+                  placeholder="CONFIRM PASSWORD"
                   value={registration["confirmPassword"]}
                   onChange={(e)=> 
                     inputHandler("confirmPassword", e.target.value)
                   }
-                  onFocus = {(e) => {
-                    if(e.target.value === defaultConfirmPassword){
-                      setConfirmInputType("password");
-                      inputHandler("confirmPassword", "");
-                    }
-                  }}
-                  onBlur={(e)=>{
-                    if(registration["confirmPassword"] === ""){
-                      inputHandler("confirmPassword", defaultConfirmPassword);
-                      setConfirmInputType("text");
-                    }
-                  }}
                   required
                 />
               </div>
