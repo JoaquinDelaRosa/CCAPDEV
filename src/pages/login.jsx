@@ -50,15 +50,10 @@ function Login({profile, setProfile}){
             </span>
             
             <div className="m-2">
-              <input type="text" id="reg-username" className="form-input bg-gray-100 text-left font-sans font-light w-80"
-                value={login["username"]}
+              <input type="text" id="reg-username" className="form-input bg-gray-100 text-left font-sans font-light w-80" placeholder="ENTER USERNAME" 
                 onChange={(e) => 
                   inputHandler("username", e.target.value)
                 }
-                onFocus={(e) =>{
-                  if(e.target.value === defaultUserName)
-                    inputHandler("username", "");
-                }}
                 onBlur={(e)=>{
                   if(login["username"] === "")
                     inputHandler("username", defaultUserName);
@@ -68,16 +63,9 @@ function Login({profile, setProfile}){
               </div>
 
             <div className="m-2">
-              <input type={passwordInputType} id="reg-password" className="form-input bg-gray-100 text-left font-sans font-light w-80"
-                value={login["password"]}
+              <input type={passwordInputType} id="reg-password" className="form-input bg-gray-100 text-left font-sans font-light w-80" placeholder="ENTER PASSWORD"
                 onChange={(e)=> { 
                   inputHandler("password", e.target.value)
-                }}
-                onFocus = {(e) => {
-                  if(e.target.value === defaultPassword){
-                    setPasswordInputType("password");
-                    inputHandler("password", "");
-                  }
                 }}
                 onBlur={(e)=>{
                   if(login["password"] === ""){
