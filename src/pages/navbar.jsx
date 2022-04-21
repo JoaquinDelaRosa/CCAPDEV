@@ -69,6 +69,14 @@ function Navbar({profile, setProfile}){
         </Link>
       </div>
 
+      <div className="px-5 hover:bg-sky-600">
+        <Link to="./profile">
+          <button>
+            <p className="font-mono font-thin text-2xl"> Profile </p>
+          </button>
+        </Link>
+      </div>
+
     </div>
   );
 }

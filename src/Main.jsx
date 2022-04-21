@@ -5,6 +5,7 @@ import Registration from './pages/registration';
 import PostPage from './pages/postpage';
 import Login from './pages/login';
 import Feed from './pages/feed';
+import Profile from './pages/profile'
 
 
 const Main = ({profile, setProfile}) => {
@@ -18,6 +19,7 @@ const Main = ({profile, setProfile}) => {
           <Route path="/login" element={<Login profile={profile} setProfile={setProfile}/>}></Route>
           <Route path="/login?" element={<Home/>}></Route>
           <Route path="/feed" element={<Feed/>}></Route>
+          <Route path="/profile" element={<Profile/>}></Route>
       </Routes>
     </div>
   );
