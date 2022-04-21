@@ -63,7 +63,7 @@ function Login({profile, setProfile}){
               </div>
 
             <div className="m-2">
-              <input type={passwordInputType} id="reg-password" className="form-input bg-gray-100 text-left font-sans font-light w-80" placeholder="ENTER PASSWORD"
+              <input type="password" id="reg-password" className="form-input bg-gray-100 text-left font-sans font-light w-80" placeholder="ENTER PASSWORD"
                 onChange={(e)=> { 
                   inputHandler("password", e.target.value)
                 }}
