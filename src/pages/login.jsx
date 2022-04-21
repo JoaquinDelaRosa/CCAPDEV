@@ -5,10 +5,10 @@ function Login({profile, setProfile}){
 
     const defaultUserName = "ENTER USERNAME";
     const defaultPassword = "ENTER PASSWORD";
-    
+
     const [login, setLogin] = useState({
-      "username" : "", 
-      "password" : "",
+      "username" : defaultUserName, 
+      "password" : defaultPassword,
     })
     
     function InvalidInput(props) {
@@ -36,7 +36,7 @@ function Login({profile, setProfile}){
 
     const isValid = () => {
       // Input validation will go here later. For now just a placeholder will do
-      return login.username !== "" && login.password !== "";
+      return login.username !== defaultUserName && login.password !== defaultPassword;
     }
 
     const isSubmitDisabled = () => {
