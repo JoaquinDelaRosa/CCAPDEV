@@ -1,33 +1,73 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Postbox from "./postbox";
 
-function Feed(){
+const content = [{
+  "id": 1,
+  "title": "Introducing The turboencabulator",
+  "author": "Anonymous",
+  "date": new Date(),
+  "mediaPath": require("../images/sample.png"),
+  "mediaAlt": "",
+  "upvotes": 10,
+  "downvotes": 20,
+  "views": 100,
+}, {
+  "id": 2,
+  "title": "Introducing The turboencabulator 2",
+  "author": "Anonymous",
+  "date": new Date(),
+  "mediaPath": require("../images/sample.png"),
+  "mediaAlt": "",
+  "upvotes": 10,
+  "downvotes": 20,
+  "views": 100,
+}, {
+  "id": 3,
+  "title": "Introducing The turboencabulator 3",
+  "author": "Anonymous",
+  "date": new Date(),
+  "mediaPath": require("../images/sample.png"),
+  "mediaAlt": "",
+  "upvotes": 10,
+  "downvotes": 20,
+  "views": 100,
+}]
+ 
+
+
+function Feed() {
+  const [postList, setPostList] = useState([]);
+
+    useEffect(
+      () => { setPostList(content) }, []
+    );
+
   return (
-    <div>
-      {/* Webpage Header */}
-      <div>
-        <h2 className="font-mono font-extrabold"> Foo Bar</h2>
+    <div className="mt-2">
+      <div id="header" className="px-10 h-fit pt-5 ph-3 pb-5">
+        <h2 className="text-left font-semibold font-sans text-4xl align-baseline tracking-wider"> 
+          See What's New!
+        </h2>
       </div>
 
-          <div>
-        {
-        /* Feed itself. This will contain all the posts. Structure the posts in JSON. Refer to postpage for an example. No need to 
-        include comments.
-        */
-                  <Postbox/>
+      <div id = "feed" className="px-10 h-fit mb-5">
+        { 
+          postList.map(element => { 
+            return (
+              <div key ={element.id} className="flex border-4 px-4 py-2">
+                <Postbox content={element}/>
+              </div>
+            )}
+          )
         }
       </div>
 
-      <div>
-        {
-        /* Side bar. THis is where you put, say, popular posts.
-        */
-        }
+      <div id = "Sidebar">
+        Add Content
       </div>
 
-
-      <div>
-        {/* Footer */}
+      <div id = "Footer">
+        Add Content
       </div>
     </div>
   )
