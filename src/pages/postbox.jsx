@@ -20,42 +20,51 @@ function Postbox({ content }) {
     }, [content]);
 
     return (
-      <div>
+      <div className= "w-full h-auto">
         <div>
-          <p> 
-            {post.title} 
-          </p>
+          <strong className="text-left font-extrabold font-sans text-2xl align-baseline tracking-wider"> 
+              {post.title}
+          </strong>
         </div>
 
-        <div>
-          <p>
-            {post.author}
-          </p>      
+        <div id="post-author-section" className="h-fit mb-5">
+            <p className="text-left font-mono font-semibold mb-0"> 
+              By: {post.author}
+            </p>            
+            <p className="text-left font-mono"> 
+              Posted: {parseDate(post.date).toString()}
+            </p>
         </div>
 
-        <div>
-           <p>
-            {parseDate(post.date)}
-          </p>
+        <div className="px-10 h-fit w-full pb-5 flex justify-center">
+          <img src={post.mediaPath} alt={post.mediaAlt} className="self-center max-w-[40rem] max-h-[40rem]"/>
         </div>
 
-        <div>
-          <img src={post.mediaPath} alt={post.mediaAlt}/>
-        </div>
+        <div className="flex h-fit">
+          <div>
+            <input type="button" 
+              className={`w-fit mr-5 hover:cursor-pointer text-xl text-green-400 ${false ? "font-extrabold" : "font-bold"}`}
+              onClick={(e) => {; e.target.value = post.upvotes}}
+              value={post.upvotes}
+            />
+          </div>
 
-        <div>
-          <p>
-            {post.upvotes}
-          </p>
+          <div>
+            <input type="button" 
+              className={`w-fit mr-5 hover:cursor-pointer text-xl text-red-400 ${false ? "font-extrabold" : "font-bold"}`}
+              onClick={(e) => {; e.target.value = post.downvotes}}
+              value={post.downvotes}
+            />
+          </div>
 
-          <p>
-            {post.downvotes}
-          </p>
+          
+          <div className="w-fit text-left text-xl mr-1 text-gray-400">
+              <p className="font-bold"> {post.views}</p>
+            </div>
 
-          <p>
-            {post.views}
-          </p>
-
+            <div className="w-fit text-right text-xl  text-gray-400">
+              <p className="font-thin">  views </p>
+          </div>
         </div>
       </div>
     )
