@@ -32,7 +32,7 @@ function Comment({ content, profile }) {
     if (reply !== ""){
           post.comments.push({
             "id": Math.random() * 2<<20,      // Temporary hash for id
-            "author" : (profile) ? profile["name"] : "Anonymous",
+            "author" : (profile) ? profile["username"] : "Anonymous",
             "date": new Date(),
             "mediaPath" : null,
             "mediaAlt" : "",

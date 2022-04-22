@@ -29,21 +29,24 @@ function SettingsPage({profile, setProfile}){
         setEditted( values => ({...values, [name] : value}))
     }
 
-    const handleSubmit = () => {
-        setProfile(editted);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        Object.assign(profile, editted);
+        setProfile(profile);
+        setEditted(profile);
     }
 
     return (
         <div>
             <div id="edit section">
                 Edit your profile!
-                <form>
+                <form onSubmit= {handleSubmit}>
                     <div className="flex" id="username">
                         <div> <h2 className="mr-3"> Name: </h2> </div>
                         <div> 
                             <input type="text"
-                                placeholder={editted["name"]}
-                                onChange={(e) => {inputHandler("name", e.target.value)}}
+                                placeholder={editted["username"]}
+                                onChange={(e) => {inputHandler("username", e.target.value)}}
                             />
                         </div>
                     </div>
@@ -76,7 +79,6 @@ function SettingsPage({profile, setProfile}){
                     <div id="submit">
                         <input type="submit"
                             value={"Save Changes"}
-                            onSubmit={(e) => {handleSubmit()}}    
                             className= {"py-1 px-8 rounded-full w-auto text-white bg-orange-500 hover:cursor-pointer hover:bg-orange-600"}
                         />
                     </div>
