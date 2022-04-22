@@ -67,7 +67,7 @@ const p = {
   ]
 }
 
-function PostPage({postData = p}){
+function PostPage({postData = p, profile}){
   const [post, setPost] = useState({
     "id" : "",
     "title": "",    
@@ -99,7 +99,7 @@ function PostPage({postData = p}){
       if (reply !== ""){
           post.comments.push({
             "id": Math.random() * 2<<20,      // Temporary hash for id
-            "author" : "Anonymous",
+            "author" : (profile) ? profile["name"]  :"Anonymous",
             "date": new Date(),
             "mediaPath" : null,
             "mediaAlt" : "",
@@ -112,7 +112,7 @@ function PostPage({postData = p}){
         )
         setPost(values => ({...values, "comments" : post.comments}))
       }
-    },  [post.comments, reply]
+    },  [post.comments, reply, profile]
   )
 
   const handleUpvote = () => {
