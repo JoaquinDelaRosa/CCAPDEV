@@ -26,6 +26,9 @@ function SettingsPage({profile, setProfile}){
 
     
   const inputHandler = (name, value) => {
+    if (value === null || value === "")
+        value = profile[name];
+    
     setEditted( values => ({...values, [name] : value}))
   }
 
@@ -37,51 +40,53 @@ function SettingsPage({profile, setProfile}){
   }
 
   return (
-    <div>
-      <div id="edit section">
-        <h1> 
+    <div className="h-screen bg-gray-400 p-5">
+      <div id="edit section" className="mb-10">
+        <h1 className= "mb-2  text-left font-sans text-4xl font-bold w-80"> 
           Edit your profile!
         </h1>
 
-        <form onSubmit= {handleSubmit}>
-          <div className="flex" id="username">
-            <div> 
-              <h2 className="mr-3"> Name: </h2> 
-            </div>
+        <form onSubmit= {handleSubmit} className="my-4">
+          <div className="flex my-3" id="username">
+            <label className="mr-3"> 
+              <h2 className="font-sans font-medium text-1xl"> Name: </h2> 
+            </label>
 
             <div> 
               <input type="text"
-                placeholder={editted["username"]}
+                className="form-input bg-gray-100 text-left font-sans font-light w-80 rounded-sm"
+                placeholder={editted["username"] === "" ? profile["username"] : editted["username"]}
                 onChange={(e) => {inputHandler("username", e.target.value)}}
               />
             </div>
           </div>
 
-          <div className="flex" id="password">
-            <div> 
-              <h2 className="mr-3">
+          <div className="flex my-3" id="password">
+            <label className="mr-3"> 
+              <h2 className="font-sans font-medium text-1xl">
                 Password: 
               </h2> 
-            </div>
+            </label>
 
             <div> 
               <input type="password"
+                className="form-input bg-gray-100 text-left font-sans font-light w-80 rounded-sm"
                 placeholder={"Change password"}
                 onChange={(e) => {inputHandler("password", e.target.value)}}
               />
             </div>
           </div>
 
-          <div id="about-me">
-            <div> 
-              <h2 className="mr-3"> 
+          <div id="about-me" className="my-3">
+            <label className="mr-3"> 
+              <h2 className="font-sans font-medium text-1xl"> 
               About Me: 
               </h2> 
-            </div>
+            </label>
 
             <div> 
               <textarea
-                className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none"
+                className="w-full max-w-xl h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none"
                 placeholder={profile["about"]}
                 onChange={(e) => {
                   inputHandler("about", e.target.value);
@@ -102,9 +107,22 @@ function SettingsPage({profile, setProfile}){
         </form>
       </div>
 
-      <div id="delete section">
-         Delete your profile?
-            {/* Backend logic for profile deletion goes here */}
+      <div id="delete section" className="mt-20">
+        <h1 className= "mb-2  text-left font-sans text-3xl font-bold w-80">
+          Delete your profile? 
+        </h1>
+        
+        <div id="delete-button">
+          <label>
+            <p className="font-sans font-medium text-1xl">
+              Warning: This cannot be undone
+            </p>
+          </label>
+          <input type="button"
+            className="py-1 px-8 rounded-full w-auto text-white bg-red-700 hover:cursor-pointer hover:bg-orange-800"
+            value={"Yes"}
+          />
+        </div> 
       </div>
     </div>
   )
