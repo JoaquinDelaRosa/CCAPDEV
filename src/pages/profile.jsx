@@ -2,19 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import parseDate from "../utils/date";
 
-const placeHolder = {
-    "id": 1,
-    "pfp": require("../images/sample.png"),
-    "name": "Andrei",
-    "username": "AChua123",
-    "about": "A person lurking in this website (not a bot)",
-    "gender": "Male",
-    "saves": [],                // TO-DO store post id's associated with this user's favorite saves.
-    "posts": [],
-    "dateJoined": new Date(),
-}
 
-function Profile({profileData = placeHolder}){
+function Profile({profileData}){
     const [profile, setProfile] = useState({
         "id" : 0,
         "pfp": null,
@@ -61,11 +50,6 @@ function Profile({profileData = placeHolder}){
                 </div>
 
                 <div className="w-fit ml-4" id="info-section">
-                    {/* <span className="mb-2" id="settings-section">
-                        <input type="button">
-                            // TO-DO add a settings page
-                        </input>
-                    </span> */}
                     <span className="mb-2" id="username-section">
                         <h3> {profile["username"]} </h3>
                     </span>
@@ -74,10 +58,12 @@ function Profile({profileData = placeHolder}){
                         <p> <strong> About Me: </strong> </p>
                         <p> {profile["about"]} </p>
                     </span>
+
                     <div className="mb-2" id="other-section">
                         <div className="" id="gender-section">
                             <p> {profile["gender"]} </p>
                         </div>
+
                         <div className="" id="datejoined-section">
                             <p> <strong> User since: </strong> </p>
                             <p> {parseDate(profile["dateJoined"])} </p> 
