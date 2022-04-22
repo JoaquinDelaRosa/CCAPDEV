@@ -28,6 +28,26 @@ function Comment({ content }) {
       setPost(content);
   }, [content]);
 
+  useEffect( () => {
+    if (reply !== ""){
+          post.comments.push({
+            "id": Math.random() * 2<<20,      // Temporary hash for id
+            "author" : "Anonymous",
+            "date": new Date(),
+            "mediaPath" : null,
+            "mediaAlt" : "",
+            "body" : reply, 
+            "upvotes" : 0,
+            "downvotes" : 0,
+            "views" : 0,
+            "comments" : []
+          }
+        )
+        setPost(values => ({...values, "comments" : post.comments}))
+      }
+    },  [post.comments, reply]
+  )
+
   const handleUpvote = () => {
     if (upvoted)
       setPost( values => ({...values, "upvotes" : post.upvotes - 1}))
@@ -53,12 +73,6 @@ function Comment({ content }) {
     setUpvoted(false);
     setDownVoted(!downvoted);
   }
-  const onReply = (rep) => {
-    if (rep !== "")
-      setReply(reply);
-    console.log(reply);
-  }
-
   return (
     <div className="p-0 w-full">
       <div id="comment-box" className="w-full h-auto">
@@ -122,7 +136,7 @@ function Comment({ content }) {
 
         <div id="reply-box" className="w-full mt-2, mb-1">
           {
-            replying && <TextBox onReply={onReply}/>
+            replying && <TextBox reply = {reply} setReply={setReply}/>
           }
         </div>
         <div id="comment-section" className=" w-full h-auto " >

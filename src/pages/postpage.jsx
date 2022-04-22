@@ -88,16 +88,19 @@ function PostPage({postData = p}){
   const [upvoted, setUpvoted] = useState(false);
   const [downvoted, setDownVoted] = useState(false);
 
+
+  // Temporary code for ids
+
   useEffect(
     () => {setPost(postData)}, [postData]
   )
 
   useEffect( () => {
       if (reply !== ""){
-          const comments = post.comments.push({
-            "id": 1000,
+          post.comments.push({
+            "id": Math.random() * 2<<20,      // Temporary hash for id
             "author" : "Anonymous",
-            "date": new Date(), /*  TO-DO get current date and time*/
+            "date": new Date(),
             "mediaPath" : null,
             "mediaAlt" : "",
             "body" : reply, 
@@ -107,7 +110,7 @@ function PostPage({postData = p}){
             "comments" : []
           }
         )
-        setPost(values => ({...values, "comments" : comments}))
+        setPost(values => ({...values, "comments" : post.comments}))
       }
     },  [post.comments, reply]
   )
@@ -210,7 +213,7 @@ function PostPage({postData = p}){
         
         <div id="reply-box" className="w-full px-10 mt-4 mb-2">
           {
-            replying && <TextBox onReply={setReply}/>
+            replying && <TextBox reply={reply} setReply={setReply}/>
           }
         </div>
 
