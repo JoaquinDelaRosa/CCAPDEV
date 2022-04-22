@@ -1,18 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import parseDate from "../utils/date";
 
-function Profile(){
+const placeHolder = {
+    "id": 1,
+    "pfp": require("../images/sample.png"),
+    "name": "Andrei",
+    "username": "AChua123",
+    "about": "A person lurking in this website (not a bot)",
+    "gender": "Male",
+    "saves": [],                // TO-DO store post id's associated with this user's favorite saves.
+    "posts": [],
+    "dateJoined": new Date(),
+}
+
+function Profile({profileData = placeHolder}){
     const [profile, setProfile] = useState({
-        "id": 1,
+        "id" : 0,
         "pfp": null,
-        "name": "Andrei",
-        "username:": "AC",
-        "about": "Person",
-        "gender": "Male",
+        "name": "",
+        "username": "",
+        "about": "",
+        "gender": "",
         "saves": [],
-        "dateJoined": new Date(),
+        "posts" : [],
+        "dateJoined": new Date()
     });
     
+    useEffect(
+        () => {setProfile(profileData)}, [profileData]
+      )
+
     const [pfp, setpfp] = useState(false);
     const [abouting, setAbout] = useState(false);
     const [saving, setSave] = useState(false);
@@ -23,47 +41,47 @@ function Profile(){
     }
 
     return (
-        <div className="flex flex-wrap h-screen p-4 bg-gray-800 text-white" id="main">
-
-            <div className="w-3/4 p-1 justify-start" id="left-box">
-                left
+        <div className="flex flex-auto h-screen p-4 bg-gray-800 text-white" id="main">
+            <div className="w-full min-w-3/4 h-fit p-2 justify-start" id="left-box">
                 <div className="p-2" id="saves-section">
                     <button className="text-cyan-500 font-mono rounded-lg border-white border-2 px-1 py-0.5">
                         Saves
                     </button>
                 </div>
             </div>
-
-            <div className="w-1/4 p-1 flex justify-center bg-gray-700 rounded-lg" id="right-box">
-                right
-                <div className="flex justify-center p-1 w-3/4 h-1/4" id="pfp-section">
-                    pfp
+            
+            <div className="w-fit h-fit p-2 mr-4 flex justify-start bg-gray-700 rounded-lg" id="right-box">
+                <div className="flex justify-right align-middle  w-fit h-fit" id="pfp-section">
+                    <img src={profile["pfp"]} 
+                        alt={profile["username"] + "'s profile picture"}
+                        className = "rounded-full"
+                        width={128}
+                        height={128}
+                    />
                 </div>
-                <div className="" id="info-section">
-                    <span className="" id="settings-section">
+
+                <div className="w-fit ml-4" id="info-section">
+                    {/* <span className="mb-2" id="settings-section">
                         <input type="button">
-                            
+                            // TO-DO add a settings page
                         </input>
+                    </span> */}
+                    <span className="mb-2" id="username-section">
+                        <h3> {profile["username"]} </h3>
                     </span>
-                    <span className="" id="username-section">
 
+                    <span className="mb-2" id="about-section">
+                        <p> <strong> About Me: </strong> </p>
+                        <p> {profile["about"]} </p>
                     </span>
-                    <span className="" id="name-section">
-
-                    </span>
-                    <span className="" id="about-section">
-
-                    </span>
-                    <div className="" id="other-section">
-                        <span className="" id="id-section">
-
-                        </span>
-                        <span className="" id="gender-section">
-
-                        </span>
-                        <span className="" id="datejoined-section">
-
-                        </span>
+                    <div className="mb-2" id="other-section">
+                        <div className="" id="gender-section">
+                            <p> {profile["gender"]} </p>
+                        </div>
+                        <div className="" id="datejoined-section">
+                            <p> <strong> User since: </strong> </p>
+                            <p> {parseDate(profile["dateJoined"])} </p> 
+                        </div>
                     </div>
                 </div>
             </div>
