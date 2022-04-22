@@ -9,6 +9,7 @@ const placeHolder = {
   "pfp": require("../src/images/sample.png"),
   "name": "Andrei",
   "username": "AChua123",
+  "password": "12345",
   "about": "A person lurking in this website (not a bot)",
   "gender": "Male",
   "saves": [],                // TO-DO store post id's associated with this user's favorite saves.

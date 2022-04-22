@@ -9,6 +9,7 @@ function Profile({profileData}){
         "pfp": null,
         "name": "",
         "username": "",
+        "password": "",
         "about": "",
         "gender": "",
         "saves": [],

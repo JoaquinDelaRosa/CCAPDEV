@@ -22,7 +22,7 @@ const Main = ({profile, setProfile}) => {
           <Route path="/login?" element={<Home/>}></Route>
           <Route path="/feed" element={<Feed/>}></Route>
           <Route path="/profile" element={<Profile profileData={profile}/>}></Route>
-          <Route path="/settings" element={<SettingsPage/>}></Route>
+          <Route path="/settings" element={<SettingsPage profile={profile} setProfile={setProfile}/>}></Route>
       </Routes>
     </div>
   );
