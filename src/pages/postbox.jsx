@@ -36,7 +36,7 @@ function Postbox({ content }) {
             </p>
         </div>
 
-        <div className="px-10 h-fit w-full pb-5 flex justify-center">
+        <div className="px-10 h-fit w-full pb-5 flex justify-left">
           <img src={post.mediaPath} alt={post.mediaAlt} className="self-center max-w-[40rem] max-h-[40rem]"/>
         </div>
 
