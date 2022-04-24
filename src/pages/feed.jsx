@@ -46,11 +46,13 @@ function Feed() {
     <div className="mt-2">
       <div id="header" className="px-10 h-fit pt-5 ph-3 pb-5">
         <h2 className="text-left font-semibold font-sans text-4xl align-baseline tracking-wider"> 
-          See What's New!
-        </h2>
+                  See What's New!
+                  <input type="text" placeholder="Search" className="absolute right-0 mr-36"></input>
+              </h2>
+
       </div>
 
-      <div id = "feed" className="px-10 h-fit mb-5">
+      <div id = "feed" className="w-5/12 pl-10 h-fit mb-5">
         { 
           postList.map(element => { 
             return (
@@ -60,14 +62,15 @@ function Feed() {
             )}
           )
         }
-      </div>
+          </div>
+
 
       <div id = "Sidebar">
-        Add Content
+        Sidebar
       </div>
 
       <div id = "Footer">
-        Add Content
+        Footer
       </div>
     </div>
   )
