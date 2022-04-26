@@ -1,4 +1,4 @@
-import React, { useEffect }  from "react";
+import React, { useEffect, useState }  from "react";
 import { Link } from "react-router-dom";
 
 function Navbar({profile, setProfile}){
@@ -9,85 +9,55 @@ function Navbar({profile, setProfile}){
 
   useEffect(() => {
     setProfile(profile);
-  }, [profile, setProfile])
+  }, [profile, setProfile]);
   
+  const [navbar, setNavbar] = useState([
+    ['Home', './'],
+    ['Post', './postpage'],
+    ['Feed', './feed'],
+    ['Log in', './login'],
+    ['Sign Up', './registration'],
+    ['Log out', './']
+  ]);
+
+  useEffect(() => {
+    setNavbar(navbar)
+  }, [navbar]);
+  
+  function updateNavbar() {
+    profile === null ? 
+      setNavbar([ // if logged out
+        ['Home', './'],
+        ['Post', './postpage'],
+        ['Feed', './feed'],
+        ['Log in', './login'],
+        ['Sign Up', './registration']
+      ]) : 
+      setNavbar([ // if logged in
+        ['Home', './'],
+        ['Post', './postpage'],
+        ['Feed', './feed'],
+        ['Log out', './'],
+        ['Profile', './profile'],
+        ['Settings', './settings']
+      ]);
+  }
+
   return (
-    <div className="flex flex-auto">
-      <div className="px-5 hover:bg-sky-600" >
-        <Link to="./">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Home </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600" 
-        hidden={profile !== null}
-      >
-        <Link to="./registration">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Sign up </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600"
-        hidden={profile !== null}
-      >
-        <Link to="./login">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Login </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600"
-        hidden={profile === null}
-      >
-        <Link to="./">
-          <button onClick={(e) => logOut(e)}>
-            <p className="font-mono font-thin text-2xl"> Log Out </p>
-          </button>
-        </Link>
-      </div>
-    
-      <div className="px-5 hover:bg-sky-600"
-        hidden={profile === null}
-      >
-        <Link to="./postpage">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Post </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600">
-        <Link to="./feed">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Feed </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600"
-        hidden = {profile === null}>
-        <Link to="./profile">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Profile </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600"
-        hidden = {profile === null}>
-        <Link to="./settings">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Settings </p>
-          </button>
-        </Link>
-      </div>
-
-    </div>
+    <nav className="flex flex-auto space-x-4">
+      {console.log(profile) /* check if actually log out*/}
+      {
+        navbar.map(([title, url]) => (
+          <Link to={url} key={title} className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900" 
+            onClick={(e) => {
+              if(title === 'Log out') {logOut(e)};
+              updateNavbar();
+            }}>
+            {title}
+          </Link>
+        ))
+      }
+    </nav>
   );
 }
 
