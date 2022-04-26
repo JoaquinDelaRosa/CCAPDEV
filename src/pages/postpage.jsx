@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import parseDate from "../utils/date";
 import Comment from "./comment";
 import TextBox from "./textbox";
+import TagLabel from "./taglabel";
 
 // Placeholder 
 const p = {
@@ -23,6 +24,7 @@ const p = {
   "upvotes": 10,
   "downvotes": 20,
   "views": 100,
+  "tags" : ["Random", "Funny", "Science", "Technobabble", "Tag", "Game", "Meme", "Gibberish", "English", "This is a tag", "Read", "Test"],
   "comments" : [{
       "id": 1,
       "author"    : "Jane Doe",
@@ -79,6 +81,7 @@ function PostPage({postData = p, profile}){
     "upvotes": 0,
     "downvotes": 0,
     "views" : 0,
+    "tags" : [],
     "comments": []
   });
 
@@ -107,6 +110,7 @@ function PostPage({postData = p, profile}){
             "upvotes" : 0,
             "downvotes" : 0,
             "views" : 0,
+            "tags" : [],
             "comments" : []
           }
         )
@@ -170,6 +174,19 @@ function PostPage({postData = p, profile}){
               </p>
             </div>
         </div>
+
+        <div id="tags-bar" className="px-10 flex h-fit flex-wrap">
+          {
+            post.tags.map((value) => {
+              return (
+                <div>
+                  <TagLabel content={value}/>
+                </div>
+              )
+            })
+          }
+        </div>
+
         <div id="rating-bar" className="px-10 flex h-fit"> 
           <div className="w-full">
             <input type="button" 
