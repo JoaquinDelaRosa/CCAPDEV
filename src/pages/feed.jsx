@@ -46,31 +46,32 @@ function Feed() {
     <div className="mt-2">
       <div id="header" className="px-10 h-fit pt-5 ph-3 pb-5">
         <h2 className="text-left font-semibold font-sans text-4xl align-baseline tracking-wider"> 
-                  See What's New!
-                  <input type="text" placeholder="Search" className="absolute right-0 mr-36"></input>
-              </h2>
+            See What's up!
+          <input type="text" placeholder="Search" className="absolute right-0 mr-36"></input>
+        </h2>
 
       </div>
 
-      <div id = "feed" className="w-5/12 pl-10 h-fit mb-5">
-        { 
-          postList.map(element => { 
-            return (
-              <div key ={element.id} className="flex border-4 px-4 py-2">
-                <Postbox content={element}/>
-              </div>
-            )}
-          )
-        }
-          </div>
+      <div>
+        <div id = "Sidebar" className="float-right">
+          Sidebar
+        </div>
 
-
-      <div id = "Sidebar">
-        Sidebar
+        <div id = "feed" className="w-fit pl-10 h-fit mb-5">
+          { 
+            postList.map(element => { 
+              return (
+                <div key ={element.id} className="flex border-4 px-4 py-2">
+                  <Postbox content={element}/>
+                </div>
+              )}
+            )
+          }
+        </div>
       </div>
 
-      <div id = "Footer">
-        Footer
+      <div id = "Footer" className="pt-10">
+
       </div>
     </div>
   )
