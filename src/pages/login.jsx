@@ -81,11 +81,13 @@ function Login({profile, setProfile}){
             <InvalidInput />
 
             <span className="pt-1 flex justify-center items-center">
-              <input type="submit" value="Log In" disabled={isSubmitDisabled()}
-                className= {"py-1 px-8 rounded-full w-auto text-white " + 
-                (isSubmitDisabled() ? "bg-blue-200" : "bg-orange-500 hover:cursor-pointer hover:bg-orange-600")}
-                onSubmit={(e) => handleLogin(e)}
-              />
+              <Link to={"/"}>
+                <input type="submit" value="Log In" disabled={isSubmitDisabled()}
+                  className= {"py-1 px-8 rounded-full w-auto text-white " + 
+                  (isSubmitDisabled() ? "bg-blue-200" : "bg-orange-500 hover:cursor-pointer hover:bg-orange-600")}
+                  onSubmit={(e) => handleLogin(e)}
+                />
+              </Link>
             </span>
             
             <br/>
