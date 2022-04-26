@@ -179,7 +179,8 @@ function PostPage({postData = p, profile}){
           {
             post.tags.map((value) => {
               return (
-                <div>
+                // Ideally in the DB, each tag has an associated id. so key={value} should be replaced with the tagid
+                <div key={value}>
                   <TagLabel content={value}/>
                 </div>
               )
