@@ -1,6 +1,23 @@
 import React, { useEffect, useState }  from "react";
 import { Link } from "react-router-dom";
 
+const loggedInNavbar = [
+  ['Home', './'],
+  ['Post', './postpage'],
+  ['Feed', './feed'],
+  ['Log in', './login'],
+  ['Sign Up', './registration']
+]
+
+const loggedOutNavbar = [ 
+  ['Home', './'],
+  ['Post', './postpage'],
+  ['Feed', './feed'],
+  ['Log out', './'],
+  ['Profile', './profile'],
+  ['Settings', './settings']
+]
+
 function Navbar({profile, setProfile}){
   const logOut = (e) => {
       if (e !== null)
@@ -11,13 +28,7 @@ function Navbar({profile, setProfile}){
     setProfile(profile);
   }, [profile, setProfile]);
   
-  const [navbar, setNavbar] = useState([
-    ['Home', './'],
-    ['Post', './postpage'],
-    ['Feed', './feed'],
-    ['Log in', './login'],
-    ['Sign Up', './registration']
-  ]);
+  const [navbar, setNavbar] = useState(loggedInNavbar);
 
   useEffect(() => {
     setNavbar(navbar)
@@ -25,21 +36,8 @@ function Navbar({profile, setProfile}){
   
   useEffect(() => {
       profile === null ? 
-        setNavbar([ // if logged out
-          ['Home', './'],
-          ['Post', './postpage'],
-          ['Feed', './feed'],
-          ['Log in', './login'],
-          ['Sign Up', './registration']
-        ]) : 
-        setNavbar([ // if logged in
-          ['Home', './'],
-          ['Post', './postpage'],
-          ['Feed', './feed'],
-          ['Log out', './'],
-          ['Profile', './profile'],
-          ['Settings', './settings']
-        ]);
+        setNavbar(loggedInNavbar) : 
+        setNavbar(loggedOutNavbar);
     }, [profile, setNavbar]
   )
 
