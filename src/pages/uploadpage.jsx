@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import parseTags from "../utils/search";
+import TagLabel from "./taglabel";
 
 function UploadPage({profile}){
   const reader = new FileReader();
@@ -31,6 +31,12 @@ function UploadPage({profile}){
             inputHandler("mediaPath", reader.result);
         }
     }
+  }
+
+  const handleTags = (tag) => {
+    if (!post.tags.includes(tag))
+      post.tags.push(tag); 
+    inputHandler("tags", post.tags);
   }
   
   const canPost = (() =>{
@@ -76,14 +82,35 @@ function UploadPage({profile}){
             <input type="text" id="post-tags"
             className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none"
             onChange={(e) => {
-                inputHandler("tags", parseTags(e.target.value));
+                if (e.target.value.indexOf(" ") !== -1){
+                  handleTags(e.target.value);
+                  e.target.value = "";
+                }
                 e.target.style.height = 'inherit';
                 e.target.style.height = `${e.target.scrollHeight}px`; 
             }}
             name = "text"
-            placeholder= "Title"
-            required
+            placeholder= "Tags"
             />
+
+            <div id="tags-bar" className="flex h-fit flex-wrap">
+              {
+                post.tags.map((value) => {
+                  return ( value !== "" && 
+                    <div key={value} className="flex">
+                      <TagLabel content={value}/>
+                      <button
+                      onClick={() => {
+                        inputHandler("tags", post.tags.filter((t) => {return t!==value;}))
+                      }}
+                      >
+                        <p className="pr-3"> {"  ✕"} </p>
+                      </button>
+                    </div>
+                  )
+                })
+              }
+            </div>
             
             <textarea id="post-body"
             className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none"
@@ -103,6 +130,13 @@ function UploadPage({profile}){
                   className= {"py-1 px-8 rounded-full w-auto hover:cursor-pointer text-white " + 
                   (canPost() ? "bg-blue-200" : "bg-orange-500 " +
                   (canPost() ? "hover:bg-blue-400" : "hover:bg-orange-600"))}
+
+                onClick ={
+                  () => {
+                    inputHandler("author", profile["username"]);
+                    inputHandler("id", Math.random() * 2 << 64 - 1);
+                  }
+                }
                 />
               </Link>
             </span>

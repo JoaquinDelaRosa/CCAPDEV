@@ -1,5 +1,5 @@
 function parseTags(query){
-    return String.prototype.split(query);
+    return query.split(" ")
 }
 
 export default parseTags;
