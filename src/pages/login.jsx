@@ -53,15 +53,15 @@ function Login({profile, setProfile}){
     }
 
     return (
-      <div className="flex justify-center items-center h-screen bg-gray-400">
+      <div className="flex justify-center items-center h-screen from-gray-900 to-bgGradient bg-gradient-to-br">
         <div className="flex max-w-fit p-8 shadow-md rounded-md bg-gray-800">
           <form>
             <span className="flex justify-center items-center">
-              <h2 className="m-0.5  text-center font-sans font-extrabold w-80 text-cyan-500 hover:cursor-default"> Log in to your account </h2>
+              <h2 className="m-0.5  text-center font-sans font-extrabold w-80 text-cyan-500 select-none"> Log in to your account </h2>
             </span>
             
             <div className="m-2">
-              <input type="text" id="reg-username" className="form-input bg-gray-100 text-left font-sans font-light w-80 rounded-sm" placeholder="ENTER USERNAME" 
+              <input type="text" id="reg-username" className="form-input caret-cyan-500 bg-gray-100 text-left font-sans font-light w-80 rounded-sm" placeholder="ENTER USERNAME" 
                 onChange={(e) => 
                   inputHandler("username", e.target.value)
                 }
@@ -70,7 +70,7 @@ function Login({profile, setProfile}){
               </div>
 
             <div className="m-2 pb-1">
-              <input type="password" id="reg-password" className="form-input bg-gray-100 text-left font-sans font-light w-80 rounded-sm" placeholder="ENTER PASSWORD"
+              <input type="password" id="reg-password" className="form-input caret-cyan-500 bg-gray-100 text-left font-sans font-light w-80 rounded-sm" placeholder="ENTER PASSWORD"
                 onChange={(e)=> { 
                   inputHandler("password", e.target.value)
                 }}
@@ -92,7 +92,7 @@ function Login({profile, setProfile}){
             
             <br/>
             <p className="flex justify-center items-center font-mono"> 
-              <span className="text-cyan-400 hover:cursor-default">Don't have an account?</span> &nbsp; <Link to="../registration" className="text-cyan-600 hover:text-cyan-700 hover:underline"> Register here </Link>
+              <span className="text-cyan-400 select-none">Don't have an account?</span> &nbsp; <Link to="../registration" className="text-cyan-600 hover:text-cyan-700 hover:underline"> Register here </Link>
             </p>
           </form>
 

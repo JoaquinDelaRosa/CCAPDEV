@@ -1,5 +1,21 @@
-import React, { useEffect }  from "react";
+import React, { useEffect, useState }  from "react";
 import { Link } from "react-router-dom";
+
+const loggedOutNavbar = [
+  ['Home', './'],
+  ['Feed', './feed'],
+  ['Log in', './login'],
+  ['Sign Up', './registration']
+]
+
+const loggedInNavbar = [ 
+  ['Home', './'],
+  ['Post', './postpage'],
+  ['Feed', './feed'],
+  ['Log out', './'],
+  ['Profile', './profile'],
+  ['Settings', './settings']
+]
 
 function Navbar({profile, setProfile}){
   const logOut = (e) => {
@@ -9,85 +25,35 @@ function Navbar({profile, setProfile}){
 
   useEffect(() => {
     setProfile(profile);
-  }, [profile, setProfile])
+  }, [profile, setProfile]);
   
+  const [navbar, setNavbar] = useState(loggedInNavbar);
+
+  
+  useEffect(() => {
+      profile === null ? 
+        setNavbar(loggedOutNavbar) : 
+        setNavbar(loggedInNavbar);
+    }, [profile, setNavbar]
+  )
+
   return (
-    <div className="flex flex-auto">
-      <div className="px-5 hover:bg-sky-600" >
-        <Link to="./">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Home </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600" 
-        hidden={profile !== null}
-      >
-        <Link to="./registration">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Sign up </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600"
-        hidden={profile !== null}
-      >
-        <Link to="./login">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Login </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600"
-        hidden={profile === null}
-      >
-        <Link to="./">
-          <button onClick={(e) => logOut(e)}>
-            <p className="font-mono font-thin text-2xl"> Log Out </p>
-          </button>
-        </Link>
-      </div>
-    
-      <div className="px-5 hover:bg-sky-600"
-        hidden={profile === null}
-      >
-        <Link to="./postpage">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Post </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600">
-        <Link to="./feed">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Feed </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600"
-        hidden = {profile === null}>
-        <Link to="./profile">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Profile </p>
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-5 hover:bg-sky-600"
-        hidden = {profile === null}>
-        <Link to="./settings">
-          <button>
-            <p className="font-mono font-thin text-2xl"> Settings </p>
-          </button>
-        </Link>
-      </div>
-
-    </div>
+    <nav className="sticky top-0 flex flex-auto space-x-4 py-2 pl-3 opacity-95 bg-gray-800 ring-1 ring-cyan-[#2d467d] outline-white bg-gradient-to-br from-gray-900 backdrop-blur-xl">
+      {console.log(profile) /* check if actually log out*/}
+      {
+        navbar.map(([title, url]) => (
+          <Link to={url} key={title} className="px-4 py-1 rounded-lg font-medium hover:bg-gray-900 hover:ring-1 hover:ring-orange-500 hover:text-orange-100 text-wText" 
+            onClick={(e) => {
+              if(title === 'Log out') {
+                logOut(e)
+                console.log(profile);
+              };
+            }}>
+            {title}
+          </Link>
+        ))
+      }
+    </nav>
   );
 }
 
