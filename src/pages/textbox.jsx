@@ -1,5 +1,7 @@
 import React, { useState} from "react";
 
+// TODO (Maintenance: Refactor the existing textareas so that they can use Textbox. Refactor Textbox to be suited for most contexts.
+
 function TextBox({reply, setReply}){
   const [text, setText] = useState("");
   const [hidden, setHidden] = useState(false)

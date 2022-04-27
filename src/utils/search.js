@@ -1,5 +1,5 @@
-function parseSearch(query){
+function parseTags(query){
     return String.prototype.split(query);
 }
 
-export default parseSearch;
+export default parseTags;

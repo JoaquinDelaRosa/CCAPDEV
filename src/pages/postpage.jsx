@@ -92,8 +92,6 @@ function PostPage({postData = p, profile}){
   const [downvoted, setDownVoted] = useState(false);
 
 
-  // Temporary code for ids
-
   useEffect(
     () => {setPost(postData)}, [postData]
   )
