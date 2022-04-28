@@ -74,13 +74,13 @@ function Comment({ content, profile }) {
     setDownVoted(!downvoted);
   }
   return (
-    <div className="p-0 w-full">
+    <div className="pl-4 w-full">
       <div id="comment-box" className="w-full h-auto">
-        <div id="comment-author" className="h-fit mb-1 px-0">
-          <p className="text-left font-mono text-lg font-semibold">
-            {post.author}
+        <div id="comment-author" className="h-fit mb-1">
+          <p className="text-left font-mono text-lg font-semibold inline-flex">
+            {post.author} &nbsp; 
           </p>         
-          <p className="text-left font-mono"> 
+          <p className="text-left font-mono text-gray-400 inline-flex"> 
             {parseDate(post.date)}
           </p>
         </div>
@@ -102,15 +102,15 @@ function Comment({ content, profile }) {
         </div>
 
         <div id="rating-bar" className="flex h-fit mb-2">
-          <div className="w-fit mr-3">
+          <div className="w-fit mr-3 ">
             <input type="button"
-              className="text-sm mr-3 font-semibold text-gray-400 hover:text-blue-900 hover:cursor-pointer"
+              className="text-base mr-3 pt-1 font-semibold text-gray-600 hover:text-blue-900 hover:cursor-pointer"
               defaultValue={showing ? "Hide Comments ▲" : "Show Comments ▼"}
               onClick = {() => {setShowing(!showing)}}
             />
 
             <input type="button"
-              className="text-sm mr-3 font-semibold text-gray-400 hover:text-blue-900 hover:cursor-pointer"
+              className="text-base mr-3 pt-1 font-semibold text-gray-600 hover:text-blue-900 hover:cursor-pointer"
               defaultValue={"Reply"}
               onClick = {() => {setReplying(!replying)}}
             />
@@ -118,17 +118,17 @@ function Comment({ content, profile }) {
 
           <div className="align-middle">
             <input type="button" 
-              className={"w-fit mr-3 hover:cursor-pointer text-green-400 " + (upvoted ? "font-extrabold" : "font-bold")}
+              className={"w-fit mr-3 hover:cursor-pointer text-green-700 text-xl " + (upvoted ? "font-extrabold" : "font-bold")}
               onClick={(e) => {handleUpvote()}}
-              value={post.upvotes}
+              value={(upvoted ? "▲" : "△") + post.upvotes}
             />
           </div>
 
           <div>
             <input type="button" 
-              className={"w-fit mr-3 hover:cursor-pointer text-red-400 " + (downvoted ? "font-extrabold" : "font-bold")}
+              className={"w-fit mr-3 hover:cursor-pointer text-red-700 text-xl " + (downvoted ? "font-extrabold" : "font-bold")}
               onClick={(e) => {handleDownvotes()}}
-              value={post.downvotes}
+              value={ (downvoted ? "▼" :  "▽") + post.downvotes}
             />
           </div>
 
@@ -144,7 +144,7 @@ function Comment({ content, profile }) {
           post.comments.map( (value) => {
             return (
                 showing &&
-                <div className="flex border-2 pr-4 py-2 min-w-[10rem]" key={value.id}>
+                <div className="flex border-l-2 border-l-gray-400 ml-4 my-2 min-w-[10rem] h-full" key={value.id}>
                   <div className="w-2 h-full"> </div>
                   <Comment content={value}/>
                 </div>
