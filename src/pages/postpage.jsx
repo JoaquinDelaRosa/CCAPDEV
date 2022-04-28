@@ -23,6 +23,7 @@ const p = {
     tremie pipe to the differential girdlespring on the \"up\" end of the grammeters.",
   "upvotes": 10,
   "downvotes": 20,
+  "favorites": 1,
   "views": 100,
   "tags" : ["Random", "Funny", "Science", "Technobabble", "Tag", "Game", "Meme", "Gibberish", "English", "This is a tag", "Read", "Test"],
   "comments" : [{
@@ -69,7 +70,7 @@ const p = {
   ]
 }
 
-function PostPage({postData = p, profile}){
+function PostPage({postData = p, profile, setProfile}){
   const [post, setPost] = useState({
     "id" : "",
     "title": "",    
@@ -80,6 +81,7 @@ function PostPage({postData = p, profile}){
     "body": "",
     "upvotes": 0,
     "downvotes": 0,
+    "favorites": 0,
     "views" : 0,
     "tags" : [],
     "comments": []
@@ -90,6 +92,7 @@ function PostPage({postData = p, profile}){
   const [reply, setReply] = useState("");
   const [upvoted, setUpvoted] = useState(false);
   const [downvoted, setDownVoted] = useState(false);
+  const [favorite, setFavorited] = useState(false);
 
 
   useEffect(
@@ -141,6 +144,24 @@ function PostPage({postData = p, profile}){
 
     setUpvoted(false);
     setDownVoted(!downvoted);
+  }
+
+  const handleFavorites = () => {
+    if (!favorite && !profile.saves.includes(post.id)){
+      profile.saves.push(post.id);
+    } else if (favorite && profile.saves.includes(post.id)){
+      profile.saves.splice(profile.saves.indexOf(post.id));
+    }
+
+    if (favorite)
+      setPost( values => ({...values, "favorites" : post.favorites - 1}));
+    else 
+      setPost( values => ({...values, "favorites" : post.favorites + 1}));
+
+    setProfile( values => ({...values, "saves" : profile.saves}));
+    
+    setFavorited(!favorite);
+    
   }
 
 
@@ -215,6 +236,14 @@ function PostPage({postData = p, profile}){
               className={`w-fit mr-5 hover:cursor-pointer text-3xl text-red-700 ${downvoted ? "font-extrabold" : "font-semibold"}`}
               onClick={(e) => {handleDownvotes(); e.target.value = post.downvotes}}
               value={ (downvoted ? "▼" :  "▽") + post.downvotes}
+            />
+          </div>
+
+          <div>
+            <input type="button" 
+              className={`w-fit mr-5 hover:cursor-pointer text-3xl text-yellow-700 ${favorite ? "font-extrabold" : "font-semibold"}`}
+              onClick={(e) => {handleFavorites(); e.target.value = post.favorites}}
+              value={ (favorite ? "★" :  "☆") + post.favorites}
             />
           </div>
 
