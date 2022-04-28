@@ -86,10 +86,12 @@ function Registration(){
               </div>
 
               <span className="flex justify-center items-center pt-1">
+                <Link to={"/"}>
                   <input type="submit" value="Create Account" disabled={isSubmitDisabled()}
                   className= {"border-2 rounded-full w-auto text-white " + 
                   (isSubmitDisabled() ? "bg-blue-200" : "bg-orange-500 hover:cursor-pointer hover:bg-orange-600")}
                   />
+                </Link>
               </span>
               <br/>
               <p className="flex justify-center items-center font-mono text-cyan-400 select-none"> 
