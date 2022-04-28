@@ -145,7 +145,7 @@ function PostPage({postData = p, profile}){
 
 
   return (
-      <div className="mt-2">
+      <div className="bg-slate-100">
         <div id="post-section" className= "w-full h-auto">
           <div id="post-title-section" className="px-10 h-fit pt-5 pb-3">
             <strong className="text-left font-extrabold font-sans text-4xl align-baseline tracking-wider"> 
@@ -186,16 +186,16 @@ function PostPage({postData = p, profile}){
           }
         </div>
 
-        <div id="rating-bar" className="px-10 flex h-fit"> 
+        <div id="rating-bar" className="px-10 flex h-fit items-center"> 
           <div className="w-full">
             <input type="button" 
-            className="text-l font-semibold text-gray-400 hover:text-blue-900 hover:cursor-pointer mr-5" 
+            className="text-xl font-semibold text-gray-600 hover:text-blue-900 hover:cursor-pointer mr-5" 
             defaultValue={showing ? "Hide Comments ▲" : "Show Comments ▼"}
             onClick = {() => {setShowing(!showing)}}
             /> 
 
             <input type="button"
-            className="text-l font-semibold text-gray-400 hover:text-blue-900 hover:cursor-pointer"
+            className="text-xl font-semibold text-gray-600 hover:text-blue-900 hover:cursor-pointer"
             defaultValue={"Reply"}
             onClick = {() => {setReplying(!replying)}}
             />
@@ -204,26 +204,26 @@ function PostPage({postData = p, profile}){
 
           <div>
             <input type="button" 
-              className={`w-fit mr-5 hover:cursor-pointer text-xl text-green-400 ${upvoted ? "font-extrabold" : "font-bold"}`}
+              className={`w-fit mr-5 hover:cursor-pointer text-3xl text-green-700 ${upvoted ? "font-extrabold" : "font-semibold"}`}
               onClick={(e) => {handleUpvote(); e.target.value = post.upvotes}}
-              value={post.upvotes}
+              value={(upvoted ? "▲" : "△") + post.upvotes}
             />
           </div>
 
           <div>
             <input type="button" 
-              className={`w-fit mr-5 hover:cursor-pointer text-xl text-red-400 ${downvoted ? "font-extrabold" : "font-bold"}`}
+              className={`w-fit mr-5 hover:cursor-pointer text-3xl text-red-700 ${downvoted ? "font-extrabold" : "font-semibold"}`}
               onClick={(e) => {handleDownvotes(); e.target.value = post.downvotes}}
-              value={post.downvotes}
+              value={ (downvoted ? "▼" :  "▽") + post.downvotes}
             />
           </div>
 
-          <div className="w-fit text-left text-xl mr-1 text-gray-400">
+          <div className="w-fit text-left text-3xl mr-1 text-gray-600">
             <p className="font-bold"> {post.views}</p>
           </div>
 
-          <div className="w-fit text-right text-xl  text-gray-400">
-            <p className="font-thin">  views </p>
+          <div className="w-fit text-right text-3xl  text-gray-600">
+            <p className="font-thin">  {" views"} </p>
           </div>
         </div>
         
@@ -233,12 +233,12 @@ function PostPage({postData = p, profile}){
           }
         </div>
 
-        <div id="comment-section" className=" w-fit h-auto mx-10" >
+        <div id="comment-section" className=" w-fit h-auto px-12" >
           {
             post.comments.map( (value) => {
               return (
                 showing &&  
-                <div className="flex border-4 pr-4 py-2" key={value.id}>
+                <div className="flex border-l-4 border-l-gray-500 my-2" key={value.id}>
                   <div className="w-5 h-full "> </div> 
                   <Comment content={value} />
                 </div>

@@ -92,7 +92,8 @@ function Login({profile, setProfile}){
             
             <br/>
             <p className="flex justify-center items-center font-mono"> 
-              <span className="text-cyan-400 select-none">Don't have an account?</span> &nbsp; <Link to="../registration" className="text-cyan-600 hover:text-cyan-700 hover:underline"> Register here </Link>
+              <span className="text-cyan-400 select-none">Don't have an account?</span> &nbsp; 
+              <Link to="../registration" className="text-cyan-600 hover:text-cyan-700 hover:underline"> Register here </Link>
             </p>
           </form>
 
