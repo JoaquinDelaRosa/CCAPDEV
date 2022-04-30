@@ -18,16 +18,47 @@ function Profile({profileData}){
     
   useEffect(
     () => {setProfile(profileData)}
-  , [profileData])
+  , [profileData]);
+
+  function SortByDate(props) { // props: array
+    // This function returns two buttons that sort the given array to asc or desc
+    return (
+      <span>
+        {/* ASCENDING */}
+        <button className="tooltip text-orange-400 float-right hover:bg-gray-900 px-2 rounded-md" 
+        onClick={
+          (e) => {
+            // sort by date (other categories can be added next time)
+            props.array.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? 1 : -1);
+          }
+        }>
+          &#129041;
+          <span className="tooltiptext opacity-90">
+            sort asc date
+          </span>
+        </button>
+        {/* DESCENDING */}
+        <button className="tooltip text-orange-400 float-right hover:bg-gray-900 px-2 rounded-md" 
+        onClick={
+          (e) => {
+            props.array.sort((a, b) => (a.date.getTime() < b.date.getTime()) ? 1 : -1);
+          }
+        }>
+          &#129043;
+          <span className="tooltiptext opacity-90">
+            sort desc date
+          </span>
+        </button>
+      </span>
+    )
+  }
 
   return (
     <div className="flex flex-auto h-screen p-4 bg-gray-800 text-white" id="main">
       <div className="min-w-3/4 h-fit p-2" id="left-box">
         <div className="pl-2 pb-1 text-cyan-400">
           Recent Posts
-          <button className="float-right hover:bg-gray-900 px-2 rounded-md">
-            &#11137;
-          </button>
+          <SortByDate array={profile.posts} />
         </div>
         <div className="py-1 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
           <div className="p-2">
@@ -49,17 +80,7 @@ function Profile({profileData}){
         </div>
         <div className="mt-3 pl-2 pb-1 text-cyan-400">
           Saves
-          <button className="tooltip text-orange-400 float-right hover:bg-gray-900 px-2 rounded-md" onClick={
-            (e) => {
-              // sort by date (other categories can be added next time)
-              profile.saves.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? 1 : -1)
-            }
-          }>
-            &#11137;
-            <span className="tooltiptext opacity-90">
-              sort by date
-            </span>
-          </button>
+          <SortByDate array={profile.saves} />
         </div>
         <div className="by-2 py-1 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
           <div className="p-2">
