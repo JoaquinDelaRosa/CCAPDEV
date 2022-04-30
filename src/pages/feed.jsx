@@ -11,27 +11,36 @@ const content = [{
   "mediaAlt": "",
   "upvotes": 10,
   "downvotes": 20,
+  "favorites": 0,
   "views": 100,
+  "tags" : [],
+  "comments" : []
 }, {
-  "id": 2,
-  "title": "Introducing The turboencabulator 2",
+  "id": 1,
+  "title": "Introducing The turboencabulator",
   "author": "Anonymous",
   "date": new Date(),
   "mediaPath": require("../images/sample.png"),
   "mediaAlt": "",
   "upvotes": 10,
   "downvotes": 20,
+  "favorites": 0,
   "views": 100,
+  "tags" : [],
+  "comments" : []
 }, {
-  "id": 3,
-  "title": "Introducing The turboencabulator 3",
+  "id": 1,
+  "title": "Introducing The turboencabulator",
   "author": "Anonymous",
   "date": new Date(),
   "mediaPath": require("../images/sample.png"),
   "mediaAlt": "",
   "upvotes": 10,
   "downvotes": 20,
+  "favorites": 0,
   "views": 100,
+  "tags" : [],
+  "comments" : []
 }]
  
 

@@ -10,9 +10,13 @@ function Postbox({ content }) {
         "date": new Date(),
         "mediaPath": null,
         "mediaAlt": "",
+        "body": "",
         "upvotes": 0,
         "downvotes": 0,
+        "favorites": 0,
         "views": 0,
+        "tags" : [],
+        "comments": []
     });
 
     useEffect(() => {
@@ -23,7 +27,7 @@ function Postbox({ content }) {
     return (
       <div className= "w-full h-auto">
         {/* Should really fetch the data and then load the postpage, but for now this works*/}
-        <Link to="/postpage">
+        <Link to={("/postpage/" + post.id)} state={{postData: post}}>
           <div>
             <strong className="text-left font-extrabold font-sans text-2xl align-baseline tracking-wider"> 
                 {post.title}
