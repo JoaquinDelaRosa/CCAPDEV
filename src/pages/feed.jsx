@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Postbox from "./postbox";
+import List from "./List";
 
 const content = [{
   "id": 1,
@@ -37,6 +38,11 @@ const content = [{
 
 function Feed() {
   const [postList, setPostList] = useState([]);
+  let inputHandler = (e) => {
+    //convert input text to lower case
+    var lowerCase = e.target.value.toLowerCase();
+    setPostList(lowerCase);
+  };
 
     useEffect(
       () => { setPostList(content) }, []
@@ -47,18 +53,33 @@ function Feed() {
       <div id="header" className="px-10 h-fit pt-5 ph-3 pb-5">
         <h2 className="text-left font-semibold font-sans text-4xl align-baseline tracking-wider"> 
             See What's up!
-          <input type="text" placeholder="Search" className="absolute right-0 mr-36"></input>
+          <input type="text" placeholder="Search" onChange={event => setPostList(event.target.value)} className="absolute right-0 mr-36"></input>
         </h2>
 
       </div>
 
       <div>
-        <div id = "Sidebar" className="float-right">
-          Sidebar
+        <div id = "Sidebar" className="float-right pr-80 pt-16 ">
+          <h2 className="text-center font-bold font-sans text-xl">Trending Tags</h2>
+          <ul>
+            <li>Funny</li>
+            <li>Game</li>
+            <li>Random</li>
+          </ul>
         </div>
 
         <div id = "feed" className="w-fit pl-10 h-fit mb-5">
-          { 
+          {
+           /* postList.filter(element => {
+              if (query === null) {
+                // if query is empty
+                return element;
+              } else if (element.title.toLowerCase().include(query.toLowerCase())) {
+                //returns filtered array
+                return element;
+              }
+            })*/ 
+            
             postList.map(element => { 
               return (
                 <div key ={element.id} className="flex border-4 px-4 py-2">
@@ -66,6 +87,8 @@ function Feed() {
                 </div>
               )}
             )
+            
+            // <List input={postList} />
           }
         </div>
       </div>
