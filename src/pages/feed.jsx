@@ -53,11 +53,12 @@ function Feed() {
       <div id="header" className="px-10 h-fit pt-5 ph-3 pb-5">
         <h2 className="text-left font-semibold font-sans text-4xl align-baseline tracking-wider"> 
             See What's up!
-          <input type="text" placeholder="Search" onChange={event => setPostList(event.target.value)} className="absolute right-0 mr-36"></input>
+          <input type="text" placeholder="Search" onChange={event => {/* Handle search here*/ }} className="absolute right-0 mr-36"></input>
         </h2>
 
       </div>
 
+      {/* This should be fetched from the DB probably, but for now we can hard code it*/}
       <div>
         <div id = "Sidebar" className="float-right pr-80 pt-16 ">
           <h2 className="text-center font-bold font-sans text-xl">Trending Tags</h2>
@@ -65,6 +66,8 @@ function Feed() {
             <li>Funny</li>
             <li>Game</li>
             <li>Random</li>
+            <li>Science</li>
+            <li>Meme</li>
           </ul>
         </div>
 
