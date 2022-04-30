@@ -17,34 +17,84 @@ function Profile({profileData}){
   });
     
   useEffect(
-    () => {setProfile(profileData)}, [profileData]
-  )
+    () => {setProfile(profileData)}
+  , [profileData])
 
   return (
     <div className="flex flex-auto h-screen p-4 bg-gray-800 text-white" id="main">
-      <div className="w-full min-w-3/4 h-fit p-2 justify-start" id="left-box">
-        <div className="p-2" id="saves-section">
-          <button className="text-cyan-500 font-mono rounded-lg border-white border-2 px-1 py-0.5">
-            Saves
-           </button>
+      <div className="min-w-3/4 h-fit p-2" id="left-box">
+        <div className="pl-2 pb-1 text-cyan-400">
+          Recent Posts
+          <button className="float-right hover:bg-gray-900 px-2 rounded-md">
+            &#11137;
+          </button>
+        </div>
+        <div className="py-1 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
+          <div className="p-2">
+            <div className="py-2" id="left-posts">
+              {
+                profile.posts.forEach(([id, title, author, date, mediaPath, mediaAlt, body, upvotes, downvotes, views, comments]) => {
+                  <div className="flex py-1 text-wText" id={id}>
+                    <span id={id + "image"}>
+                      <img src={mediaPath} alt={mediaAlt} className="w-16 h-16 rounded-sm space-x-2"></img>
+                    </span>
+                    Date: {date}
+                    Title: {title}
+                  </div>
+                }
+                )
+              }
+            </div>
+          </div>
+        </div>
+        <div className="mt-3 pl-2 pb-1 text-cyan-400">
+          Saves
+          <button className="tooltip text-orange-400 float-right hover:bg-gray-900 px-2 rounded-md" onClick={
+            (e) => {
+              // sort by date (other categories can be added next time)
+              profile.saves.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? 1 : -1)
+            }
+          }>
+            &#11137;
+            <span className="tooltiptext opacity-90">
+              sort by date
+            </span>
+          </button>
+        </div>
+        <div className="by-2 py-1 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
+          <div className="p-2">
+              <div className="py-2" id="left-posts">
+                {
+                  profile.saves.forEach(([id, title, author, date, mediaPath, mediaAlt, body, upvotes, downvotes, views, comments]) => {
+                    <div className="flex py-1 text-wText" id={id}>
+                      <span id={id + "image"}>
+                        <img src={mediaPath} alt={mediaAlt} className="w-16 h-16 rounded-sm space-x-2"></img>
+                      </span>
+                      Date: {date}
+                      Title: {title}
+                    </div>
+                  }
+                  )
+                }
+              </div>
+          </div>
         </div>
       </div>
-        
-      <div className="w-fit h-fit p-2 mr-4 flex justify-start bg-gray-700 rounded-lg" id="right-box">
-        <div className="flex justify-right align-middle  w-fit h-fit" id="pfp-section">
-          <img src={profile["pfp"]} 
-            alt={profile["username"] + "'s profile picture"}
-            className = "rounded-full"
-            width={128}
-            height={128}
-          />
-        </div>
-
-        <div className="w-fit ml-4" id="info-section">
+      
+      <div className="w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="right-box">
+        <div className="flex content-center space-y-5" id="pfp-section">
+          <span className="w-32 h-32">
+            <img src={profile["pfp"]} 
+              alt={profile["username"] + "'s profile picture"}
+              className = "w-full h-full object-cover rounded-full overflow-hidden"
+            />
+          </span>
           <span className="mb-2" id="username-section">
             <h3> {profile["username"]} </h3>
           </span>
+        </div>
 
+        <div className="w-fit ml-4" id="info-section">
           <span className="mb-2" id="about-section">
             <p> <strong> About Me: </strong> </p>
             <p> {profile["about"]} </p>
