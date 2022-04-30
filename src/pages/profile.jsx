@@ -20,7 +20,7 @@ function Profile({profileData}){
     () => {setProfile(profileData)}
   , [profileData]);
 
-  function SortByDate(props) { // props: array
+  function SortByDate(props) { // props: array[post]
     // This function returns two buttons that sort the given array to asc or desc
     return (
       <span>
@@ -53,6 +53,24 @@ function Profile({profileData}){
     )
   }
 
+  function ShowPosts(props) { // props: array[post]
+    return (
+      <span>
+        {
+          props.array.forEach(([id, title, author, date, mediaPath, mediaAlt, body, upvotes, downvotes, views, comments]) => {
+            <div className="flex py-1 text-wText" id={id}>
+              <span id={id + "image"}>
+                <img src={mediaPath} alt={mediaAlt} className="w-16 h-16 rounded-sm space-x-2"></img>
+              </span>
+              Date: {date}
+              Title: {title}
+            </div>
+          })
+        }
+      </span>
+    )
+  }
+
   return (
     <div className="flex flex-auto h-screen p-4 bg-gray-800 text-white" id="main">
       <div className="min-w-3/4 h-fit p-2" id="left-box">
@@ -63,18 +81,7 @@ function Profile({profileData}){
         <div className="py-1 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
           <div className="p-2">
             <div className="py-2" id="left-posts">
-              {
-                profile.posts.forEach(([id, title, author, date, mediaPath, mediaAlt, body, upvotes, downvotes, views, comments]) => {
-                  <div className="flex py-1 text-wText" id={id}>
-                    <span id={id + "image"}>
-                      <img src={mediaPath} alt={mediaAlt} className="w-16 h-16 rounded-sm space-x-2"></img>
-                    </span>
-                    Date: {date}
-                    Title: {title}
-                  </div>
-                }
-                )
-              }
+              <ShowPosts array={profile.posts} />
             </div>
           </div>
         </div>
@@ -85,18 +92,7 @@ function Profile({profileData}){
         <div className="by-2 py-1 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
           <div className="p-2">
               <div className="py-2" id="left-posts">
-                {
-                  profile.saves.forEach(([id, title, author, date, mediaPath, mediaAlt, body, upvotes, downvotes, views, comments]) => {
-                    <div className="flex py-1 text-wText" id={id}>
-                      <span id={id + "image"}>
-                        <img src={mediaPath} alt={mediaAlt} className="w-16 h-16 rounded-sm space-x-2"></img>
-                      </span>
-                      Date: {date}
-                      Title: {title}
-                    </div>
-                  }
-                  )
-                }
+                <ShowPosts array={profile.saves} />
               </div>
           </div>
         </div>
