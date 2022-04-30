@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 
 
 function Profile({profileData}){
+  const reader = new FileReader();
+  const [modifyingPic, setModifyingPic] = useState(false);
+
   const [profile, setProfile] = useState({
     "id" : 0,
     "pfp": null,
@@ -52,6 +55,10 @@ function Profile({profileData}){
         </button>
       </span>
     )
+  }
+
+  const inputHandler = (name, value) => {
+    setProfile( values => ({...values, [name] : value}))
   }
 
   function ShowPosts(props) { // props: array[post]
@@ -105,12 +112,20 @@ function Profile({profileData}){
         </Link>
         <div className="justify-center flex py-3" id="pfp-section">  
           <span className="w-32 h-32">
-            <img src={profile["pfp"]} 
+            <input type={modifyingPic ? "file" : "image"} 
+                src={profile["pfp"]} 
                 alt={profile["username"] + "'s profile picture"}
                 className = "w-full h-full object-cover rounded-full overflow-hidden hover:opacity-80 hover:cursor-pointer"
-                onClick={
-                  () => {
-                    // TODO: ask for new picture
+                onClick ={(e) => setModifyingPic(true)}
+                onChange={
+                  (e) => {
+                    if (e && e.target.files && e.target.files[0]){
+                        reader.readAsDataURL(e.target.files[0]);
+                        reader.onload = function(){
+                        inputHandler("pfp", reader.result);
+                        setModifyingPic(false);
+                      }
+                    }
                   }
                 }
             />
