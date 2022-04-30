@@ -14,7 +14,6 @@ const loggedInNavbar = [
   ['Feed', './feed'],
   ['Log out', './'],
   ['Profile', './profile'],
-  ['Settings', './settings']
 ]
 
 function Navbar({profile, setProfile}){

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import parseDate from "../utils/date";
+import { Link } from "react-router-dom";
 
 
 function Profile({profileData}){
@@ -74,7 +75,7 @@ function Profile({profileData}){
   return (
     <div className="flex flex-auto h-screen p-4 bg-gray-800 text-white" id="main">
       <div className="min-w-3/4 h-fit p-2" id="left-box">
-        <div className="pl-2 pb-1 text-cyan-400">
+        <div className="pl-2 pb-1 text-cyan-400 select-none">
           Recent Posts
           <SortByDate array={profile.posts} />
         </div>
@@ -85,7 +86,7 @@ function Profile({profileData}){
             </div>
           </div>
         </div>
-        <div className="mt-3 pl-2 pb-1 text-cyan-400">
+        <div className="mt-3 pl-2 pb-1 text-cyan-400 select-none">
           Saves
           <SortByDate array={profile.saves} />
         </div>
@@ -98,31 +99,39 @@ function Profile({profileData}){
         </div>
       </div>
       
-      <div className="w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="right-box">
-        <div className="flex content-center space-y-5" id="pfp-section">
+      <div className="relative w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="right-box">
+        <Link to="../settings" className="right-4 absolute">
+          &#9965;
+        </Link>
+        <div className="justify-center flex py-3" id="pfp-section">  
           <span className="w-32 h-32">
             <img src={profile["pfp"]} 
-              alt={profile["username"] + "'s profile picture"}
-              className = "w-full h-full object-cover rounded-full overflow-hidden"
+                alt={profile["username"] + "'s profile picture"}
+                className = "w-full h-full object-cover rounded-full overflow-hidden hover:opacity-80 hover:cursor-pointer"
+                onClick={
+                  () => {
+                    // TODO: ask for new picture
+                  }
+                }
             />
-          </span>
-          <span className="mb-2" id="username-section">
-            <h3> {profile["username"]} </h3>
           </span>
         </div>
 
-        <div className="w-fit ml-4" id="info-section">
-          <span className="mb-2" id="about-section">
+        <div className="mx-4" id="info-section">
+          <div className="flex mb-2 justify-center " id="username-section">
+            <span className="">{profile["username"]}</span>
+          </div>
+          <div className="mb-2" id="about-section">
             <p> <strong> About Me: </strong> </p>
             <p> {profile["about"]} </p>
-          </span>
+          </div>
 
           <div className="mb-2" id="other-section">
-            <div className="" id="gender-section">
+            <div className="pb-2" id="gender-section">
               <p> {profile["gender"]} </p>
             </div>
 
-            <div className="" id="datejoined-section">
+            <div className="pb-2" id="datejoined-section">
               <p> <strong> User since: </strong> </p>
               <p> {parseDate(profile["dateJoined"])} </p> 
             </div>
