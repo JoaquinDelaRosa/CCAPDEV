@@ -55,10 +55,6 @@ function Profile({profileData}){
     )
   }
 
-  const inputHandler = (name, value) => {
-    setProfile( values => ({...values, [name] : value}))
-  }
-
   function ShowPosts(props) { // props: array[post]
     return (
       <span>
