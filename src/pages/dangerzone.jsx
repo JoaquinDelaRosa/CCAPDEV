@@ -45,7 +45,7 @@ function DangerPage({profile, setProfile}){
 
   return (
    <div className="h-screen bg-gray-800 text-white p-5">
-    <div id="delete section" className="mt-20">
+    <div id="delete section">
       <h1 className= "mb-2  text-left font-sans text-3xl font-bold w-80">
         Delete your profile? 
       </h1>
