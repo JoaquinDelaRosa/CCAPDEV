@@ -28,7 +28,7 @@ function Postbox({ content }) {
       <div className= "w-full h-auto">
         {/* Should really fetch the data and then load the postpage, but for now this works*/}
         <Link to={("/postpage/" + post.id)} state={{postData: post}}>
-          <div>
+          <div className="">
             <strong className="text-left font-extrabold font-sans text-2xl align-baseline tracking-wider"> 
                 {post.title}
             </strong>
@@ -43,7 +43,7 @@ function Postbox({ content }) {
               </p>
           </div>
 
-          <div className="px-10 h-fit w-full pb-5 flex justify-left">
+          <div className="px-10 h-fit w-full pb-5 flex justify-center">
             <img src={post.mediaPath} alt={post.mediaAlt} className="self-center max-w-[40rem] max-h-[40rem]"/>
           </div>
 
