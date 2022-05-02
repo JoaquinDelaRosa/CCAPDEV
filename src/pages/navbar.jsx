@@ -14,6 +14,7 @@ const loggedInNavbar = [
   ['Feed', './feed'],
   ['Log out', './'],
   ['Profile', './profile'],
+  ["Danger Zone", "./dangerpage"]
 ]
 
 function Navbar({profile, setProfile}){

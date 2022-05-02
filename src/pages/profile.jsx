@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 
 function Profile({profileData}){
-  const reader = new FileReader();
   
   const [profile, setProfile] = useState({
     "id" : 0,
@@ -115,24 +114,6 @@ function Profile({profileData}){
                 src={profile["pfp"]} 
                 alt={profile["username"] + "'s profile picture"}
                 className = "w-full h-full object-cover rounded-full overflow-hidden hover:opacity-80 hover:cursor-pointer"
-                onClick={
-                  (e) => {
-                    document.getElementById("pfp-input").click()
-                  }
-                }
-            />
-            <input 
-              type="file" 
-              hidden={true}
-              id="pfp-input" 
-              onChange={(e) => {
-                if (e && e.target.files && e.target.files[0]){
-                    reader.readAsDataURL(e.target.files[0]);
-                    reader.onload = function(){
-                    inputHandler("pfp", reader.result);
-                  }
-                }
-              }}
             />
           </span>
         </div>
