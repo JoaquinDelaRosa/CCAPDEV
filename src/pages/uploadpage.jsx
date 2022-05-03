@@ -44,10 +44,10 @@ function UploadPage({profile}){
   })
 
   return (
-    <div className="py-3 px-4 bg-gray-800 text-white h-full">
-      <div id="header" className="w-full">
+    <div className="py-3 px-4 bg-gray-800 text-white min-h-screen" id="upload-page">
+      <div id="header" className="w-full h-full">
         <div>
-          <h2 className="font-bold font-mono text-3xl text-cyan-400"> Post a new iamge </h2>
+          <h2 className="font-bold font-mono text-3xl text-cyan-400"> Post a new image </h2>
         </div>
       </div>
 
@@ -56,7 +56,7 @@ function UploadPage({profile}){
           <form className="w-full h-full"
           >
             <input type="text" id="post-title"
-            className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none"
+            className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none text-black"
             onChange={(e) => {
                 inputHandler("title", e.target.value);
                 inputHandler("mediaAlt", e.target.value);
@@ -80,7 +80,7 @@ function UploadPage({profile}){
             </div>
 
             <input type="text" id="post-tags"
-            className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none"
+            className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none text-black"
             onChange={(e) => {
                 if (e.target.value.indexOf(" ") !== -1){
                   handleTags(e.target.value);
@@ -113,7 +113,7 @@ function UploadPage({profile}){
             </div>
             
             <textarea id="post-body"
-            className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none"
+            className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none text-black"
             onChange={(e) => {
                 inputHandler("body", e.target.value);
                 e.target.style.height = 'inherit';
@@ -127,7 +127,7 @@ function UploadPage({profile}){
             <span className="pt-1 flex justify-start items-center">
               <Link to={"/"}>
                 <input type="submit" value="Post!" disabled={!canPost()}
-                  className= {"py-1 px-8 rounded-full w-auto hover:cursor-pointer text-white " + 
+                  className= {"py-1 px-8 rounded-full w-auto font-mono  text-2xl font-semibold hover:cursor-pointer text-white " + 
                   (canPost() ? "bg-blue-200" : "bg-orange-500 " +
                   (canPost() ? "hover:bg-blue-400" : "hover:bg-orange-600"))}
 

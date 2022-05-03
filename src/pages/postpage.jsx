@@ -7,70 +7,6 @@ import TextBox from "./textbox";
 import TagLabel from "./taglabel";
 import { useLocation } from "react-router-dom";
 
-// Placeholder 
-const p = {
-  "id" : 1,
-  "title" : "Introducing The turboencabulator",
-  "author" : "Anonymous",
-  "date": new Date(),
-  "mediaPath" : require("../images/sample.png"),
-  "mediaAlt" : "",
-  "body" : 
-  " The original machine has a base-plate of prefabulated amulite, surmounted by a malleable logarithmic \
-    casing in such a way that the two spurving bearings were in a direct line with the pentametric fan. \
-    The latter consisted simply of six hydrocoptic marzelvanes, so fitted to the ambifacient lunar waneshaft \
-    that side fumbling was effectively prevented. The main winding was of the normal lotus-o-delta type placed \
-    in panendermic semiboloid slots in the stator, every seventh conductor being connected by a non-reversible \
-    tremie pipe to the differential girdlespring on the \"up\" end of the grammeters.",
-  "upvotes": 10,
-  "downvotes": 20,
-  "favorites": 1,
-  "views": 100,
-  "tags" : ["Random", "Funny", "Science", "Technobabble", "Tag", "Game", "Meme", "Gibberish", "English", "This is a tag", "Read", "Test"],
-  "comments" : [{
-      "id": 1,
-      "author"    : "Jane Doe",
-      "date"      : new Date(),
-      "mediaPath" : null,
-      "mediaAlt" : "",
-      "body" : "Wow! Great!",
-      "upvotes"  : 15,
-      "downvotes" : 12,
-      "views"     : 20,
-      "comments" : []
-    },
-  
-    {
-    "id": 2,
-    "author" : "Jane Doe",
-    "date"  : new Date(),
-    "mediaPath" : null,
-    "mediaAlt" : "",
-    "body" :   " The original machine has a base-plate of prefabulated amulite, surmounted by a malleable logarithmic \
-    casing in such a way that the two spurving bearings were in a direct line with the pentametric fan. \
-    The latter consisted simply of six hydrocoptic marzelvanes, so fitted to the ambifacient lunar waneshaft \
-    that side fumbling was effectively prevented. The main winding was of the normal lotus-o-delta type placed \
-    in panendermic semiboloid slots in the stator, every seventh conductor being connected by a non-reversible \
-    tremie pipe to the differential girdlespring on the \"up\" end of the grammeters.",
-    "upvotes"  : 1,
-    "downvotes" : 10,
-    "views"     : "12",
-    "comments" : [{
-        "id": 1,
-        "author"    : "Jane Doe",
-        "date"  : new Date(),
-        "mediaPath" : null,
-        "mediaAlt" : "",
-        "body" : "Wow! Great!",
-        "upvotes"  : 15,
-        "downvotes" : 12,
-        "views"     : 20,
-        "comments" : []
-      }]
-    }
-  ]
-}
-
 function PostPage({postData, profile, setProfile}){
   const [post, setPost] = useState({
     "id" : "",
@@ -116,7 +52,6 @@ function PostPage({postData, profile, setProfile}){
             "upvotes" : 0,
             "downvotes" : 0,
             "views" : 0,
-            "tags" : [],
             "comments" : []
           }
         )
@@ -171,7 +106,7 @@ function PostPage({postData, profile, setProfile}){
 
 
   return (
-      <div className="bg-slate-100">
+      <div className="bg-gray-800 text-white">
         <div id="post-section" className= "w-full h-auto">
           <div id="post-title-section" className="px-10 h-fit pt-5 pb-3">
             <strong className="text-left font-extrabold font-sans text-4xl align-baseline tracking-wider"> 
@@ -205,7 +140,7 @@ function PostPage({postData, profile, setProfile}){
               return (
                 // Ideally in the DB, each tag has an associated id. so key={value} should be replaced with the tagid
                 <div key={value}>
-                  <TagLabel content={value}/>
+                  <TagLabel content={value} bg="bg-green-600" text="text-gray"/>
                 </div>
               )
             })
@@ -215,13 +150,13 @@ function PostPage({postData, profile, setProfile}){
         <div id="rating-bar" className="px-10 flex h-fit items-center"> 
           <div className="w-full">
             <input type="button" 
-            className="text-xl font-semibold text-gray-600 hover:text-blue-900 hover:cursor-pointer mr-5" 
+            className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5" 
             defaultValue={showing ? "Hide Comments ▲" : "Show Comments ▼"}
             onClick = {() => {setShowing(!showing)}}
             /> 
 
             <input type="button"
-            className="text-xl font-semibold text-gray-600 hover:text-blue-900 hover:cursor-pointer"
+            className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer"
             defaultValue={"Reply"}
             onClick = {() => {setReplying(!replying)}}
             />
@@ -230,7 +165,8 @@ function PostPage({postData, profile, setProfile}){
 
           <div>
             <input type="button" 
-              className={`w-fit mr-5 hover:cursor-pointer text-3xl text-green-700 ${upvoted ? "font-extrabold" : "font-semibold"}`}
+              className={`w-fit mr-5 hover:cursor-pointer text-3xl text-green-700 hover:text-green-500
+              ${upvoted ? "font-extrabold" : "font-semibold"}`}
               onClick={(e) => {handleUpvote(); e.target.value = post.upvotes}}
               value={(upvoted ? "▲" : "△") + post.upvotes}
             />
@@ -238,7 +174,8 @@ function PostPage({postData, profile, setProfile}){
 
           <div>
             <input type="button" 
-              className={`w-fit mr-5 hover:cursor-pointer text-3xl text-red-700 ${downvoted ? "font-extrabold" : "font-semibold"}`}
+              className={`w-fit mr-5 hover:cursor-pointer text-3xl text-red-700 hover:text-red-500
+              ${downvoted ? "font-extrabold" : "font-semibold"}`}
               onClick={(e) => {handleDownvotes(); e.target.value = post.downvotes}}
               value={ (downvoted ? "▼" :  "▽") + post.downvotes}
             />
@@ -246,17 +183,18 @@ function PostPage({postData, profile, setProfile}){
 
           <div>
             <input type="button" 
-              className={`w-fit mr-5 hover:cursor-pointer text-3xl text-yellow-700 ${favorite ? "font-extrabold" : "font-semibold"}`}
+              className={`w-fit mr-5 hover:cursor-pointer text-3xl text-yellow-700 hover:text-yellow-500
+              ${favorite ? "font-extrabold" : "font-semibold"}`}
               onClick={(e) => {handleFavorites(); e.target.value = post.favorites}}
               value={ (favorite ? "★" :  "☆") + post.favorites}
             />
           </div>
 
-          <div className="w-fit text-left text-3xl mr-1 text-gray-600">
+          <div className="w-fit text-left text-3xl mr-1 text-gray-400">
             <p className="font-bold"> {post.views}</p>
           </div>
 
-          <div className="w-fit text-right text-3xl  text-gray-600">
+          <div className="w-fit text-right text-3xl  text-gray-400">
             <p className="font-thin">  {" views"} </p>
           </div>
         </div>

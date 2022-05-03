@@ -10,8 +10,8 @@ const loggedOutNavbar = [
 const loggedInNavbar = [ 
   ['Feed', './feed'],
   ['Upload', './upload'], 
-  ['Log out', './'],
   ['Profile', './profile'],
+  ['Log out', './'],
   ["Danger Zone", "./dangerpage"]
 ]
 

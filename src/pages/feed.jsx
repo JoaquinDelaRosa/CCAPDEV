@@ -13,7 +13,7 @@ const content = [{
   "downvotes": 420,
   "favorites": 120,
   "views": 5401,
-  "tags" : [],
+  "tags" : ["funny", "meme", "random", "technobabble"],
   "comments" : [ 
     {
       "id": 1,
@@ -89,7 +89,7 @@ const content = [{
   "downvotes": 345,
   "favorites": 130,
   "views": 100,
-  "tags" : [],
+  "tags" : ["health", "advisory", "science"],
   "comments" : [
     {
       "id": 1,
@@ -177,7 +177,7 @@ const content = [{
   "downvotes": 48,
   "favorites": 44,
   "views": 100,
-  "tags" : [],
+  "tags" : ["art", "style", "design", "question", "drawing"],
   "comments" : [
     {
       "id": 1,
@@ -265,7 +265,7 @@ const content = [{
   "downvotes": 794,
   "favorites": 642,
   "views": 100,
-  "tags" : [],
+  "tags" : ["game", "funny", "meme", "tf2", "overwatch", "character-comparison"],
   "comments" : [
     {
     "id": 1,
@@ -353,7 +353,7 @@ const content = [{
   "downvotes": 24,
   "favorites": 512,
   "views": 100,
-  "tags" : [],
+  "tags" : ["apex-legends", "gaming"],
   "comments" : [
     {
       "id": 1,
@@ -460,7 +460,7 @@ function Feed() {
           {
             postList.map(element => { 
               return (
-                <div key ={element.id} className="flex border-2 mb-3 border-gray-800 bg-gray-700 px-4 py-2">
+                <div key ={element.id} className="flex">
                   <Postbox content={element}/>
                 </div>
               )}
@@ -471,14 +471,14 @@ function Feed() {
         </div>
 
         <div id = "Sidebar" className="ml-32 mr-32 border-2 border-gray-700 p-4 h-fit w-full">
-          <h2 className="font-bold font-mono text-2xl pb-2 w-full text-cyan-400"> Trending Tags</h2>
+          <h2 className="font-bold font-mono text-3xl pb-2 w-full text-cyan-400"> Trending Tags</h2>
 
           <ul className="marker:text-sky-400 list-disc pl-5 space-y-2 text-xl font-medium font-mono ">
-            <TagLabel content={"Funny"} text="text-gray" bg="bg-green-600"/>
-            <TagLabel content={"Random"} text="text-gray" bg="bg-green-600"/>
-            <TagLabel content={"Science"} text="text-gray" bg="bg-green-600"/>
-            <TagLabel content={"Meme"} text="text-gray" bg="bg-green-600"/>
-            <TagLabel content={"Game"} text="text-gray" bg="bg-green-600"/>
+            <TagLabel content={"funny"} text="text-gray" bg="bg-green-600"/>
+            <TagLabel content={"random"} text="text-gray" bg="bg-green-600"/>
+            <TagLabel content={"science"} text="text-gray" bg="bg-green-600"/>
+            <TagLabel content={"meme"} text="text-gray" bg="bg-green-600"/>
+            <TagLabel content={"game"} text="text-gray" bg="bg-green-600"/>
           </ul>
         </div>
 

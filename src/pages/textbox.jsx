@@ -17,7 +17,7 @@ function TextBox({reply, setReply}){
     <div hidden={hidden}>
       <form onSubmit={handleSubmit}>
         <textarea
-        className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none"
+        className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none text-black"
         onChange={(e) => {
             setText(e.target.value);
             e.target.style.height = 'inherit';

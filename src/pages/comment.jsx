@@ -104,13 +104,13 @@ function Comment({ content, profile }) {
         <div id="rating-bar" className="flex h-fit mb-2">
           <div className="w-fit mr-3 ">
             <input type="button"
-              className="text-base mr-3 pt-1 font-semibold text-gray-600 hover:text-blue-900 hover:cursor-pointer"
+              className="text-base mr-3 pt-1 font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer"
               defaultValue={showing ? "Hide Comments ▲" : "Show Comments ▼"}
               onClick = {() => {setShowing(!showing)}}
             />
 
             <input type="button"
-              className="text-base mr-3 pt-1 font-semibold text-gray-600 hover:text-blue-900 hover:cursor-pointer"
+              className="text-base mr-3 pt-1 font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer"
               defaultValue={"Reply"}
               onClick = {() => {setReplying(!replying)}}
             />
@@ -118,7 +118,8 @@ function Comment({ content, profile }) {
 
           <div className="align-middle">
             <input type="button" 
-              className={"w-fit mr-3 hover:cursor-pointer text-green-700 text-xl " + (upvoted ? "font-extrabold" : "font-bold")}
+              className={"w-fit mr-3 hover:cursor-pointer text-green-700 text-xl hover:text-green-500 " 
+              + (upvoted ? "font-extrabold" : "font-bold")}
               onClick={(e) => {handleUpvote()}}
               value={(upvoted ? "▲" : "△") + post.upvotes}
             />
@@ -126,7 +127,8 @@ function Comment({ content, profile }) {
 
           <div>
             <input type="button" 
-              className={"w-fit mr-3 hover:cursor-pointer text-red-700 text-xl " + (downvoted ? "font-extrabold" : "font-bold")}
+              className={"w-fit mr-3 hover:cursor-pointer text-red-700 text-xl hover:text-red-500 " 
+              + (downvoted ? "font-extrabold" : "font-bold")}
               onClick={(e) => {handleDownvotes()}}
               value={ (downvoted ? "▼" :  "▽") + post.downvotes}
             />
