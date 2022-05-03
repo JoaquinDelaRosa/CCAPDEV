@@ -22,20 +22,6 @@ function Profile({profileData}){
     () => {setProfile(profileData)}
   , [profileData]);
 
-  const [saves, setSaves] = useState(profile.saves);
-
-  useEffect(() => {
-   
-  }
-  , [profile.saves, saves])
-
-  const [posts, setPosts] = useState(profile.posts);
-
-  useEffect(() => {
-
-  }
-  , [profile.posts, posts])
-
   function SortByDate(props) { // props: array[post]
     // This function returns two buttons that sort the given array to asc or desc
     return (
@@ -108,20 +94,18 @@ function Profile({profileData}){
         <div className="py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
           <div className="p-2">
             <div className="py-2" id="left-posts">
-              <ShowPosts postList={posts} type="recent"/>
-              {setPosts(profile.posts.slice())}
+              <ShowPosts postList={profile.posts} type="recent"/>
             </div>
           </div>
         </div>
         <div className="mt-5 pl-2 pb-1 text-cyan-400 select-none">
           <b>SAVED</b>
-          <SortByDate postList={saves} />
+          <SortByDate postList={profile.saves} />
         </div>
         <div className="by-2 py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
           <div className="p-2">
               <div className="py-2" id="left-posts">
-                <ShowPosts postList={saves} type="saves"/>
-                {setSaves(profile.postList.slice())}
+                <ShowPosts postList={profile.saves} type="saves"/>
               </div>
           </div>
         </div>
