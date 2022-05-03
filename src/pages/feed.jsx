@@ -10,7 +10,7 @@ const content = [{
   "mediaAlt": "",
   "upvotes": 1534,
   "downvotes": 420,
-  "favorites": 0,
+  "favorites": 120,
   "views": 5401,
   "tags" : [],
   "comments" : [ 
@@ -86,7 +86,7 @@ const content = [{
   "mediaAlt": "",
   "upvotes": 1110,
   "downvotes": 345,
-  "favorites": 0,
+  "favorites": 130,
   "views": 100,
   "tags" : [],
   "comments" : [
@@ -174,7 +174,7 @@ const content = [{
   "mediaAlt": "",
   "upvotes": 1021,
   "downvotes": 48,
-  "favorites": 0,
+  "favorites": 44,
   "views": 100,
   "tags" : [],
   "comments" : [
@@ -262,7 +262,7 @@ const content = [{
   "mediaAlt": "",
   "upvotes": 4195,
   "downvotes": 794,
-  "favorites": 0,
+  "favorites": 642,
   "views": 100,
   "tags" : [],
   "comments" : [
@@ -350,7 +350,7 @@ const content = [{
   "mediaAlt": "",
   "upvotes": 521,
   "downvotes": 24,
-  "favorites": 0,
+  "favorites": 512,
   "views": 100,
   "tags" : [],
   "comments" : [

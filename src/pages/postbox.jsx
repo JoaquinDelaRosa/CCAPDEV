@@ -64,6 +64,14 @@ function Postbox({ content }) {
               />
             </div>
 
+            <div>
+              <input type="button" 
+                className={`w-fit mr-5 hover:cursor-pointer text-xl text-yellow-400 ${false ? "font-extrabold" : "font-bold"}`}
+                onClick={(e) => {; e.target.value = post.favorites}}
+                value={"☆ " +  post.favorites}
+              />
+            </div>
+
             
             <div className="w-fit text-left text-xl mr-1 text-gray-400">
                 <p className="font-bold"> {post.views}</p>
