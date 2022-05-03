@@ -5,6 +5,7 @@ import parseDate from "../utils/date";
 import Comment from "./comment";
 import TextBox from "./textbox";
 import TagLabel from "./taglabel";
+import { useLocation } from "react-router-dom";
 
 // Placeholder 
 const p = {
@@ -70,7 +71,7 @@ const p = {
   ]
 }
 
-function PostPage({postData = p, profile, setProfile}){
+function PostPage({postData, profile, setProfile}){
   const [post, setPost] = useState({
     "id" : "",
     "title": "",    
@@ -94,9 +95,13 @@ function PostPage({postData = p, profile, setProfile}){
   const [downvoted, setDownVoted] = useState(false);
   const [favorite, setFavorited] = useState(false);
 
+  let location = useLocation();
 
   useEffect(
-    () => {setPost(postData)}, [postData]
+    () => {
+      if (location.state && location.state.postData)
+      setPost(location.state.postData)
+    }, [location]
   )
 
   useEffect( () => {
