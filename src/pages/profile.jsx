@@ -73,7 +73,7 @@ function Profile({profileData}){
     if(props.postList.length === 0)
       return (
         <span className="flex justify-center items-center">
-          Mhmm... Pretty quiet here.
+          Mmm... Pretty quiet here.
         </span>
       )
 
@@ -109,7 +109,10 @@ function Profile({profileData}){
           <div className="p-2">
             <div className="py-2" id="left-posts">
               <ShowPosts postList={posts} type="recent"/>
-              {setPosts(profile.posts.slice())}
+              {() => {
+                if (profile && profile.posts)
+                  setPosts(profile.posts.slice())}
+              }
             </div>
           </div>
         </div>
@@ -121,7 +124,12 @@ function Profile({profileData}){
           <div className="p-2">
               <div className="py-2" id="left-posts">
                 <ShowPosts postList={saves} type="saves"/>
-                {setSaves(profile.postList.slice())}
+                {
+                  () => {
+                    if (profile && profile.postList)
+                      setSaves(profile.postList.slice())
+                  }
+                }
               </div>
           </div>
         </div>
