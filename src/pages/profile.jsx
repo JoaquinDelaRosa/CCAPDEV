@@ -88,37 +88,12 @@ function Profile({profileData}){
 
   return (
     <div className="flex flex-auto p-8 bg-gray-800 text-white" id="main">
-      <div className="min-w-3/4 h-fit p-2" id="left-box">
-        <div className="pl-2 pb-1 text-cyan-400 select-none">
-          <b>POSTS</b>
-          <SortByDate postList={profile.posts} type={"posts"} />
-        </div>
-        <div className="py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
-          <div className="p-2">
-            <div className="py-2" id="left-posts" >
-              <ShowPosts postList={profile.posts} type={"posts"}/>
-            </div>
-          </div>
-        </div>
-        <div className="mt-5 pl-2 pb-1 text-cyan-400 select-none" >
-          <b>SAVED</b>
-          <SortByDate postList={profile.saves} type ={"saves"}/>
-        </div>
-        <div className="by-2 py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
-          <div className="p-2">
-              <div className="py-2" id="left-saves">
-                <ShowPosts postList={profile.saves} type={"saves"}/>
-              </div>
-          </div>
-        </div>
-      </div>
-      
-      <div className="relative w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="right-box">
-        <Link to="../settings" className="left-4 absolute">
+      <div className="max-w-[25%] w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="left-box">
+        <Link to="../settings" className="absolute pl-2">
           &#9965;
         </Link>
         <div className="justify-center flex pt-3 pb-1" id="pfp-section">  
-          <span className="w-32 h-32">
+          <span className="mt-3 w-32 h-32">
             <img 
                 src={profile["pfp"]} 
                 alt={profile["username"] + "'s profile picture"}
@@ -145,6 +120,31 @@ function Profile({profileData}){
               <p> <strong> User since: </strong> </p>
               <p> {parseDate(profile["dateJoined"])} </p> 
             </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="min-w-[67%] h-fit p-2" id="right-box">
+        <div className="pl-2 pb-1 text-cyan-400 select-none">
+          <b>POSTS</b>
+          <SortByDate postList={profile.posts} type={"posts"} />
+        </div>
+        <div className="py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
+          <div className="p-2">
+            <div className="py-2" id="right-posts" >
+              <ShowPosts postList={profile.posts} type={"posts"}/>
+            </div>
+          </div>
+        </div>
+        <div className="mt-5 pl-2 pb-1 text-cyan-400 select-none" >
+          <b>SAVED</b>
+          <SortByDate postList={profile.saves} type ={"saves"}/>
+        </div>
+        <div className="by-2 py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
+          <div className="p-2">
+              <div className="py-2" id="right-saves">
+                <ShowPosts postList={profile.saves} type={"saves"}/>
+              </div>
           </div>
         </div>
       </div>
