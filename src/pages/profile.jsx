@@ -59,7 +59,7 @@ function Profile({profileData}){
     if(props.postList.length === 0)
       return (
         <span className="flex justify-center items-center">
-          Mhmm... Pretty quiet here.
+          Mmm... Pretty quiet here.
         </span>
       )
 
