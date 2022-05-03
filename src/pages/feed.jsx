@@ -84,29 +84,23 @@ function Feed() {
     );
 
   return (
-    <div className="mt-2 p-4 bg-gray-800 text-white">
-      <div id="header" className="px-10 h-fit pt-5 ph-3 pb-5">
+    <div className="pt-2 bg-gray-800 text-white">
+      <div className="flex w-full text-black px-10 pt-5">
+        <input type="search" 
+          className="w-5/6"
+          placeholder="Searhc for a post" 
+          onChange={event => {/* Handle search here*/ }}></input>
+      </div>
+
+      <div id="header" className="px-10 h-fit pt-5 ph-3 pb-5 w-full">
         <h2 className="text-left font-semibold font-sans text-4xl align-baseline tracking-wider"> 
             See What's up!
-          <input type="text" placeholder="Search" onChange={event => {/* Handle search here*/ }} className="absolute right-0 mr-36"></input>
         </h2>
-
       </div>
 
       {/* This should be fetched from the DB probably, but for now we can hard code it*/}
-      <div>
-        <div id = "Sidebar" className="float-right mr-96 pr-12 mt-16 border-2">
-          <h2 className="text-center font-bold font-sans text-xl pb-2">Trending Tags</h2>
-          <ul role="list" className="marker:text-sky-400 list-disc pl-5 space-y-3">
-            <li>Funny</li>
-            <li>Game</li>
-            <li>Random</li>
-            <li>Science</li>
-            <li>Meme</li>
-          </ul>
-        </div>
-
-        <div id = "feed" className="w-1/2 pl-10 h-fit mb-5 ml-24">
+      <div className="flex flex-auto">
+        <div id = "feed" className="w-fit pl-10 h-fit mb-5 ml-4">
           {
            /* postList.filter(element => {
               if (query === null) {
@@ -129,6 +123,19 @@ function Feed() {
             // <List input={postList} />
           }
         </div>
+
+        <div id = "Sidebar" className="ml-32 mr-32 pr-12 mt-16 border-2 h-fit w-fit">
+          <h2 className="font-bold font-sans text-2xl pb-2 w-full"> Trending Tags</h2>
+
+          <ul className="marker:text-sky-400 list-disc pl-5 space-y-2 text-xl">
+            <li>Funny</li>
+            <li>Game</li>
+            <li>Random</li>
+            <li>Science</li>
+            <li>Meme</li>
+          </ul>
+        </div>
+
       </div>
 
       <div id = "Footer" className="pt-10">
