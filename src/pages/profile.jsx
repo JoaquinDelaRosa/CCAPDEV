@@ -17,10 +17,24 @@ function Profile({profileData}){
     "posts" : [],
     "dateJoined": new Date()
   });
-    
+  
   useEffect(
     () => {setProfile(profileData)}
   , [profileData]);
+
+  const [saves, setSaves] = useState(profile.saves);
+
+  useEffect(() => {
+   
+  }
+  , [profile.saves, saves])
+
+  const [posts, setPosts] = useState(profile.posts);
+
+  useEffect(() => {
+
+  }
+  , [profile.posts, posts])
 
   function SortByDate(props) { // props: array[post]
     // This function returns two buttons that sort the given array to asc or desc
@@ -29,9 +43,9 @@ function Profile({profileData}){
         {/* ASCENDING */}
         <button className="tooltip text-orange-400 float-right hover:bg-gray-900 px-2 rounded-md" 
         onClick={
-          (e) => {
+          () => {
             // sort by date (other categories can be added next time)
-            props.array.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? 1 : -1);
+            props.postList.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? 1 : -1)
           }
         }>
           &#129041;
@@ -42,8 +56,8 @@ function Profile({profileData}){
         {/* DESCENDING */}
         <button className="tooltip text-orange-400 float-right hover:bg-gray-900 px-2 rounded-md" 
         onClick={
-          (e) => {
-            props.array.sort((a, b) => (a.date.getTime() < b.date.getTime()) ? 1 : -1);
+          () => {
+            props.postList.sort((a, b) => (a.date.getTime() < b.date.getTime()) ? 1 : -1);
           }
         }>
           &#129043;
@@ -55,18 +69,29 @@ function Profile({profileData}){
     )
   }
 
-  function ShowPosts(props) { // props: array[post]
+  function ShowPosts(props) { // props: object[post]
+    if(props.postList.length === 0)
+      return (
+        <span className="flex justify-center items-center">
+          Mhmm... Pretty quiet here.
+        </span>
+      )
+
     return (
       <span>
         {
-          props.array.forEach(([id, title, author, date, mediaPath, mediaAlt, body, upvotes, downvotes, views, comments]) => {
-            <div className="flex py-1 text-wText" id={id}>
-              <span id={id + "image"}>
-                <img src={mediaPath} alt={mediaAlt} className="w-16 h-16 rounded-sm space-x-2"></img>
-              </span>
-              Date: {date}
-              Title: {title}
-            </div>
+          props.postList.map(element => {
+            console.log(typeof(props.postList));
+            return (
+              <Link to="../feed" className="border-b border-b-blue-200 pb-2 mb-2 flex items-start py-1 text-wText" id={element.id + props.type}>
+                <span className="pr-3" id={element.id + "image" + props.type}>
+                  <img src={element.mediaPath} alt={element.mediaAlt} className="w-16 h-16 rounded-sm" id={element.id + "img" + props.type}></img>
+                </span>
+                Title: {element.title}
+                <br/>
+                Date: {parseDate(element.date).toString()}
+              </Link>
+            )
           })
         }
       </span>
@@ -74,37 +99,39 @@ function Profile({profileData}){
   }
 
   return (
-    <div className="flex flex-auto h-screen p-4 bg-gray-800 text-white" id="main">
+    <div className="flex flex-auto p-8 bg-gray-800 text-white" id="main">
       <div className="min-w-3/4 h-fit p-2" id="left-box">
         <div className="pl-2 pb-1 text-cyan-400 select-none">
-          Recent Posts
-          <SortByDate array={profile.posts} />
+          <b>POSTS</b>
+          <SortByDate postList={profile.posts} />
         </div>
-        <div className="py-1 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
+        <div className="py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
           <div className="p-2">
             <div className="py-2" id="left-posts">
-              <ShowPosts array={profile.posts} />
+              <ShowPosts postList={posts} type="recent"/>
+              {setPosts(profile.posts.slice())}
             </div>
           </div>
         </div>
-        <div className="mt-3 pl-2 pb-1 text-cyan-400 select-none">
-          Saves
-          <SortByDate array={profile.saves} />
+        <div className="mt-5 pl-2 pb-1 text-cyan-400 select-none">
+          <b>SAVED</b>
+          <SortByDate postList={saves} />
         </div>
-        <div className="by-2 py-1 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
+        <div className="by-2 py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
           <div className="p-2">
               <div className="py-2" id="left-posts">
-                <ShowPosts array={profile.saves} />
+                <ShowPosts postList={saves} type="saves"/>
+                {setSaves(profile.postList.slice())}
               </div>
           </div>
         </div>
       </div>
       
       <div className="relative w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="right-box">
-        <Link to="../settings" className="right-4 absolute">
+        <Link to="../settings" className="left-4 absolute">
           &#9965;
         </Link>
-        <div className="justify-center flex py-3" id="pfp-section">  
+        <div className="justify-center flex pt-3 pb-1" id="pfp-section">  
           <span className="w-32 h-32">
             <img 
                 src={profile["pfp"]} 
@@ -118,7 +145,7 @@ function Profile({profileData}){
           <div className="flex mb-2 justify-center " id="username-section">
             <span className="">{profile["username"]}</span>
           </div>
-          <div className="mb-2" id="about-section">
+          <div className="mb-2 pt-2" id="about-section">
             <p> <strong> About Me: </strong> </p>
             <p> {profile["about"]} </p>
           </div>
