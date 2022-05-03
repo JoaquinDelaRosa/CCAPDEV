@@ -58,7 +58,7 @@ function DangerPage({profile, setProfile}){
         </label>
         
         <input type="button"
-          className="py-1 px-8 rounded-full w-auto text-white bg-red-700 hover:cursor-pointer hover:bg-orange-800"
+          className="my-3 py-1 px-8 rounded-full w-auto text-white bg-red-700 hover:cursor-pointer hover:bg-orange-800"
           value={"Yes"}
           onClick={() => setDeleted(true)}
         />

@@ -9,7 +9,6 @@ const loggedOutNavbar = [
 
 const loggedInNavbar = [ 
   ['Feed', './feed'],
-  ['Posts', './postpage'],    /* This should be removed actually. Do it once we handle linking stuff together*/
   ['Upload', './upload'], 
   ['Log out', './'],
   ['Profile', './profile'],

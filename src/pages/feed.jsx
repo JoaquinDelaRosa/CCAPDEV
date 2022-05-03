@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Postbox from "./postbox";
+import TagLabel from "./taglabel";
 
 const content = [{
   "id": 1,
@@ -443,11 +444,11 @@ function Feed() {
       <div className="flex w-full text-black px-10 pt-5">
         <input type="search" 
           className="w-5/6"
-          placeholder="Searhc for a post" 
+          placeholder="Search for a post" 
           onChange={event => {/* Handle search here*/ }}></input>
       </div>
 
-      <div id="header" className="px-10 h-fit pt-5 ph-3 pb-5 w-full">
+      <div id="header" className="px-10 h-fit pt-5 ph-3 pb-5 w-full font-mono text-cyan-400">
         <h2 className="text-left font-semibold font-sans text-4xl align-baseline tracking-wider"> 
             See What's up!
         </h2>
@@ -457,19 +458,9 @@ function Feed() {
       <div className="flex flex-auto">
         <div id = "feed" className="w-fit pl-10 h-fit mb-5 ml-4">
           {
-           /* postList.filter(element => {
-              if (query === null) {
-                // if query is empty
-                return element;
-              } else if (element.title.toLowerCase().include(query.toLowerCase())) {
-                //returns filtered array
-                return element;
-              }
-            })*/ 
-            
             postList.map(element => { 
               return (
-                <div key ={element.id} className="flex border-4 px-4 py-2">
+                <div key ={element.id} className="flex border-2 mb-3 border-gray-800 bg-gray-700 px-4 py-2">
                   <Postbox content={element}/>
                 </div>
               )}
@@ -479,15 +470,15 @@ function Feed() {
           }
         </div>
 
-        <div id = "Sidebar" className="ml-32 mr-32 border-2 p-4 h-fit w-full">
-          <h2 className="font-bold font-sans text-2xl pb-2 w-full"> Trending Tags</h2>
+        <div id = "Sidebar" className="ml-32 mr-32 border-2 border-gray-700 p-4 h-fit w-full">
+          <h2 className="font-bold font-mono text-2xl pb-2 w-full text-cyan-400"> Trending Tags</h2>
 
-          <ul className="marker:text-sky-400 list-disc pl-5 space-y-2 text-xl font-medium">
-            <li>Funny</li>
-            <li>Game</li>
-            <li>Random</li>
-            <li>Science</li>
-            <li>Meme</li>
+          <ul className="marker:text-sky-400 list-disc pl-5 space-y-2 text-xl font-medium font-mono ">
+            <TagLabel content={"Funny"} text="text-gray" bg="bg-green-600"/>
+            <TagLabel content={"Random"} text="text-gray" bg="bg-green-600"/>
+            <TagLabel content={"Science"} text="text-gray" bg="bg-green-600"/>
+            <TagLabel content={"Meme"} text="text-gray" bg="bg-green-600"/>
+            <TagLabel content={"Game"} text="text-gray" bg="bg-green-600"/>
           </ul>
         </div>
 

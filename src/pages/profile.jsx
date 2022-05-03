@@ -102,12 +102,6 @@ function Profile({profileData}){
           </span>
         </div>
 
-        <div className="w-fit ml-4" id="info-section">
-          <span className="mb-2" id="username-section">
-            <h3> {profile["username"]} </h3>
-          </span>
-        </div>
-
         <div className="mx-4" id="info-section">
           <div className="flex mb-2 justify-center " id="username-section">
             <span className="">{profile["username"]}</span>

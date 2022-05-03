@@ -44,16 +44,16 @@ function UploadPage({profile}){
   })
 
   return (
-    <div className="my-3 px-4">
+    <div className="py-3 px-4 bg-gray-800 text-white h-full">
       <div id="header" className="w-full">
         <div>
-          <h2 className="font-bold font-sans text-3xl"> Post a new Image! </h2>
+          <h2 className="font-bold font-mono text-3xl text-cyan-400"> Post a new iamge </h2>
         </div>
       </div>
 
-      <div id ="body" className="my-3 px-4">
+      <div id ="body" className="my-3 px-4 h-full">
         {/* Submission proper will be handled in the backend / phase 2. It's more convenient that way. */ }
-          <form className="w-full h-fit"
+          <form className="w-full h-full"
           >
             <input type="text" id="post-title"
             className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none"
@@ -142,10 +142,6 @@ function UploadPage({profile}){
             </span>
 
         </form>
-      </div>
-
-      <div id="footer">
-
       </div>
     </div>
   )
