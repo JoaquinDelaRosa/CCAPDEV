@@ -17,22 +17,6 @@ code {
     monospace;
 }
 
-.tooltiptext {
-  visibility: hidden;
-  width: fit-content;
-  background-color: rgb(46, 46, 46);
-  color: rgb(231, 231, 231);
-  text-align: center;
-  padding: 4px 10px;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-
 @layer components{
   /* Add theme-based components here */
 }
