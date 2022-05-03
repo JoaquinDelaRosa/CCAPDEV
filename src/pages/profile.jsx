@@ -22,16 +22,17 @@ function Profile({profileData}){
     () => {setProfile(profileData)}
   , [profileData]);
 
-  function SortByDate(props) { // props: array[post]
+  function SortByDate({postList, type}) { // props: array[post]
     // This function returns two buttons that sort the given array to asc or desc
     return (
       <span>
         {/* ASCENDING */}
         <button className="tooltip text-orange-400 float-right hover:bg-gray-900 px-2 rounded-md" 
         onClick={
-          () => {
+          (e) => {
             // sort by date (other categories can be added next time)
-            props.postList.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? 1 : -1)
+            postList.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? 1 : -1);
+            setProfile( values => ({...values, [type] : postList}))
           }
         }>
           &#129041;
@@ -42,8 +43,9 @@ function Profile({profileData}){
         {/* DESCENDING */}
         <button className="tooltip text-orange-400 float-right hover:bg-gray-900 px-2 rounded-md" 
         onClick={
-          () => {
-            props.postList.sort((a, b) => (a.date.getTime() < b.date.getTime()) ? 1 : -1);
+          (e) => {
+            postList.sort((a, b) => (a.date.getTime() < b.date.getTime()) ? 1 : -1);
+            setProfile( values => ({...values, [type] : postList}))
           }
         }>
           &#129043;
@@ -67,9 +69,9 @@ function Profile({profileData}){
       <span>
         {
           props.postList.map(element => {
-            console.log(typeof(props.postList));
+            //console.log(typeof(props.postList));
             return (
-              <Link to="../feed" className="border-b border-b-blue-200 pb-2 mb-2 flex items-start py-1 text-wText" id={element.id + props.type}>
+              <Link to="../feed" className="border-b border-b-blue-200 pb-2 mb-2 flex items-start py-1 text-wText" key = {element.id} id={element.id + props.type}>
                 <span className="pr-3" id={element.id + "image" + props.type}>
                   <img src={element.mediaPath} alt={element.mediaAlt} className="w-16 h-16 rounded-sm" id={element.id + "img" + props.type}></img>
                 </span>
@@ -89,23 +91,23 @@ function Profile({profileData}){
       <div className="min-w-3/4 h-fit p-2" id="left-box">
         <div className="pl-2 pb-1 text-cyan-400 select-none">
           <b>POSTS</b>
-          <SortByDate postList={profile.posts} />
+          <SortByDate postList={profile.posts} type={"posts"} />
         </div>
         <div className="py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
           <div className="p-2">
-            <div className="py-2" id="left-posts">
-              <ShowPosts postList={profile.posts} type="recent"/>
+            <div className="py-2" id="left-posts" >
+              <ShowPosts postList={profile.posts} type={"posts"}/>
             </div>
           </div>
         </div>
-        <div className="mt-5 pl-2 pb-1 text-cyan-400 select-none">
+        <div className="mt-5 pl-2 pb-1 text-cyan-400 select-none" >
           <b>SAVED</b>
-          <SortByDate postList={profile.saves} />
+          <SortByDate postList={profile.saves} type ={"saves"}/>
         </div>
         <div className="by-2 py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
           <div className="p-2">
-              <div className="py-2" id="left-posts">
-                <ShowPosts postList={profile.saves} type="saves"/>
+              <div className="py-2" id="left-saves">
+                <ShowPosts postList={profile.saves} type={"saves"}/>
               </div>
           </div>
         </div>
