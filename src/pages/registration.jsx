@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+//  TO-DO:    Registration should add to the DB
+
 function Registration(){
 
     const [registration, setRegistration] = useState({

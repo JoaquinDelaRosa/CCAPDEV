@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import TagLabel from "./taglabel";
 
+// TO-DO:     New post should be added to the DB.
+
 function UploadPage({profile}){
   const reader = new FileReader();
 

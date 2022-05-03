@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+// TO-DO:   Settings should update Profile info in the DB
+
 function SettingsPage({profile, setProfile}){
   
   const reader = new FileReader();

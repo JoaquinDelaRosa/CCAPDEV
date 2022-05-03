@@ -2,6 +2,8 @@
 import { Link } from "react-router-dom";
 import parseDate from "../utils/date";
 
+// TODO:  Post Id should be assigned in the DB.
+
 function Postbox({ content }) {
     const [post, setPost] = useState({
         "id": "",
@@ -26,7 +28,6 @@ function Postbox({ content }) {
 
     return (
       <div className= "w-full h-auto border-gray-800 bg-gray-700 hover:bg-gray-500 px-4 py-2 border-2 mb-3">
-        {/* Should really fetch the data and then load the postpage, but for now this works*/}
         <Link to={("/postpage/" + post.id)} state={{postData: post}}>
           <div className="">
             <strong className="text-left font-extrabold font-sans text-2xl align-baseline tracking-wider"> 

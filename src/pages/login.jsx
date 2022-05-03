@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+// TODO:    Account verification. Ensure the account exists by a query to the DB
+
 function Login({profile, setProfile}){
 
     const defaultUserName = "ENTER USERNAME";

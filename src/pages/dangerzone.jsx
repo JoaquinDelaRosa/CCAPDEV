@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+// TODO: Handle Profile Deletion (Phase 2). Should remove profile from DB
+
 function DangerPage({profile, setProfile}){
   
   const [editted, setEditted] = useState({

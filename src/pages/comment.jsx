@@ -84,8 +84,7 @@ function Comment({ content, profile }) {
             {parseDate(post.date)}
           </p>
         </div>
-
-        {/* Note that comments do not require images */}
+        
         {(post.mediaPath !== null) ?
           <div id="comment-media" className="mb-1 h-fit w-full flex">
             <img src={post.mediaPath} alt={post.mediaAlt}

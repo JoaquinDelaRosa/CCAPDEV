@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import parseDate from "../utils/date";
 import { Link } from "react-router-dom";
 
+// TO-DO:   Posts should be fetched rather than hardcoded.
 
 function Profile({profileData}){
   
@@ -69,7 +70,6 @@ function Profile({profileData}){
       <span>
         {
           props.postList.map(element => {
-            //console.log(typeof(props.postList));
             return (
               <Link to="../feed" className="border-b border-b-blue-200 pb-2 mb-2 flex items-start py-1 text-wText" key = {element.id} id={element.id + props.type}>
                 <span className="pr-3" id={element.id + "image" + props.type}>

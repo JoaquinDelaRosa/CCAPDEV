@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Postbox from "./postbox";
 import TagLabel from "./taglabel";
 
+// TODO: Feed should fetch content from DB rather than content being hardcoded.
+//       Handle searching by title and by tag
+
 const content = [{
   "id": 1,
   "title": "Introducing The turboencabulator",

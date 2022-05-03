@@ -7,6 +7,12 @@ import TextBox from "./textbox";
 import TagLabel from "./taglabel";
 import { useLocation } from "react-router-dom";
 
+// TO-DO: Archived posts. Requires the DB
+//        Non placeholder Date structure
+//        Edit/ Delete posts. More convenient to do this with the DB
+//        Comments should be added to the DB under their own tag.
+//        Comments should be deletable / editable. This'll be handled in Phase 2
+
 function PostPage({postData, profile, setProfile}){
   const [post, setPost] = useState({
     "id" : "",
