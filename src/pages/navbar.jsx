@@ -2,17 +2,15 @@ import React, { useEffect, useState }  from "react";
 import { Link } from "react-router-dom";
 
 const loggedOutNavbar = [
-  ['Home', './'],
   ['Feed', './feed'],
   ['Log in', './login'],
   ['Sign Up', './registration']
 ]
 
 const loggedInNavbar = [ 
-  ['Home', './'],
+  ['Feed', './feed'],
   ['Posts', './postpage'],    /* This should be removed actually. Do it once we handle linking stuff together*/
   ['Upload', './upload'], 
-  ['Feed', './feed'],
   ['Log out', './'],
   ['Profile', './profile'],
   ["Danger Zone", "./dangerpage"]
