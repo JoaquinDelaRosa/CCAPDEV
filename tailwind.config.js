@@ -9,6 +9,15 @@ module.exports = {
         // main color for bg: gray-900
         // main color for cyan: cyan-400-500
         // main color for orange: orange-500
+      },
+      minWidth: {
+        '3/4' : '75%',
+        '1/4' : '25%',
+        '1/2' : '50%',
+        '65%' : '65%',
+      },
+      minHeight: {
+        '150' : 150,
       }
     },
   },

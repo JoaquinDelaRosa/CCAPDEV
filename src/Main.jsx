@@ -7,6 +7,7 @@ import Login from './pages/login';
 import Feed from './pages/feed';
 import Profile from './pages/profile'
 import SettingsPage from './pages/settingspage';
+import DangerPage from './pages/dangerzone';
 import UploadPage from './pages/uploadpage';
 
 
@@ -23,6 +24,7 @@ const Main = ({profile, setProfile}) => {
           <Route path="/feed" element={<Feed/>}></Route>
           <Route path="/profile" element={<Profile profileData={profile}/>}></Route>
           <Route path="/settings" element={<SettingsPage profile={profile} setProfile={setProfile}/>}></Route>
+          <Route path="/dangerpage" element={<DangerPage profile={profile} setProfile={setProfile}/>}></Route>
           <Route path="/upload" element={<UploadPage profile={profile}/>}> </Route>
       </Routes>
     </div>
