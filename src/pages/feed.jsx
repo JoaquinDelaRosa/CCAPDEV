@@ -124,10 +124,10 @@ function Feed() {
           }
         </div>
 
-        <div id = "Sidebar" className="ml-32 mr-32 pr-12 mt-16 border-2 h-fit w-fit">
+        <div id = "Sidebar" className="ml-32 mr-32 border-2 h-fit w-full">
           <h2 className="font-bold font-sans text-2xl pb-2 w-full"> Trending Tags</h2>
 
-          <ul className="marker:text-sky-400 list-disc pl-5 space-y-2 text-xl">
+          <ul className="marker:text-sky-400 list-disc pl-5 space-y-2 text-xl font-medium">
             <li>Funny</li>
             <li>Game</li>
             <li>Random</li>
