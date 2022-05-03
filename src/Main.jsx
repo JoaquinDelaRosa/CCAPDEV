@@ -8,6 +8,7 @@ import Feed from './pages/feed';
 import Profile from './pages/profile'
 import SettingsPage from './pages/settingspage';
 import DangerPage from './pages/dangerzone';
+import UploadPage from './pages/uploadpage';
 
 
 const Main = ({profile, setProfile}) => {
@@ -17,14 +18,14 @@ const Main = ({profile, setProfile}) => {
       <Routes> 
           <Route path='/' element={<Home/>}></Route>
           <Route path="/registration" element={<Registration/>}></Route>
-          <Route path="/postpage" element={<PostPage profile={profile}/>}></Route>
-          <Route path="/postpage?" element={<PostPage profile={profile}/>}></Route>
+          <Route path="/postpage/:postid" element={<PostPage profile={profile} setProfile={setProfile}/>}></Route>
           <Route path="/login" element={<Login profile={profile} setProfile={setProfile}/>}></Route>
           <Route path="/login?" element={<Home/>}></Route>
           <Route path="/feed" element={<Feed/>}></Route>
           <Route path="/profile" element={<Profile profileData={profile}/>}></Route>
           <Route path="/settings" element={<SettingsPage profile={profile} setProfile={setProfile}/>}></Route>
           <Route path="/dangerpage" element={<DangerPage profile={profile} setProfile={setProfile}/>}></Route>
+          <Route path="/upload" element={<UploadPage profile={profile}/>}> </Route>
       </Routes>
     </div>
   );

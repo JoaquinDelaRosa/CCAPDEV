@@ -99,6 +99,11 @@ function Profile({profileData}){
                 alt={profile["username"] + "'s profile picture"}
                 className = "w-full h-full object-cover rounded-full overflow-hidden hover:opacity-80 hover:cursor-pointer"
             />
+        {console.log(profile.saves)}
+
+        <div className="w-fit ml-4" id="info-section">
+          <span className="mb-2" id="username-section">
+            <h3> {profile["username"]} </h3>
           </span>
         </div>
 
