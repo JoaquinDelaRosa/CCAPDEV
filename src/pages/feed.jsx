@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Postbox from "./postbox";
-import List from "./List";
 
 const content = [{
   "id": 1,
@@ -73,11 +72,6 @@ const content = [{
 
 function Feed() {
   const [postList, setPostList] = useState([]);
-  let inputHandler = (e) => {
-    //convert input text to lower case
-    var lowerCase = e.target.value.toLowerCase();
-    setPostList(lowerCase);
-  };
 
     useEffect(
       () => { setPostList(content) }, []
