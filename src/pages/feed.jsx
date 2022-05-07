@@ -4,6 +4,7 @@ import TagLabel from "./taglabel";
 
 // TODO: Feed should fetch content from DB rather than content being hardcoded.
 //       Handle searching by title and by tag
+//       Trending tags should be fetched in DB
 
 const content = [{
   "id": 1,
