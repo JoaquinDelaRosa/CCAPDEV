@@ -1,3 +1,9 @@
+# Submission Details
+
+The files found in the "main" branch are the submission for Phase 1 of the CCAPDEV Application. 
+
+Files for Phase 2 are found in the "backend" branch, and will be pulled to main after checking of Phase 1 is finished
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
