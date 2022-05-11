@@ -10,6 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+**NOTE** For backend branch. Make sure that you are in the appropraite directory. Run either [cd client] or [cd api] before executing [npm start]
 In the project directory, you can run:
 
 ### `npm start`
