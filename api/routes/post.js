@@ -187,6 +187,12 @@ router.post('/', function(req, res, next) {
   // TODO: Replace with Mongoose
   posts.push(req.body);
   res.send("Successfully added post")
+  Post.create(
+    req.body,
+    (error, user) => {
+      res.redirect('/')
+    }
+  )
 })
 
 /* PATCH users listing */

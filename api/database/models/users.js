@@ -12,6 +12,6 @@ const UsersSchema = new mongoose.Schema({
     dateJoined: Date
 })
 
-const User = mongoose.model('Post', UsersSchema);
+const User = mongoose.model('User', UsersSchema);
 
 module.exports = User;
