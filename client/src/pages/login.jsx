@@ -57,7 +57,7 @@ function Login({profile, setProfile}){
     return (
       <div className="flex justify-center items-center h-screen from-gray-900 to-bgGradient bg-gradient-to-br">
         <div className="flex max-w-fit p-8 shadow-md rounded-md bg-gray-800">
-          <form>
+          <form >
             <span className="flex justify-center items-center">
               <h2 className="m-0.5  text-center font-sans font-extrabold w-80 text-cyan-500 select-none"> Log in to your account </h2>
             </span>

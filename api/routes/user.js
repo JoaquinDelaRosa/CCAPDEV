@@ -37,9 +37,10 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST users listing */ 
-router.post('/', function(req, res, next) {
+router.post('/register', function(req, res, next) {
   // TODO: Replace with Mongoose
   profiles.push(req.body);
+  console.log("Success");
   res.send("Successfully added profile")
 })
 
