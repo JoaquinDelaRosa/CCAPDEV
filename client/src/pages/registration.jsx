@@ -40,7 +40,17 @@ function Registration(){
         headers : {
           'Content-type': 'application/json'
         },
-        body: JSON.stringify(registration)
+        body: JSON.stringify({
+          "pfp": "None",
+          "email": registration.email,
+          "username": registration.username,
+          "password": registration.password,
+          "about": "",
+          "gender": "",
+          "saves": [],
+          "posts": [],
+          "dateJoined": new Date()
+        })
       })
       .then((response) => response.json())
       .then((result) => {

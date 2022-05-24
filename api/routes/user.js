@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 const app = require('../app');
+const User = require('../database/models/users');
 
 let profiles = [{
   "id": 1,
@@ -36,11 +37,22 @@ router.get('/', function(req, res, next) {
   res.send(profile);
 });
 
+router.get('/db', async function(req, res, next) {
+  const users = await User.find({});
+  res.send({users});
+});
+
 /* POST users listing */ 
 router.post('/register', function(req, res, next) {
   // TODO: Replace with Mongoose
   profiles.push(req.body);
   console.log("Success");
+  User.create(
+    req.body,
+    (error, user) => {
+      res.redirect('/')
+    }
+  )
   res.send({message : "Successfully added to profile" })
 })
 
