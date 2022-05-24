@@ -34,7 +34,7 @@ function Registration(){
       return !(isValid() && isComplete());
     }
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
       fetch(registerURL, {
         method : "POST",
         headers : {
@@ -42,16 +42,17 @@ function Registration(){
         },
         body: JSON.stringify(registration)
       })
-      .then((response) => response.json)
+      .then((response) => response.json())
       .then((result) => {
         console.log(result);
       })
+      e.preventDefault();
     }    
 
     return (
         <div className="flex justify-center items-center h-screen from-gray-900 to-bgGradient bg-gradient-to-br">
           <div className="flex max-w-fit p-8 shadow-md rounded-md bg-gray-800">
-            <form method="POST" action={registerURL}>
+            <form method="POST" action={registerURL} onSubmit = {onSubmit}>
               <span className="flex justify-center items-center text-cyan-500 select-none">
                 <h2 className="m-0.5  text-center font-sans font-extrabold w-80 "> Create a new account </h2>
               </span>
@@ -107,7 +108,6 @@ function Registration(){
                   <input type="submit" value="Create Account" disabled={isSubmitDisabled()}
                   className= {"py-1 px-5 rounded-full w-auto text-white " + 
                   (isSubmitDisabled() ? "bg-blue-200" : "bg-orange-500 hover:cursor-pointer hover:bg-orange-600")}
-                  onSubmit = {onSubmit()}
                   />
                 </Link>
               </span>

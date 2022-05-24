@@ -41,7 +41,7 @@ router.post('/register', function(req, res, next) {
   // TODO: Replace with Mongoose
   profiles.push(req.body);
   console.log("Success");
-  res.send("Successfully added profile")
+  res.send({message : "Successfully added to profile" })
 })
 
 /* PATCH users listing */
