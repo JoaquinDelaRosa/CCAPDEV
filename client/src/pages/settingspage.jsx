@@ -6,9 +6,8 @@ function SettingsPage({profile, setProfile}){
   
   const reader = new FileReader();
   const [editted, setEditted] = useState({
-    "id" : 0,
     "pfp": null,
-    "name": "",
+    "email" : "",
     "username": "",
     "password" : "",
     "about": "",

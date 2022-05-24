@@ -7,9 +7,8 @@ import {p} from '../src/pages/placeholder' // import placeholder data
 
 
 const placeHolder = {
-  "id": 1,
   "pfp": require("../src/images/sample.png"),
-  "name": "Andrei",
+  "email": "andrei_chua@gmail.com",
   "username": "AChua123",
   "password": "12345",
   "about": "A person lurking in this website (not a bot)",

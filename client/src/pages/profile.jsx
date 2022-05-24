@@ -7,9 +7,8 @@ import { Link } from "react-router-dom";
 function Profile({profileData}){
   
   const [profile, setProfile] = useState({
-    "id" : 0,
     "pfp": null,
-    "name": "",
+    "email": "",
     "username": "",
     "password": "",
     "about": "",
