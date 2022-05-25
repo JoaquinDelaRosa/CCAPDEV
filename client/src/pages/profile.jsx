@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import parseDate from "../utils/date";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 
 // TO-DO:   Posts should be fetched rather than hardcoded.
 
-function Profile({profileData}){
+const userURL = 'http://localhost:3000/api/user';
+
+function Profile(){
   
   const [profile, setProfile] = useState({
     "pfp": null,
@@ -18,9 +20,34 @@ function Profile({profileData}){
     "dateJoined": new Date()
   });
   
+  const [searchParams, ] = useSearchParams();
+  let location = useLocation();
+  
   useEffect(
-    () => {setProfile(profileData)}
-  , [profileData]);
+    () => {
+      const username = searchParams.get("username");
+      let data = fetch(userURL + "?username=" + username, {
+        method : "GET",
+        headers : {
+          'Content-type': 'application/json'
+        },
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        console.log("Error in retrieving profile information");
+      });
+
+      console.log(data);
+      if (data) {
+        data.then( (profileData) => {
+          if (profileData)
+            setProfile(profileData);
+        });
+      }
+    }
+  , [location.search, searchParams]);
 
   function SortByDate({postList, type}) { // props: array[post]
     // This function returns two buttons that sort the given array to asc or desc
@@ -76,7 +103,7 @@ function Profile({profileData}){
                 </span>
                 Title: {element.title}
                 <br/>
-                Date: {parseDate(element.date).toString()}
+                Date: {parseDate(new Date(element.date)).toString()}
               </Link>
             )
           })
@@ -117,7 +144,7 @@ function Profile({profileData}){
 
             <div className="pb-2" id="datejoined-section">
               <p> <strong> User since: </strong> </p>
-              <p> {parseDate(profile["dateJoined"])} </p> 
+              <p> {parseDate(new Date(profile["dateJoined"]))} </p> 
             </div>
           </div>
         </div>

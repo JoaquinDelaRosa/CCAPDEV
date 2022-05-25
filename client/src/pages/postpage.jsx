@@ -42,7 +42,7 @@ function PostPage({postData, profile, setProfile}){
   useEffect(
     () => {
       if (location.state && location.state.postData)
-      setPost(location.state.postData)
+        setPost(location.state.postData)
     }, [location]
   )
 

@@ -21,11 +21,11 @@ const Main = ({profile, setProfile}) => {
           <Route path="/login" element={<Login profile={profile} setProfile={setProfile}/>}></Route>
           <Route path="/login?" element={<Feed/>}></Route>
           <Route path="/feed" element={<Feed/>}></Route>
-          <Route path="/profile" element={<Profile profileData={profile}/>}></Route>
+          <Route path="/profile" element={<Profile/>}></Route>
           <Route path="/settings" element={<SettingsPage profile={profile} setProfile={setProfile}/>}></Route>
           <Route path="/dangerpage" element={<DangerPage profile={profile} setProfile={setProfile}/>}></Route>
           <Route path="/upload" element={<UploadPage profile={profile}/>}> </Route>
-          
+
       </Routes>
     </div>
   );

@@ -14,7 +14,7 @@ let profiles = [{
   "gender": "Male",
   "saves": [],
   "posts": [],
-  "dateJoined": "March 20, 2022"
+  "dateJoined": new Date(2022, 11, 23)
 }]
 
 // TOOO: Replacre with Mongoose query
@@ -56,6 +56,7 @@ router.post('/register', function(req, res, next) {
     }
   )
   res.send({message : "Successfully added to profile" })
+  res.end();
 })
 
 /* PATCH users listing */

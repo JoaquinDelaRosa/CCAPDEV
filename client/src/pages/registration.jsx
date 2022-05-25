@@ -53,7 +53,9 @@ function Registration(){
           "dateJoined": new Date()
         })
       })
-      .then((response) => response.json())
+      .then((response) => {
+        response.json()}
+      )
       .then((result) => {
         console.log(result);
       })
