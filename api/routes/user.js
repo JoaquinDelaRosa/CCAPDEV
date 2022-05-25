@@ -6,7 +6,7 @@ const User = require('../database/models/users');
 
 let profiles = [{
   "id": 1,
-  "pfp": "None",  // Handle images
+  "pfp": "/images/sample",
   "name": "Andrei",
   "username": "AChua123",
   "password": "12345",

@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var postRouter = require('./routes/post');
 var cors = require("cors");
+const fileUpload = require('express-fileupload');
 
 var app = express();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 app.use(cors());
 
 app.use('/', indexRouter);

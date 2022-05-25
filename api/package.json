@@ -5,7 +5,7 @@
   "scripts": {
     "start-server": "node ./bin/www",
     "start": "concurrently \" npm run server\" \"cd ../client && npm start",
-    "server" : "node app.js"
+    "server": "node app.js"
   },
   "dependencies": {
     "concurrently": "^7.2.1",
@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "express-fileupload": "^1.4.0",
     "http-errors": "~1.6.3",
     "jade": "^0.29.0",
     "mongoose": "^6.3.4",

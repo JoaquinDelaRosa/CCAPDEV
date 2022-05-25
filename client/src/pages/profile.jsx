@@ -5,23 +5,24 @@ import { Link, useLocation, useSearchParams } from "react-router-dom";
 // TO-DO:   Posts should be fetched rather than hardcoded.
 
 const userURL = 'http://localhost:3000/api/user';
+const defaultProfile = {
+  "pfp": null,
+  "email": "",
+  "username": "",
+  "password": "",
+  "about": "",
+  "gender": "",
+  "saves": [],
+  "posts" : [],
+  "dateJoined": new Date()
+};
 
 function Profile(){
   
-  const [profile, setProfile] = useState({
-    "pfp": null,
-    "email": "",
-    "username": "",
-    "password": "",
-    "about": "",
-    "gender": "",
-    "saves": [],
-    "posts" : [],
-    "dateJoined": new Date()
-  });
+  const [profile, setProfile] = useState(defaultProfile);
   
   const [searchParams, ] = useSearchParams();
-  let location = useLocation();
+  let location = useLocation(defaultProfile);
   
   useEffect(
     () => {
@@ -39,11 +40,13 @@ function Profile(){
         console.log("Error in retrieving profile information");
       });
 
-      console.log(data);
       if (data) {
         data.then( (profileData) => {
-          if (profileData)
+          if (profileData) {
             setProfile(profileData);
+          } else{
+            setProfile(defaultProfile);
+          }
         });
       }
     }
@@ -85,7 +88,7 @@ function Profile(){
   }
 
   function ShowPosts(props) { // props: object[post]
-    if(props.postList.length === 0)
+    if(!props || !props.postList || props.postList.length === 0)
       return (
         <span className="flex justify-center items-center">
           Mmm... Pretty quiet here.
@@ -113,7 +116,7 @@ function Profile(){
   }
 
   return (
-    <div className="flex flex-auto p-8 bg-gray-800 text-white" id="main">
+    <div className="flex flex-auto p-8 bg-gray-800 text-white h-screen" id="main">
       <div className="max-w-[25%] w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="left-box">
         <Link to="../settings" className="absolute pl-2">
           &#9965;
@@ -121,7 +124,7 @@ function Profile(){
         <div className="justify-center flex pt-3 pb-1" id="pfp-section">  
           <span className="mt-3 w-32 h-32">
             <img 
-                src={profile["pfp"]} 
+                src={"../../.." + profile["pfp"]} 
                 alt={profile["username"] + "'s profile picture"}
                 className = "w-full h-full object-cover rounded-full overflow-hidden hover:opacity-80 hover:cursor-pointer"
             />
