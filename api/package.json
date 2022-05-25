@@ -5,7 +5,9 @@
   "scripts": {
     "start-server": "node ./bin/www",
     "start": "concurrently \" npm run server\" \"cd ../client && npm start",
-    "server": "node app.js"
+    "server": "node app.js",
+    "start-react": "cd ../client && npm start",
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "concurrently": "^7.2.1",
@@ -18,5 +20,8 @@
     "jade": "^0.29.0",
     "mongoose": "^6.3.4",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }
