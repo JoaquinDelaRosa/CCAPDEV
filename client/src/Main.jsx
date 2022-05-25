@@ -25,9 +25,7 @@ const Main = ({profile, setProfile}) => {
           <Route path="/settings" element={<SettingsPage profile={profile} setProfile={setProfile}/>}></Route>
           <Route path="/dangerpage" element={<DangerPage profile={profile} setProfile={setProfile}/>}></Route>
           <Route path="/upload" element={<UploadPage profile={profile}/>}> </Route>
-
-          {/* This is for api specific stuff*/}
-          <Route path='/api/user/db'></Route>
+          
       </Routes>
     </div>
   );

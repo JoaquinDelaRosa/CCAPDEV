@@ -20,7 +20,6 @@ let profiles = [{
 // TOOO: Replacre with Mongoose query
 function getProfile(queryUsername){
   let ret = {}
-  console.log(queryUsername);
   profiles.forEach((value) => {
     if (value.username === queryUsername){
       ret = value;
@@ -40,17 +39,20 @@ router.get('/', function(req, res, next) {
 router.get('/db', async function(req, res, next) {
   const users = await User.find({});
   res.send({users});
+  res.end();
 });
 
 /* POST users listing */ 
 router.post('/register', function(req, res, next) {
   // TODO: Replace with Mongoose
+
   profiles.push(req.body);
   console.log("Success");
   User.create(
     req.body,
     (error, user) => {
-      res.redirect('/')
+      if (error)
+        console.log(error);
     }
   )
   res.send({message : "Successfully added to profile" })

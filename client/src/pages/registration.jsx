@@ -35,6 +35,7 @@ function Registration(){
     }
 
     const onSubmit = (e) => {
+      console.log("Success");
       fetch(registerURL, {
         method : "POST",
         headers : {
@@ -62,7 +63,7 @@ function Registration(){
     return (
         <div className="flex justify-center items-center h-screen from-gray-900 to-bgGradient bg-gradient-to-br">
           <div className="flex max-w-fit p-8 shadow-md rounded-md bg-gray-800">
-            <form method="POST" action={registerURL} onSubmit = {onSubmit}>
+            <form method="POST" action={registerURL}>
               <span className="flex justify-center items-center text-cyan-500 select-none">
                 <h2 className="m-0.5  text-center font-sans font-extrabold w-80 "> Create a new account </h2>
               </span>
@@ -118,6 +119,7 @@ function Registration(){
                   <input type="submit" value="Create Account" disabled={isSubmitDisabled()}
                   className= {"py-1 px-5 rounded-full w-auto text-white " + 
                   (isSubmitDisabled() ? "bg-blue-200" : "bg-orange-500 hover:cursor-pointer hover:bg-orange-600")}
+                  onClick = {(e) => onSubmit(e)}
                   />
                 </Link>
               </span>
