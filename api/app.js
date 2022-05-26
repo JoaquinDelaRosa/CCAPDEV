@@ -12,6 +12,12 @@ const fileUpload = require('express-fileupload');
 
 var app = express();
 
+// mongodb
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://admin:admin@ccapdev-database.xdgjy.mongodb.net/data',
+  {useNewURLParser: true, useUnifiedTopology: true}
+);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

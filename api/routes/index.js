@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/testDB',
-{useNewURLParser: true, useUnifiedTopology: true})
 
 const fileUpload = require('express-fileupload')
 

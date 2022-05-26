@@ -54,10 +54,10 @@ function Registration(){
         })
       })
       .then((response) => {
-        response.json()}
-      )
+        return response.json()
+      })
       .then((result) => {
-        console.log(result);
+        console.log(result.message);
       })
       e.preventDefault();
     }    

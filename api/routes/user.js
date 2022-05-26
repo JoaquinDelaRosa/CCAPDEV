@@ -4,19 +4,6 @@ var bodyParser = require('body-parser');
 const app = require('../app');
 const User = require('../database/models/users');
 
-let profiles = [{
-  "id": 1,
-  "pfp": "/images/sample",
-  "name": "Andrei",
-  "username": "AChua123",
-  "password": "12345",
-  "about": "A person lurking in this website (not a bot)",
-  "gender": "Male",
-  "saves": [],
-  "posts": [],
-  "dateJoined": new Date(2022, 11, 23)
-}]
-
 // TOOO: Replacre with Mongoose query
 function getProfile(queryUsername){
   let ret = {}
@@ -44,10 +31,8 @@ router.get('/db', async function(req, res, next) {
 
 /* POST users listing */ 
 router.post('/register', function(req, res, next) {
-  // TODO: Replace with Mongoose
-
-  profiles.push(req.body);
-  console.log("Success");
+  console.log(req.body);
+  
   User.create(
     req.body,
     (error, user) => {
@@ -55,7 +40,7 @@ router.post('/register', function(req, res, next) {
         console.log(error);
     }
   )
-  res.send({message : "Successfully added to profile" })
+  res.send({message : "Successfully added to database" })
   res.end();
 })
 
@@ -73,5 +58,6 @@ router.delete('/', function(req, res, next) {
   profiles = profiles.filter((value) => {req.query.username !== value.id});
   res.send("Successfully deleted profile")
 })
+
 
 module.exports = router;

@@ -6,8 +6,8 @@
     "start-server": "node ./bin/www",
     "start": "concurrently \" npm run server\" \"cd ../client && npm start",
     "server": "node app.js",
-    "start-react": "cd ../client && npm start",
-    "dev": "nodemon app.js"
+    "start-client": "cd ../client && npm start",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "concurrently": "^7.2.1",
