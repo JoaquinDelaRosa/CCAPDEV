@@ -17,6 +17,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://admin:admin@ccapdev-database.xdgjy.mongodb.net/data',
   {useNewURLParser: true, useUnifiedTopology: true}
 );
+const connection = mongoose.connection;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

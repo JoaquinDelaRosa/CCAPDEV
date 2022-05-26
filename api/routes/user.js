@@ -4,23 +4,12 @@ var bodyParser = require('body-parser');
 const app = require('../app');
 const User = require('../database/models/users');
 
-// TOOO: Replacre with Mongoose query
-function getProfile(queryUsername){
-  let ret = {}
-  profiles.forEach((value) => {
-    if (value.username === queryUsername){
-      ret = value;
-    }
-  })
-
-  return ret;
-}
-
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  const profile = getProfile(req.query.username);
-  res.send(profile);
+router.get('/', async function(req, res, next) {
+  // Send only the first match
+  const profile = await User.find(({'username' : req.query.username}));
+  res.send(profile[0]);
 });
 
 router.get('/db', async function(req, res, next) {
