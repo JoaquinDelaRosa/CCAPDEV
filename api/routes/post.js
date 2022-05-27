@@ -18,7 +18,8 @@ router.post('/', function(req, res, next) {
   Post.create(
     req.body,
     (error, user) => {
-      res.redirect('/')
+      if (error)
+        console.log(error);
     }
   )
 })
