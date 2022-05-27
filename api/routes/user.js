@@ -12,12 +12,6 @@ router.get('/', async function(req, res, next) {
   res.send(profile[0]);
 });
 
-router.get('/db', async function(req, res, next) {
-  const users = await User.find({});
-  res.send({users});
-  res.end();
-});
-
 /* POST users listing */ 
 router.post('/register', function(req, res, next) {
   console.log(req.body);
