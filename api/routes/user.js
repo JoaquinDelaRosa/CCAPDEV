@@ -29,16 +29,13 @@ router.post('/register', function(req, res, next) {
 
 /* PATCH users listing */
 router.patch('/', function(req, res, next) {
-  // TODO: Replace with Mongoose
-  // This is incomplete
-  
+  User.updateOne({'username' : req.query.username}, req.body);
   res.send("Successfully editted profile")
 })
 
 /* DELETE users listing */
 router.delete('/', function(req, res, next) {
-  // TODO: Replace with Mongoose
-  profiles = profiles.filter((value) => {req.query.username !== value.id});
+  User.deleteOne({'username' : req.query.username});
   res.send("Successfully deleted profile")
 })
 
