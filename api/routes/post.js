@@ -6,7 +6,7 @@ const Post = require('../database/models/post');
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
-  const post = await Post.find({id : req.query.id}) 
+  const post = await Post.find({'id' : req.query.id}) 
   res.send(post);
 });
 
@@ -26,16 +26,13 @@ router.post('/', function(req, res, next) {
 
 /* PATCH users listing */
 router.patch('/', function(req, res, next) {
-  // TODO: Replace with Mongoose
-  // This is incomplete
-  
+  Post.updateOne({'id' : req.query.id}, req.body);
   res.send("Successfully editted post")
 })
 
 /* DELETE users listing */
 router.delete('/', function(req, res, next) {
-  // TODO: Replace with Mongoose
-  posts = posts.filter((value) => {req.query.username !== value.id});
+  Post.deleteOne({'id' : req.query.id});
   res.send("Successfully deleted post")
 })
 
