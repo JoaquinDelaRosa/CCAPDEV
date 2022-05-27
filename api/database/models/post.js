@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
+    id : Number,
     title : String,
     author : String,
     date : Date,
@@ -11,7 +12,7 @@ const PostSchema = new mongoose.Schema({
     downvotes : Number,
     views : Number,
     tags : Array,
-    comments: Document
+    comments: Array
 })
 
 const Post = mongoose.model('Posts', PostSchema);
