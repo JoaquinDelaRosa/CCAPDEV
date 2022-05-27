@@ -4,13 +4,33 @@ var bodyParser = require('body-parser');
 const app = require('../app');
 const Post = require('../database/models/post');
 
-/* GET users listing. */
+// Hyper Parameters
+const LIMIT = 100;
+
+
+/* GET post listing. */
+// Query params: id
 router.get('/', async function(req, res, next) {
-  const post = await Post.find({'id' : req.query.id}) 
+  const post = await Post.find(
+    {'id' : req.query.id}
+  ).sort( 
+    {'date' : 'desc' }
+  )
   res.send(post);
 });
 
-/* POST users listing */ 
+// For feed
+// Query params: limit 
+
+// Sort by: Date posted
+// Limit: 100;
+router.get('/feed', async function(req, res, next) {
+  const content = await Post.find({})
+    .sort({'datePosted' : desc})
+    .limit(LIMIT);
+});
+
+/* POST post listing */ 
 router.post('/', function(req, res, next) {
   // TODO: Replace with Mongoose
   posts.push(req.body);
@@ -24,13 +44,15 @@ router.post('/', function(req, res, next) {
   )
 })
 
-/* PATCH users listing */
+/* PATCH post listing */
+// Query params: id
 router.patch('/', function(req, res, next) {
   Post.updateOne({'id' : req.query.id}, req.body);
   res.send("Successfully editted post")
 })
 
-/* DELETE users listing */
+/* DELETE post listing */
+// Query params: id
 router.delete('/', function(req, res, next) {
   Post.deleteOne({'id' : req.query.id});
   res.send("Successfully deleted post")
