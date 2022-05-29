@@ -6,7 +6,21 @@ import { Link, useLocation, useSearchParams } from "react-router-dom";
 // TODO: Feed should fetch content from DB rather than content being hardcoded.
 //       Handle searching by title and by tag
 //       Trending tags should be fetched in DB
-const feedURL = 'http://localhost:3000/api/feed'; 
+const feedURL = 'http://localhost:3000/api/post/feed'; 
+const defaultPost = {
+  "id" : "",
+  "title": "",    
+  "author": "",
+  "date" : new Date(),
+  "mediaPath": null,
+  "mediaAlt": "",
+  "upvotes": 0,
+  "downvotes": 0,
+  "favorites": 0,
+  "views" : 0,
+  "tags" : [],
+  "comments": []
+};
 
 
 function Feed() {
@@ -14,16 +28,18 @@ function Feed() {
 
   const [searchParams, ] = useSearchParams();
   let location = useLocation(); 
+  let array = [];
 
     useEffect(
       () => { //setPostList(content) 
         const id = searchParams.get("id");
-        let data = fetch(feedURL + "?id=" + id, {
+        let data = fetch(feedURL, {
           method : "GET",
           headers : {
             'Content-type' : 'application/json'
           },
         })
+        
         .then((response) => {
           return response.json();
         })
