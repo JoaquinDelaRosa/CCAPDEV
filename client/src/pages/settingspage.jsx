@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // TO-DO:   Settings should update Profile info in the DB
+const updateURL = 'http://localhost:3000/api/user/update';
 
 function SettingsPage({profile, setProfile}){
   
@@ -17,14 +18,13 @@ function SettingsPage({profile, setProfile}){
     "dateJoined": new Date()
   });
 
-  const [oldPassword, setOldPasword] = useState("");
-  const [passwordEdited, setPasswordEdited] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [confirmOldPassword, setConfirmOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState(""); // User inputs new password
+  const [passwordEdited, setPasswordEdited] = useState(false); 
+  const [confirmNewPassword, setconfirmNewPassword] = useState(""); // User inputs new password again
+  const [confirmOldPassword, setConfirmOldPassword] = useState(""); // User inputs their old password
 
   useEffect(() => {
     setProfile(profile);
-    setOldPasword(profile["password"]);
   }, [profile, setProfile]);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function SettingsPage({profile, setProfile}){
 
   const canSubmit = () => {
     if (passwordEdited) 
-      return (confirmPassword === profile["password"]) && (oldPassword === confirmOldPassword);
+      return (confirmOldPassword === profile["password"]) && (newPassword === confirmNewPassword);
     return true;
   }
 
@@ -53,6 +53,21 @@ function SettingsPage({profile, setProfile}){
       Object.assign(profile, editted);
       setProfile(profile);
       setEditted(profile);
+      // Update DB
+      fetch(updateURL, {
+        method: "PATCH",
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(editted)
+      })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res.message);
+      })
+      event.preventDefault();
     }
   }
 
@@ -60,7 +75,7 @@ function SettingsPage({profile, setProfile}){
     <div className="h-screen bg-gray-800 text-white p-5">
       <div id="edit section" className="mb-10">
         <h1 className= "mb-4  text-left font-sans text-4xl font-bold w-80"> 
-          Edit your profile!
+          Edit Profile
         </h1>
 
         <div className="justify-start flex py-3" id="pfp-section">  
@@ -126,6 +141,7 @@ function SettingsPage({profile, setProfile}){
                     placeholder={"Change password"}
                     onChange={(e) => {
                       inputHandler("password", e.target.value);
+                      setNewPassword(e.target.value);
                         if(e.target.value === ""){
                           setPasswordEdited(false);
                         } else 
@@ -148,7 +164,7 @@ function SettingsPage({profile, setProfile}){
                 <td> 
                   <input type="password"
                     className="form-input bg-gray-100 text-left font-sans font-light w-80 rounded-sm text-black"
-                    placeholder={"Change password"}
+                    placeholder={"Old Password"}
                     onChange={(e) => {
                         setConfirmOldPassword(e.target.value);
                       }
@@ -172,7 +188,7 @@ function SettingsPage({profile, setProfile}){
                     className="form-input bg-gray-100 text-left font-sans font-light w-80 rounded-sm text-black"
                     placeholder={"Change password"}
                     onChange={(e) => {
-                        setConfirmPassword(e.target.value);
+                        setconfirmNewPassword(e.target.value);
                       }
                     }
                     required = {passwordEdited}
@@ -207,8 +223,9 @@ function SettingsPage({profile, setProfile}){
           <div id="submit">
             <input type="submit"
               value={"Save Changes"}
+              disabled={!canSubmit()}
               className= {"py-1 px-8 rounded-full w-auto text-white " + 
-              (canSubmit() ? "bg-orange-500 hover:cursor-pointer hover:bg-orange-600" : "bg-blue-200 hover:cursor-pointer hover:bg-blue-300")}
+              (canSubmit() ? "bg-orange-500 hover:cursor-pointer hover:bg-orange-600" : "bg-blue-200 hover:cursor-not-allowed")}
             />
           </div>
         </form>
