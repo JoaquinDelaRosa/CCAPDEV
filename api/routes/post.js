@@ -11,12 +11,8 @@ const LIMIT = 100;
 /* GET post listing. */
 // Query params: id
 router.get('/', async function(req, res, next) {
-  const post = await Post.find(
-    {'id' : req.query.id}
-  ).sort( 
-    {'date' : 'desc' }
-  )
-  res.send(post);
+    const post = await Post.find({ 'id': req.query.id }).sort({ 'date': 'desc' })
+    res.send(post);
 });
 
 // For feed
@@ -25,37 +21,38 @@ router.get('/', async function(req, res, next) {
 // Sort by: Date posted
 // Limit: 100;
 router.get('/feed', async function(req, res, next) {
-  const content = await Post.find({})
-    .sort({'datePosted' : desc})
-    .limit(LIMIT);
+    const content = await Post.find({})
+        .sort({ 'datePosted': 'desc' })
+        .limit(LIMIT);
+    res.send(content);
 });
 
-/* POST post listing */ 
+/* POST post listing */
 router.post('/', function(req, res, next) {
-  // TODO: Replace with Mongoose
-  posts.push(req.body);
-  res.send("Successfully added post")
-  Post.create(
-    req.body,
-    (error, user) => {
-      if (error)
-        console.log(error);
-    }
-  )
+    // TODO: Replace with Mongoose
+    posts.push(req.body);
+    res.send("Successfully added post")
+    Post.create(
+        req.body,
+        (error, user) => {
+            if (error)
+                console.log(error);
+        }
+    )
 })
 
 /* PATCH post listing */
 // Query params: id
 router.patch('/', function(req, res, next) {
-  Post.updateOne({'id' : req.query.id}, req.body);
-  res.send("Successfully editted post")
+    Post.updateOne({ 'id': req.query.id }, req.body);
+    res.send("Successfully editted post")
 })
 
 /* DELETE post listing */
 // Query params: id
 router.delete('/', function(req, res, next) {
-  Post.deleteOne({'id' : req.query.id});
-  res.send("Successfully deleted post")
+    Post.deleteOne({ 'id': req.query.id });
+    res.send("Successfully deleted post")
 })
 
 module.exports = router;

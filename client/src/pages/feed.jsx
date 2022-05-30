@@ -28,11 +28,9 @@ function Feed() {
 
   const [searchParams, ] = useSearchParams();
   let location = useLocation(); 
-  let array = [];
 
     useEffect(
-      () => { //setPostList(content) 
-        const id = searchParams.get("id");
+      () => {  
         let data = fetch(feedURL, {
           method : "GET",
           headers : {
@@ -79,6 +77,8 @@ function Feed() {
         <div id = "feed" className="w-fit pl-10 h-fit mb-5 ml-4">
           {
             postList.map(element => { 
+              if (!postList.length) return null;
+              
               return (
                 <div key ={element.id} className="flex">
                   <Postbox content={element}/>
