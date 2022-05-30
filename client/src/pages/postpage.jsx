@@ -125,7 +125,7 @@ function PostPage({postData, profile, setProfile}){
               By: {post.author}
             </p>            
             <p className="text-left font-mono"> 
-              Posted: {parseDate(post.date).toString()}
+              Posted: {parseDate(new Date(post['date']))}
             </p>
           </div>
 
@@ -214,6 +214,7 @@ function PostPage({postData, profile, setProfile}){
         <div id="comment-section" className=" w-fit h-auto px-12" >
           {
             post.comments.map( (value) => {
+              console.log(value);
               return (
                 showing &&  
                 <div className="flex border-l-4 border-l-gray-500 my-2" key={value.id}>

@@ -81,7 +81,7 @@ function Comment({ content, profile }) {
             {post.author} &nbsp; 
           </p>         
           <p className="text-left font-mono text-gray-400 inline-flex"> 
-            {parseDate(post.date)}
+            {parseDate(new Date(post['date']))}
           </p>
         </div>
         

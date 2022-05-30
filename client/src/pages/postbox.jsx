@@ -4,26 +4,31 @@ import parseDate from "../utils/date";
 
 // TODO:  Post Id should be assigned in the DB.
 
+const defaultPost = {
+  "id": "",
+  "title": "",
+  "author": "",
+  "date": new Date(),
+  "mediaPath": null,
+  "mediaAlt": "",
+  "body": "",
+  "upvotes": 0,
+  "downvotes": 0,
+  "favorites": 0,
+  "views": 0,
+  "tags" : [],
+  "comments": []
+}
+
 function Postbox({ content }) {
-    const [post, setPost] = useState({
-        "id": "",
-        "title": "",
-        "author": "",
-        "date": new Date(),
-        "mediaPath": null,
-        "mediaAlt": "",
-        "body": "",
-        "upvotes": 0,
-        "downvotes": 0,
-        "favorites": 0,
-        "views": 0,
-        "tags" : [],
-        "comments": []
-    });
+    const [post, setPost] = useState(defaultPost);
 
     useEffect(() => {
-        if (content !== undefined)
-            setPost(content);
+        if (content !== undefined) {
+          setPost(content);
+        } else {
+          setPost(defaultPost);
+        }
     }, [content]);
 
     return (
@@ -40,7 +45,7 @@ function Postbox({ content }) {
                 By: {post.author}
               </p>            
               <p className="text-left font-mono"> 
-                Posted: {parseDate(post.date).toString()}
+                Posted: {parseDate(new Date(post['date']))}
               </p>
           </div>
 
