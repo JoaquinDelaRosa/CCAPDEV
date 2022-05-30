@@ -12,31 +12,62 @@ router.get('/', async function(req, res, next) {
   res.send(profile[0]);
 });
 
+router.post('/login', async function(req, res, next) {
+  // Send only the first match
+  console.log("in backend login");
+  const profile = await User.find(({'username' : req.body.username}));
+  console.log(profile[0]);
+  res.send(profile[0]);
+  res.end();
+});
+
 /* POST users listing */ 
-router.post('/register', function(req, res, next) {
-  console.log(req.body);
-  
+router.post('/register', function(req, res, next) {  
   User.create(
     req.body,
     (error, user) => {
-      if (error)
+      if (error) {
         console.log(error);
+        res.send({message: "Failed to add to database"});
+        res.end();
+      }
+      else {
+        res.send({message : "Successfully added to database" });
+        res.end();
+      }
     }
   )
-  res.send({message : "Successfully added to database" })
-  res.end();
 })
 
 /* PATCH users listing */
-router.patch('/', function(req, res, next) {
-  User.updateOne({'username' : req.query.username}, req.body);
-  res.send("Successfully editted profile")
+router.patch('/update', function(req, res, next) {
+  User.updateOne({'username' : req.body.username}, req.body, (err) => {
+    if(err) {
+      console.log(err);
+      res.send({message: "Failed to edit profile"});
+      res.end();
+    }
+    else {
+      res.send({message: "Successfully editted profile"})
+      res.end();
+    }
+  })
 })
 
 /* DELETE users listing */
-router.delete('/', function(req, res, next) {
-  User.deleteOne({'username' : req.query.username});
-  res.send("Successfully deleted profile")
+router.delete('/delete', function(req, res, next) {
+  User.deleteOne({'username' : req.body.username})
+    .then((delRes) => {
+        if(delRes.deletedCount <= 0)
+          res.send({message: "No Account Matched in Database"})
+        else if(delRes.deletedCount === 1)
+          res.send({message: "Account Successfully Deleted"})
+        res.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log("Query Error! Failed to Execute Delete.")
+    });
 })
 
 

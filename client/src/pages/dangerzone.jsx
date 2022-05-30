@@ -1,22 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 // TODO: Handle Profile Deletion (Phase 2). Should remove profile from DB
+const deleteURL = 'http://localhost:3000/api/user/delete';
 
 function DangerPage({profile, setProfile}){
-  
-  const [editted, setEditted] = useState({
-    "id" : 0,
-    "pfp": null,
-    "name": "",
-    "username": "",
-    "password" : "",
-    "about": "",
-    "gender": "",
-    "saves": [],
-    "posts" : [],
-    "dateJoined": new Date()
-  });
-
   const [confirmPassword, setConfirmPassword] = useState("");
   const [deleted, setDeleted] = useState(false);
 
@@ -24,24 +11,29 @@ function DangerPage({profile, setProfile}){
     setProfile(profile);
   }, [profile, setProfile]);
 
-  useEffect(() => {
-    if(profile !== null){
-      setEditted(profile);
-    }
-  }, [setEditted, profile]);
-
   const canSubmit = () => {
     if (deleted) 
       return (confirmPassword === profile["password"]);
-    return true;
+    return false;
   }
 
   const handleSubmit = (event) => {
     if (canSubmit()){
+      // Fetch backend to delete profile
+      fetch(deleteURL, {
+        method: "DELETE",
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(profile)
+      })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res.message);
+      })
       event.preventDefault();
-      Object.assign(profile, editted);
-      setProfile(profile);
-      setEditted(profile);
     }
   }
 
@@ -80,7 +72,7 @@ function DangerPage({profile, setProfile}){
                 <td> 
                   <input type="password"
                     className="form-input bg-gray-100 text-left font-sans font-light w-80 rounded-sm text-black"
-                    placeholder={"Change password"}
+                    placeholder={"Confirm Password"}
                     onChange={(e) => {
                       setConfirmPassword(e.target.value);
                     }
@@ -94,9 +86,10 @@ function DangerPage({profile, setProfile}){
 
           <div id="submit" hidden={!deleted}>
             <input type="submit"
-              value={"Save Changes"}
+              value={"Delete Account"}
+              disabled ={!canSubmit()}
               className= {"py-1 px-8 rounded-full w-auto text-white " + 
-              (canSubmit() ? "bg-orange-500 hover:cursor-pointer hover:bg-orange-600" : "bg-blue-200 hover:cursor-pointer hover:bg-blue-300")}
+              (canSubmit() ? "bg-orange-500 hover:cursor-pointer hover:bg-orange-600" : "bg-blue-200 hover:cursor-not-allowed")}
             />
           </div>
         </form>

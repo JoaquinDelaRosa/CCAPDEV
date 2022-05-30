@@ -35,7 +35,6 @@ function Registration(){
     }
 
     const onSubmit = (e) => {
-      console.log("Success");
       fetch(registerURL, {
         method : "POST",
         headers : {

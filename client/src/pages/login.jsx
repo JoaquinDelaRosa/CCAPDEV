@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // TODO:    Account verification. Ensure the account exists by a query to the DB
+const loginURL = 'http://localhost:3000/api/user/login';
 
 function Login({profile, setProfile}){
-
     const defaultUserName = "ENTER USERNAME";
     const defaultPassword = "ENTER PASSWORD";
 
@@ -50,8 +50,27 @@ function Login({profile, setProfile}){
     }, [profile, setProfile])
 
     const handleLogin = (e) => {
-      if (e !== null)
-        setProfile(login);
+      console.log("handling login");
+      if (e !== null) {
+        fetch(loginURL, {
+          method : "POST",
+          headers : {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            "username": login["username"],
+            "password": login["password"]
+          })
+        })
+        .then((response) => {
+          return response.json()
+        })
+        .then((result) => {
+          console.log(result);
+          setProfile(result);
+        })
+        e.preventDefault();
+      }
     }
 
     return (
