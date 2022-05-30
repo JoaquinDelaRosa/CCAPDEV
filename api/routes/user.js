@@ -12,6 +12,15 @@ router.get('/', async function(req, res, next) {
   res.send(profile[0]);
 });
 
+router.post('/login', async function(req, res, next) {
+  // Send only the first match
+  console.log("in backend login");
+  const profile = await User.find(({'username' : req.body.username}));
+  console.log(profile[0]);
+  res.send(profile[0]);
+  res.end();
+});
+
 /* POST users listing */ 
 router.post('/register', function(req, res, next) {  
   User.create(
@@ -47,7 +56,7 @@ router.patch('/update', function(req, res, next) {
 
 /* DELETE users listing */
 router.delete('/delete', function(req, res, next) {
-  User.deleteOne({'username' : req.query.username})
+  User.deleteOne({'username' : req.body.username})
     .then((delRes) => {
         if(delRes.deletedCount <= 0)
           res.send({message: "No Account Matched in Database"})
