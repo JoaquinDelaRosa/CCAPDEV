@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // TODO:    Account verification. Ensure the account exists by a query to the DB
 const loginURL = 'http://localhost:3000/api/user/login';
@@ -7,6 +7,7 @@ const loginURL = 'http://localhost:3000/api/user/login';
 function Login({profile, setProfile}){
     const defaultUserName = "ENTER USERNAME";
     const defaultPassword = "ENTER PASSWORD";
+    const navigation = useNavigate();
 
     const [login, setLogin] = useState({
       "username" : defaultUserName, 
@@ -69,6 +70,9 @@ function Login({profile, setProfile}){
           console.log(result);
           setProfile(result);
         })
+        .then(() => {
+          navigation('./');
+        })
         e.preventDefault();
       }
     }
@@ -102,13 +106,11 @@ function Login({profile, setProfile}){
             <InvalidInput />
 
             <span className="pt-1 flex justify-center items-center">
-              <Link to={"/"}>
                 <input type="submit" value="Log In" disabled={isSubmitDisabled()}
                   className= {"py-1 px-8 rounded-full w-auto text-white " + 
                   (isSubmitDisabled() ? "bg-blue-200" : "bg-orange-500 hover:cursor-pointer hover:bg-orange-600")}
                   onSubmit={(e) => handleLogin(e)}
                 />
-              </Link>
             </span>
             
             <br/>

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TagLabel from "./taglabel";
 
 // TO-DO:     New post should be added to the DB.
 
 function UploadPage({profile}){
   const reader = new FileReader();
+  const navigation = useNavigate();
 
   const [post, setPost] = useState({
     "id" : "",
@@ -44,6 +45,15 @@ function UploadPage({profile}){
   const canPost = (() =>{
     return profile !== null && post.body.length > 5 && post.title.length > 5 && post.mediaPath !== null;
   })
+
+  const onSubmit = (e) => {
+    inputHandler("author", profile["username"]);
+    inputHandler("id", Math.random() * 2 << 64 - 1);
+
+
+    navigation('/');
+    e.preventDefault();
+  };
 
   return (
     <div className="py-3 px-4 bg-gray-800 text-white min-h-screen" id="upload-page">
@@ -127,20 +137,13 @@ function UploadPage({profile}){
             />
 
             <span className="pt-1 flex justify-start items-center">
-              <Link to={"/"}>
                 <input type="submit" value="Post!" disabled={!canPost()}
                   className= {"py-1 px-8 rounded-full w-auto font-mono  text-2xl font-semibold hover:cursor-pointer text-white " + 
                   (canPost() ? "bg-blue-200" : "bg-orange-500 " +
                   (canPost() ? "hover:bg-blue-400" : "hover:bg-orange-600"))}
 
-                onClick ={
-                  () => {
-                    inputHandler("author", profile["username"]);
-                    inputHandler("id", Math.random() * 2 << 64 - 1);
-                  }
-                }
+                onClick = {(e) => (onSubmit(e))}
                 />
-              </Link>
             </span>
 
         </form>
