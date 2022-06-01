@@ -11,7 +11,7 @@ const PostSchema = new mongoose.Schema({
     upvotes : Number,
     downvotes : Number,
     views : Number,
-    tags : Array,
+    tags : [String],
     comments: Array
 })
 

@@ -15,6 +15,18 @@ router.get('/', async function(req, res, next) {
     res.send(post);
 });
 
+// Body params: tags, name, 
+router.get('/search', async function(req, res, next) {
+    const post = await Post
+        .find({
+            'title' : {$regex : '.*' + req.body.name + '.*'} ,
+            'tags' : {$all : req.body.tags}
+        })
+        .sort({ 'date': 'desc' })
+        .limit(LIMIT)
+    res.send(post);
+})
+
 // For feed
 // Query params: limit 
 
