@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from "react";
 import parseDate from "../utils/date";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
+import defaultProfile from "../utils/defaultProfile";
 
 // TO-DO:   Posts should be fetched rather than hardcoded.
 
 const userURL = 'http://localhost:3000/api/user';
-const defaultProfile = {
-  "pfp": null,
-  "email": "",
-  "username": "",
-  "password": "",
-  "about": "",
-  "gender": "",
-  "saves": [],
-  "posts" : [],
-  "dateJoined": new Date()
-};
 
 function Profile(){
   
@@ -100,6 +90,7 @@ function Profile(){
         {
           props.postList.map(element => {
             return (
+              element && element.date && element.id && 
               <Link to="../feed" className="border-b border-b-blue-200 pb-2 mb-2 flex items-start py-1 text-wText" key = {element.id} id={element.id + props.type}>
                 <span className="pr-3" id={element.id + "image" + props.type}>
                   <img src={element.mediaPath} alt={element.mediaAlt} className="w-16 h-16 rounded-sm" id={element.id + "img" + props.type}></img>
@@ -124,7 +115,7 @@ function Profile(){
         <div className="justify-center flex pt-3 pb-1" id="pfp-section">  
           <span className="mt-3 w-32 h-32">
             <img 
-                src={"../src" + profile["pfp"] + ".png"} 
+                src={profile["pfp"]} 
                 alt={profile["username"] + "'s profile picture"}
                 className = "w-full h-full object-cover rounded-full overflow-hidden hover:opacity-80 hover:cursor-pointer"
             />

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
+import defaultProfile from "../utils/defaultProfile";
 
 // TO-DO:   Settings should update Profile info in the DB
 const updateURL = 'http://localhost:3000/api/user/update';
+const userURL = 'http://localhost:3000/api/user';
 
-function SettingsPage({profile, setProfile}){
+function SettingsPage(){
   
+  const [profile, setProfile] = useState(defaultProfile);
   const reader = new FileReader();
   const [editted, setEditted] = useState({
     "pfp": null,
@@ -23,9 +27,36 @@ function SettingsPage({profile, setProfile}){
   const [confirmNewPassword, setconfirmNewPassword] = useState(""); // User inputs new password again
   const [confirmOldPassword, setConfirmOldPassword] = useState(""); // User inputs their old password
 
+  
+  const [searchParams, ] = useSearchParams();
+  let location = useLocation(defaultProfile);
+
   useEffect(() => {
-    setProfile(profile);
-  }, [profile, setProfile]);
+    const username = searchParams.get("username");
+      let data = fetch(userURL + "?username=" + username, {
+        method : "GET",
+        headers : {
+          'Content-type': 'application/json'
+        },
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        console.log("Error in retrieving profile information");
+      });
+
+      if (data) {
+        data.then( (profileData) => {
+          if (profileData) {
+            setProfile(profileData);
+          } else{
+            setProfile(defaultProfile);
+          }
+        });
+      }
+    }
+  , [location.search, searchParams]);
 
   useEffect(() => {
     if(profile !== null){
@@ -50,11 +81,13 @@ function SettingsPage({profile, setProfile}){
   const handleSubmit = (event) => {
     if (canSubmit()){
       event.preventDefault();
+      const query = updateURL + "?username=" + profile.username
+      
       Object.assign(profile, editted);
       setProfile(profile);
       setEditted(profile);
       // Update DB
-      fetch(updateURL, {
+      fetch(query, {
         method: "PATCH",
         headers: {
           'Content-type': 'application/json'

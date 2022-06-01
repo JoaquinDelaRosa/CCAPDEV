@@ -1,15 +1,45 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
+import defaultProfile from "../utils/defaultProfile";
 
 // TODO: Handle Profile Deletion (Phase 2). Should remove profile from DB
 const deleteURL = 'http://localhost:3000/api/user/delete';
+const userURL = 'http://localhost:3000/api/user';
 
-function DangerPage({profile, setProfile}){
+function DangerPage(){
+  const [profile, setProfile] = useState(defaultProfile);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [deleted, setDeleted] = useState(false);
 
+  const [searchParams, ] = useSearchParams();
+  let location = useLocation(defaultProfile);
+
   useEffect(() => {
-    setProfile(profile);
-  }, [profile, setProfile]);
+    const username = searchParams.get("username");
+      let data = fetch(userURL + "?username=" + username, {
+        method : "GET",
+        headers : {
+          'Content-type': 'application/json'
+        },
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        console.log("Error in retrieving profile information");
+      });
+
+      if (data) {
+        data.then( (profileData) => {
+          if (profileData) {
+            setProfile(profileData);
+          } else{
+            setProfile(defaultProfile);
+          }
+        });
+      }
+    }
+  , [location.search, searchParams]);
 
   const canSubmit = () => {
     if (deleted) 
@@ -20,7 +50,7 @@ function DangerPage({profile, setProfile}){
   const handleSubmit = (event) => {
     if (canSubmit()){
       // Fetch backend to delete profile
-      fetch(deleteURL, {
+      fetch(deleteURL + "?username=" + profile["username"], {
         method: "DELETE",
         headers: {
           'Content-type': 'application/json'

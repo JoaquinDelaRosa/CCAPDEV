@@ -41,7 +41,7 @@ router.post('/register', function(req, res, next) {
 
 /* PATCH users listing */
 router.patch('/update', function(req, res, next) {
-  User.updateOne({'username' : req.body.username}, req.body, (err) => {
+  User.updateOne({'username' : req.query.username}, req.body, (err) => {
     if(err) {
       console.log(err);
       res.send({message: "Failed to edit profile"});
@@ -56,7 +56,7 @@ router.patch('/update', function(req, res, next) {
 
 /* DELETE users listing */
 router.delete('/delete', function(req, res, next) {
-  User.deleteOne({'username' : req.body.username})
+  User.deleteOne({'username' : req.query.username})
     .then((delRes) => {
         if(delRes.deletedCount <= 0)
           res.send({message: "No Account Matched in Database"})
