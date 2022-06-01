@@ -10,4 +10,4 @@ const defaultProfile = {
     "dateJoined": new Date()
   };
 
-  module.exports = defaultProfile;
+export default defaultProfile;

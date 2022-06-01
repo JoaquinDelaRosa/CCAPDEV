@@ -7,24 +7,11 @@ import { Link, useLocation, useSearchParams } from "react-router-dom";
 //       Handle searching by title and by tag
 //       Trending tags should be fetched in DB
 const feedURL = 'http://localhost:3000/api/post/feed'; 
-const defaultPost = {
-  "id" : "",
-  "title": "",    
-  "author": "",
-  "date" : new Date(),
-  "mediaPath": null,
-  "mediaAlt": "",
-  "upvotes": 0,
-  "downvotes": 0,
-  "favorites": 0,
-  "views" : 0,
-  "tags" : [],
-  "comments": []
-};
+
 
 
 function Feed() {
-  const [postList, setPostList] = useState([defaultPost]);
+  const [postList, setPostList] = useState([]);
 
   const [searchParams, ] = useSearchParams();
   let location = useLocation(); 
@@ -50,7 +37,7 @@ function Feed() {
             if (postData) {
               setPostList(postData);
             } else{
-              setPostList(defaultPost);
+              setPostList([]);
             }
           });
         }
@@ -58,7 +45,7 @@ function Feed() {
       [location.search, searchParams]);
 
   return (
-    <div className="pt-2 bg-gray-800 text-white">
+    <div className="pt-2 bg-gray-800 text-white h-screen">
       <div className="flex w-full text-black px-10 pt-5">
         <input type="search" 
           className="w-5/6"
@@ -85,8 +72,6 @@ function Feed() {
                 </div>
               )}
             )
-            
-            // <List input={postList} />
           }
         </div>
 
