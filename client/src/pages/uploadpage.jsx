@@ -58,6 +58,7 @@ function UploadPage({profile}){
   })
 
   const onSubmit = (e) => {
+    // TODO: Make this more efficient by using a multi-part upload rather than a JSON.
       fetch(postURL, {
       method : "POST",
       headers : {
