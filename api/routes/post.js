@@ -12,7 +12,7 @@ const LIMIT = 100;
 // Query params: id
 router.get('/', async function(req, res, next) {
     const post = await Post.find({ 'id': req.query.id }).sort({ 'date': 'desc' })
-    res.send(post);
+    res.json(post);
 });
 
 // Body params: tags, name, 
@@ -36,24 +36,21 @@ router.get('/feed', async function(req, res, next) {
     const content = await Post.find({})
         .sort({ 'datePosted': 'desc' })
         .limit(LIMIT);
-    res.send(content);
+    console.log(content);
+    res.json(content);
 });
 
 /* POST post listing */
 router.post('/upload', function(req, res, next) {
-    console.log(req.body);
-    Post.create(
-        req.body,
-        (error, user) => {
-            if (error) {
-                res.send({message: "Failed to add post"})
-                res.end();
-            } else {
-                res.send({message : "Successfully added to database" });
-                res.end();
-            }
-        }
-    )
+    const {image} = req.files;
+    image.mv(path.resolve(__dirname,'public/images',image.name),(error) => {
+        Post.create({
+            ...req.body,
+            mediaPath:'/images/'+image.name
+        }, (error,post) => {
+            console.log(image.name)
+        })
+    })
 })
 
 /* PATCH post listing */

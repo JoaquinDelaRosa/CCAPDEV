@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start-server": "node ./bin/www",
-    "start": "concurrently \" npm run server\" \"cd ../client && npm start",
-    "server": "node app.js",
-    "start-client": "cd ../client && npm start",
+    "start": "concurrently \" npm run server\" \"cd ../client && npm start \"",
+    "server": "nodemon app.js --ignore client",
+    "start-client": "cd ../client && npm star",
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {

@@ -5,7 +5,7 @@ import defaultProfile from "../utils/defaultProfile";
 
 // TO-DO:   Posts should be fetched rather than hardcoded.
 
-const userURL = 'http://localhost:3000/api/user';
+const userURL = '/api/user';
 
 function Profile(){
   

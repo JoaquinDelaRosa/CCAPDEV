@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TagLabel from "./taglabel";
 
-const postURL = 'http://localhost:3000/api/post/upload';
+const postURL = '/api/post/upload';
 
 function UploadPage({profile}){
   const reader = new FileReader();
@@ -58,8 +58,7 @@ function UploadPage({profile}){
   })
 
   const onSubmit = (e) => {
-    console.log(JSON.parse(JSON.stringify(post)));
-    fetch(postURL, {
+      fetch(postURL, {
       method : "POST",
       headers : {
         'Content-type': 'application/json'
@@ -69,7 +68,7 @@ function UploadPage({profile}){
         "title": post.title,    
         "author": post.author,
         "date" : post.date,
-        //"mediaPath": post.mediaPath,
+        "mediaPath": post.mediaPath,
         "mediaAlt": post.mediaAlt,
         "body": post.body,
         "upvotes": post.upvotes,

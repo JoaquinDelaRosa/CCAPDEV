@@ -3,8 +3,8 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import defaultProfile from "../utils/defaultProfile";
 
 // TO-DO:   Settings should update Profile info in the DB
-const updateURL = 'http://localhost:3000/api/user/update';
-const userURL = 'http://localhost:3000/api/user';
+const updateURL = '/api/user/update';
+const userURL = '/api/user';
 
 function SettingsPage(){
   

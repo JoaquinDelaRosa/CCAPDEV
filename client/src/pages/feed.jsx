@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Postbox from "./postbox";
 import TagLabel from "./taglabel";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 // TODO: Feed should fetch content from DB rather than content being hardcoded.
 //       Handle searching by title and by tag
 //       Trending tags should be fetched in DB
-const feedURL = 'http://localhost:3000/api/post/feed'; 
+const feedURL = '/api/post/feed'; 
 
 
 
@@ -26,10 +26,12 @@ function Feed() {
         })
         
         .then((response) => {
-          return response.json();
+          if (response) {
+            return response.json();
+          }
         })
         .catch((error) => {
-          console.log("Error in retrieving posts")
+          console.log("Error in retrieving posts" + error)
         });
         
         if (data) {
@@ -45,7 +47,7 @@ function Feed() {
       [location.search, searchParams]);
 
   return (
-    <div className="pt-2 bg-gray-800 text-white min-h-screen">
+    <div className="pt-2 bg-gray-800 text-white min-h-screen min-w-full">
       <div className="flex w-full text-black px-10 pt-5">
         <input type="search" 
           className="w-5/6"

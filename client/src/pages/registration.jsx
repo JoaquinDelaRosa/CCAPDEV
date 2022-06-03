@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 //  TO-DO:    Registration should add to the DB
 
-const registerURL = 'http://localhost:3000/api/user/register';
+const registerURL = '/api/user/register';
 
 function Registration(){
 

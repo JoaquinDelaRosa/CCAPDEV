@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var postRouter = require('./routes/post');
 var cors = require("cors");
@@ -31,7 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 app.use(cors());
 
-app.use('/', indexRouter);
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 

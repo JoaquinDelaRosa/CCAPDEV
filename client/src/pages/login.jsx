@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // TODO:    Account verification. Ensure the account exists by a query to the DB
-const loginURL = 'http://localhost:3000/api/user/login';
+const loginURL = '/api/user/login';
 
 function Login({profile, setProfile}){
     const defaultUserName = "ENTER USERNAME";
