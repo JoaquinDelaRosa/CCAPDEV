@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TagLabel from "./taglabel";
 
-// TO-DO:     New post should be added to the DB.
+const postURL = 'http://localhost:3000/api/post/upload';
 
 function UploadPage({profile}){
   const reader = new FileReader();
@@ -18,10 +18,21 @@ function UploadPage({profile}){
     "body": "",
     "upvotes": 0,
     "downvotes": 0,
+    "favorites" : 0,
     "views" : 0,
     "tags" : [],
     "comments": []
   });
+
+  useEffect( (profile) => {
+    if (profile)
+      post.author = profile["username"];
+    else 
+      post.author = "Anonymous"
+
+    post.id = Math.random() * (1 << 32 - 1);
+    setPost(post);
+  }, [post])
     
   const inputHandler = (name, value) => {
     setPost( values => ({...values, [name] : value}))
@@ -47,11 +58,40 @@ function UploadPage({profile}){
   })
 
   const onSubmit = (e) => {
-    inputHandler("author", profile["username"]);
-    inputHandler("id", Math.random() * 2 << 64 - 1);
-
-
-    navigation('/');
+    console.log(JSON.parse(JSON.stringify(post)));
+    fetch(postURL, {
+      method : "POST",
+      headers : {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        "id" : post.id,
+        "title": post.title,    
+        "author": post.author,
+        "date" : post.date,
+        //"mediaPath": post.mediaPath,
+        "mediaAlt": post.mediaAlt,
+        "body": post.body,
+        "upvotes": post.upvotes,
+        "downvotes": post.downvotes,
+        "favorites" : post.favorites,
+        "views" : post.views,
+        "tags" : post.tags,
+        "comments": post.comments
+      })
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      console.log(result.message);
+    })
+    .then(() => {
+      navigation('/');
+    })
+    .catch((error) => {
+      console.log("Error in Uploading the Post\n" + error);
+    })
     e.preventDefault();
   };
 
@@ -65,8 +105,7 @@ function UploadPage({profile}){
 
       <div id ="body" className="my-3 px-4 h-full">
         {/* Submission proper will be handled in the backend / phase 2. It's more convenient that way. */ }
-          <form className="w-full h-full"
-          >
+          <form className="w-full h-full" method="POST" action={postURL} >
             <input type="text" id="post-title"
             className="w-full h-fit mb-1 text-lg font-mono bg-slate-50 overflow-hidden resize-none text-black"
             onChange={(e) => {

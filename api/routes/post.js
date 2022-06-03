@@ -40,15 +40,18 @@ router.get('/feed', async function(req, res, next) {
 });
 
 /* POST post listing */
-router.post('/', function(req, res, next) {
-    // TODO: Replace with Mongoose
-    posts.push(req.body);
-    res.send("Successfully added post")
+router.post('/upload', function(req, res, next) {
+    console.log(req.body);
     Post.create(
         req.body,
         (error, user) => {
-            if (error)
-                console.log(error);
+            if (error) {
+                res.send({message: "Failed to add post"})
+                res.end();
+            } else {
+                res.send({message : "Successfully added to database" });
+                res.end();
+            }
         }
     )
 })

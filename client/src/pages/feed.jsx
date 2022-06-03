@@ -45,7 +45,7 @@ function Feed() {
       [location.search, searchParams]);
 
   return (
-    <div className="pt-2 bg-gray-800 text-white h-screen">
+    <div className="pt-2 bg-gray-800 text-white min-h-screen">
       <div className="flex w-full text-black px-10 pt-5">
         <input type="search" 
           className="w-5/6"

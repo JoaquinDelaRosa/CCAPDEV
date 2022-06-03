@@ -10,6 +10,7 @@ const PostSchema = new mongoose.Schema({
     body : String,
     upvotes : Number,
     downvotes : Number,
+    favorites :  Number,
     views : Number,
     tags : [String],
     comments: Array
