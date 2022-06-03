@@ -80,10 +80,10 @@ function UploadPage({profile}){
       })
     })
     .then((response) => {
-      return response.json()
+      return response.text();
     })
     .then((result) => {
-      console.log(result.message);
+      console.log(result);
     })
     .then(() => {
       navigation('/');

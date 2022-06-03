@@ -36,21 +36,26 @@ router.get('/feed', async function(req, res, next) {
     const content = await Post.find({})
         .sort({ 'datePosted': 'desc' })
         .limit(LIMIT);
-    console.log(content);
     res.json(content);
 });
 
 /* POST post listing */
 router.post('/upload', function(req, res, next) {
-    const {image} = req.files;
-    image.mv(path.resolve(__dirname,'public/images',image.name),(error) => {
-        Post.create({
-            ...req.body,
-            mediaPath:'/images/'+image.name
-        }, (error,post) => {
-            console.log(image.name)
-        })
-    })
+    console.log(req.body)
+    Post.create(
+        req.body,
+        (error, user) => {
+          if (error) {
+            console.log(error);
+            res.send({message: "Failed to add to database"});
+            res.end();
+          }
+          else {
+            res.send({message : "Successfully added to database" });
+            res.end();
+          }
+        }
+      )
 })
 
 /* PATCH post listing */

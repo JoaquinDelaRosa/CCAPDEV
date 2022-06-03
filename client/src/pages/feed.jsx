@@ -65,11 +65,11 @@ function Feed() {
       <div className="flex flex-auto">
         <div id = "feed" className="w-fit pl-10 h-fit mb-5 ml-4">
           {
-            postList.map(element => { 
+            postList.map((element, index) => { 
               if (!postList.length) return null;
               
               return (
-                <div key ={element.id} className="flex">
+                <div key ={index} className="flex">
                   <Postbox content={element}/>
                 </div>
               )}
