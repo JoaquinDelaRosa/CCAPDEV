@@ -58,10 +58,10 @@ function Registration(){
         return response.json()
       })
       .then((result) => {
-        console.log(result.message);
-      })
-      .then(() => {
-        navigation('/');
+        alert(result.message);
+        navigation('../feed');
+      }, (err) => {
+        alert("Invalid Registration!");
       })
       e.preventDefault();
     }    

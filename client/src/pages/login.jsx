@@ -67,11 +67,10 @@ function Login({profile, setProfile}){
           return response.json()
         })
         .then((result) => {
-          console.log(result);
           setProfile(result);
-        })
-        .then(() => {
-          navigation('./');
+          navigation('../feed');
+        }, (err) => {
+          alert("Username or Password is incorrect");
         })
         e.preventDefault();
       }
@@ -109,7 +108,7 @@ function Login({profile, setProfile}){
                 <input type="submit" value="Log In" disabled={isSubmitDisabled()}
                   className= {"py-1 px-8 rounded-full w-auto text-white " + 
                   (isSubmitDisabled() ? "bg-blue-200" : "bg-orange-500 hover:cursor-pointer hover:bg-orange-600")}
-                  onSubmit={(e) => handleLogin(e)}
+                  onClick={(e) => handleLogin(e)}
                 />
             </span>
             

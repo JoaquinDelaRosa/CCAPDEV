@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import defaultProfile from "../utils/defaultProfile";
 
 // TODO: Handle Profile Deletion (Phase 2). Should remove profile from DB
@@ -13,10 +13,11 @@ function DangerPage(){
 
   const [searchParams, ] = useSearchParams();
   let location = useLocation(defaultProfile);
+  const navigation = useNavigate();
 
   useEffect(() => {
     const username = searchParams.get("username");
-      let data = fetch(userURL + "?username=" + username, {
+      let data = fetch(userURL + "?username=" + username, { // Careful! This URL search pattern is highly coupled to Danger Zone Navbar.
         method : "GET",
         headers : {
           'Content-type': 'application/json'
@@ -61,7 +62,10 @@ function DangerPage(){
         return res.json();
       })
       .then((res) => {
-        console.log(res.message);
+        alert(res.message);  
+      })
+      .then(() => {
+        navigation('../feed');
       })
       event.preventDefault();
     }

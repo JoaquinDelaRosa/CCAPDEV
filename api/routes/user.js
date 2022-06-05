@@ -15,9 +15,13 @@ router.get('/', async function(req, res, next) {
 router.post('/login', async function(req, res, next) {
   // Send only the first match
   console.log("in backend login");
-  const profile = await User.find(({'username' : req.body.username}));
-  console.log(profile[0]);
-  res.send(profile[0]);
+  const profile = await User.find({
+      $and: [
+        {'username': req.body.username},
+        {'password': req.body.password}
+      ]
+    });
+  res.json(profile[0]);
   res.end();
 });
 

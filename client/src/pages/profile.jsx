@@ -9,15 +9,18 @@ const userURL = '/api/user';
 
 function Profile(){
   
+  console.log("Making Profile Default");
   const [profile, setProfile] = useState(defaultProfile);
   
   const [searchParams, ] = useSearchParams();
   let location = useLocation(defaultProfile);
-  
+
   useEffect(
     () => {
+      console.log("Current Profile:");
+      console.log(profile);
       const username = searchParams.get("username");
-      let data = fetch(userURL + "?username=" + username, {
+      let data = fetch(userURL + "?username=" + username, { // Careful! This URL search pattern is highly coupled to Profile Navbar, Settings Button in Profile, and handleSubmit in settingspage.jsx.
         method : "GET",
         headers : {
           'Content-type': 'application/json'
@@ -109,7 +112,7 @@ function Profile(){
   return (
     <div className="flex flex-auto p-8 bg-gray-800 text-white h-screen" id="main">
       <div className="max-w-[25%] w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="left-box">
-        <Link to="../settings" className="absolute pl-2">
+        <Link to={"../settings?username=" + profile.username} className="absolute pl-2">
           &#9965;
         </Link>
         <div className="justify-center flex pt-3 pb-1" id="pfp-section">  

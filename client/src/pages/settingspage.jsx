@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import defaultProfile from "../utils/defaultProfile";
 
 // TO-DO:   Settings should update Profile info in the DB
@@ -10,6 +10,7 @@ function SettingsPage(){
   
   const [profile, setProfile] = useState(defaultProfile);
   const reader = new FileReader();
+  const navigation = useNavigate();
   const [editted, setEditted] = useState({
     "pfp": null,
     "email" : "",
@@ -83,9 +84,6 @@ function SettingsPage(){
       event.preventDefault();
       const query = updateURL + "?username=" + profile.username
       
-      Object.assign(profile, editted);
-      setProfile(profile);
-      setEditted(profile);
       // Update DB
       fetch(query, {
         method: "PATCH",
@@ -98,7 +96,13 @@ function SettingsPage(){
         return res.json();
       })
       .then((res) => {
-        console.log(res.message);
+        alert(res.message);
+        Object.assign(profile, editted); // if successful, set the current profile to the editted one
+        setProfile(profile);
+        setEditted(profile);
+        navigation('../settings?username=' + profile.username); // highly coupled to profile url syntax
+      }, (err) => {
+        alert("An Error Occured During Profile Change");
       })
       event.preventDefault();
     }
