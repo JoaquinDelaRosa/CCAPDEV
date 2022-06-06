@@ -61,15 +61,33 @@ router.post('/upload', function(req, res, next) {
 /* PATCH post listing */
 // Query params: id
 router.patch('/', function(req, res, next) {
-    Post.updateOne({ 'id': req.query.id }, req.body);
-    res.send("Successfully editted post")
+    Post.updateOne({ 'id': req.query.id }, req.body, (err) => {
+        if (err){
+            console.log(err);
+            res.send({message: "Failed to edit profile"});
+            res.end();
+        } else {
+            res.send({message: "Successfully editted profile"})
+            res.end();
+        }
+    });
 })
 
 /* DELETE post listing */
 // Query params: id
 router.delete('/', function(req, res, next) {
-    Post.deleteOne({ 'id': req.query.id });
-    res.send("Successfully deleted post")
+    Post.deleteOne({ 'id': req.query.id })
+    .then((delRes) => {
+        if(delRes.deletedCount <= 0)
+          res.send({message: "No Post Matched in Database"})
+        else if(delRes.deletedCount === 1)
+          res.send({message: "Post Successfully Deleted"})
+        res.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log("Query Error! Failed to Execute Delete.")
+    });;
 })
 
 module.exports = router;
