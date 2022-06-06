@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import defaultProfile from "../utils/defaultProfile";
 
-// TODO: Handle Profile Deletion (Phase 2). Should remove profile from DB
-const deleteURL = 'http://localhost:3000/api/user/delete';
-const userURL = 'http://localhost:3000/api/user';
+const deleteURL = '/api/user/delete';
+const userURL = '/api/user';
 
 function DangerPage(){
   const [profile, setProfile] = useState(defaultProfile);
@@ -17,7 +16,7 @@ function DangerPage(){
 
   useEffect(() => {
     const username = searchParams.get("username");
-      let data = fetch(userURL + "?username=" + username, { // Careful! This URL search pattern is highly coupled to Danger Zone Navbar.
+      let data = fetch(userURL + "?username=" + username, { 
         method : "GET",
         headers : {
           'Content-type': 'application/json'
@@ -50,7 +49,6 @@ function DangerPage(){
 
   const handleSubmit = (event) => {
     if (canSubmit()){
-      // Fetch backend to delete profile
       fetch(deleteURL + "?username=" + profile["username"], {
         method: "DELETE",
         headers: {

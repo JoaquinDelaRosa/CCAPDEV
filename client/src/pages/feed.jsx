@@ -8,8 +8,6 @@ import { useLocation, useSearchParams } from "react-router-dom";
 //       Trending tags should be fetched in DB
 const feedURL = '/api/post/feed'; 
 
-
-
 function Feed() {
   const [postList, setPostList] = useState([]);
 

@@ -97,7 +97,7 @@ function SettingsPage(){
       })
       .then((res) => {
         alert(res.message);
-        Object.assign(profile, editted); // if successful, set the current profile to the editted one
+        Object.assign(profile, editted); 
         setProfile(profile);
         setEditted(profile);
         navigation('../settings?username=' + profile.username); // highly coupled to profile url syntax

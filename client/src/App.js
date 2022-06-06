@@ -3,8 +3,6 @@ import './App.css';
 import Navbar from './pages/navbar';
 import { useEffect, useState } from 'react';
 
-import {p} from '../src/pages/placeholder' // import placeholder data
-
 
 const placeHolder = {
   "pfp": require("../src/images/sample.png"),
@@ -13,8 +11,8 @@ const placeHolder = {
   "password": "12345",
   "about": "A person lurking in this website (not a bot)",
   "gender": "Male",
-  "saves": p.map((x) => x),                // TO-DO store post id's associated with this user's favorite saves.
-  "posts": p.map((x) => x),
+  "saves": [],                // TO-DO store post id's associated with this user's favorite saves.
+  "posts": [],
   "dateJoined": new Date(),
 }
 

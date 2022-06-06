@@ -20,7 +20,7 @@ function Profile(){
       console.log("Current Profile:");
       console.log(profile);
       const username = searchParams.get("username");
-      let data = fetch(userURL + "?username=" + username, { // Careful! This URL search pattern is highly coupled to Profile Navbar, Settings Button in Profile, and handleSubmit in settingspage.jsx.
+      let data = fetch(userURL + "?username=" + username, { 
         method : "GET",
         headers : {
           'Content-type': 'application/json'
@@ -43,10 +43,10 @@ function Profile(){
         });
       }
     }
-  , [location.search, searchParams]);
+  , [location.search, profile, searchParams]);
 
-  function SortByDate({postList, type}) { // props: array[post]
-    // This function returns two buttons that sort the given array to asc or desc
+  function SortByDate({postList, type}) { 
+    // This function returns two buttons that sort the given array in ascending or descending order
     return (
       <span>
         {/* ASCENDING */}
@@ -80,7 +80,7 @@ function Profile(){
     )
   }
 
-  function ShowPosts(props) { // props: object[post]
+  function ShowPosts(props) {
     if(!props || !props.postList || props.postList.length === 0)
       return (
         <span className="flex justify-center items-center">
