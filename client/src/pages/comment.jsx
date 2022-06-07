@@ -11,9 +11,9 @@ function Comment({ content, profile }) {
     "mediaPath": null,
     "mediaAlt": "",
     "body": "",
-    "upvotes": 0,
-    "downvotes": 0,
-    "views" : 0,
+    "upvotes": [],
+    "downvotes": [],
+    "views" : [],
     "comments": []
   });
   const [showing, setShowing] = useState(false);
@@ -49,12 +49,22 @@ function Comment({ content, profile }) {
   )
 
   const handleUpvote = () => {
-    if (upvoted)
-      setPost( values => ({...values, "upvotes" : post.upvotes - 1}))
+    console.log(post.upvotes);
+    if (upvoted) {
+      post.upvotes.push("");
+      setPost( values => ({...values,
+        "upvotes" : post.upvotes
+      }))
+    }
     else {
-      setPost( values => ({...values, "upvotes" : post.upvotes + 1}))
-      if (downvoted)
-        setPost( values => ({...values, "downvotes" : post.downvotes -1}))
+      post.upvotes.push("");
+      setPost( values => ({...values, 
+        "upvotes" : post.upvotes}
+      ))
+      if (downvoted) 
+        setPost( values => ({...values, 
+        "downvotes" : post.downvotes.filter((val) => {return true;})
+      }))
     }
 
     setDownVoted(false);
@@ -62,17 +72,27 @@ function Comment({ content, profile }) {
   }
 
   const handleDownvotes = () => {
-    if (downvoted)
-      setPost( values => ({...values, "downvotes" : post.downvotes - 1}))
+    if (downvoted) {
+      post.downvotes.push("");
+      setPost( values => ({...values, 
+        "downvotes" : post.downvotes
+      }))
+    }
     else {
-      setPost( values => ({...values, "downvotes" : post.downvotes + 1}))
+      post.downvotes.push("");
+      setPost( values => ({...values, 
+        "downvotes" : post.downvotes
+      }))
       if (upvoted)
-        setPost( values => ({...values, "upvotes" : post.upvotes -1}))
+        setPost( values => ({...values, 
+          "upvotes" : post.upvotes.filter(((value) => {return true}))}
+        ))
     }
 
     setUpvoted(false);
     setDownVoted(!downvoted);
   }
+
   return (
     <div className="pl-4 w-full">
       <div id="comment-box" className="w-full h-auto">
@@ -120,7 +140,7 @@ function Comment({ content, profile }) {
               className={"w-fit mr-3 hover:cursor-pointer text-green-700 text-xl hover:text-green-500 " 
               + (upvoted ? "font-extrabold" : "font-bold")}
               onClick={(e) => {handleUpvote()}}
-              value={(upvoted ? "▲" : "△") + post.upvotes}
+              value={(upvoted ? "▲" : "△") + post.upvotes.length}
             />
           </div>
 
@@ -129,7 +149,7 @@ function Comment({ content, profile }) {
               className={"w-fit mr-3 hover:cursor-pointer text-red-700 text-xl hover:text-red-500 " 
               + (downvoted ? "font-extrabold" : "font-bold")}
               onClick={(e) => {handleDownvotes()}}
-              value={ (downvoted ? "▼" :  "▽") + post.downvotes}
+              value={ (downvoted ? "▼" :  "▽") + post.downvotes.length}
             />
           </div>
 

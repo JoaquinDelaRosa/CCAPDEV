@@ -8,10 +8,10 @@ const PostSchema = new mongoose.Schema({
     mediaPath : String,
     mediaAlt: String,
     body : String,
-    upvotes : Number,
-    downvotes : Number,
-    favorites :  Number,
-    views : Number,
+    upvotes : Array,
+    downvotes : Array,
+    favorites :  Array,
+    views : Array,
     tags : [String],
     comments: Array
 })

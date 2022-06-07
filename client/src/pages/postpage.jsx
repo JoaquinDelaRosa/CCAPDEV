@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 // TO-DO: Archived posts. Requires the DB
 //        Edit/ Delete posts. More convenient to do this with the DB
 //        Comments should be deletable / editable. This'll be handled in Phase 2
+//        Upvotes and downvotes should check if user has already liked / disliked. Replace the checks of the form if(upvoted) / if(Downvoted).
 
 function PostPage({postData, profile, setProfile}){
   const [post, setPost] = useState({
@@ -20,10 +21,10 @@ function PostPage({postData, profile, setProfile}){
     "mediaPath": null,
     "mediaAlt": "",
     "body": "",
-    "upvotes": 0,
-    "downvotes": 0,
-    "favorites": 0,
-    "views" : 0,
+    "upvotes": [],
+    "downvotes": [],
+    "favorites": [],
+    "views" : [],
     "tags" : [],
     "comments": []
   });
@@ -53,9 +54,9 @@ function PostPage({postData, profile, setProfile}){
             "mediaPath" : null,
             "mediaAlt" : "",
             "body" : reply, 
-            "upvotes" : 0,
-            "downvotes" : 0,
-            "views" : 0,
+            "upvotes" : [],
+            "downvotes" : [],
+            "views" : [],
             "comments" : []
           }
         )
@@ -65,12 +66,22 @@ function PostPage({postData, profile, setProfile}){
   )
 
   const handleUpvote = () => {
-    if (upvoted)
-      setPost( values => ({...values, "upvotes" : post.upvotes - 1}))
+    console.log(post.upvotes);
+    if (upvoted) {
+      post.upvotes.push("");
+      setPost( values => ({...values,
+        "upvotes" : post.upvotes
+      }))
+    }
     else {
-      setPost( values => ({...values, "upvotes" : post.upvotes + 1}))
-      if (downvoted)
-        setPost( values => ({...values, "downvotes" : post.downvotes -1}))
+      post.upvotes.push("");
+      setPost( values => ({...values, 
+        "upvotes" : post.upvotes}
+      ))
+      if (downvoted) 
+        setPost( values => ({...values, 
+        "downvotes" : post.downvotes.filter((val) => {return true;})
+      }))
     }
 
     setDownVoted(false);
@@ -78,19 +89,32 @@ function PostPage({postData, profile, setProfile}){
   }
 
   const handleDownvotes = () => {
-    if (downvoted)
-      setPost( values => ({...values, "downvotes" : post.downvotes - 1}))
+    if (downvoted) {
+      post.downvotes.push("");
+      setPost( values => ({...values, 
+        "downvotes" : post.downvotes
+      }))
+    }
     else {
-      setPost( values => ({...values, "downvotes" : post.downvotes + 1}))
+      post.downvotes.push("");
+      setPost( values => ({...values, 
+        "downvotes" : post.downvotes
+      }))
       if (upvoted)
-        setPost( values => ({...values, "upvotes" : post.upvotes -1}))
+        setPost( values => ({...values, 
+          "upvotes" : post.upvotes.filter(((value) => {return true}))}
+        ))
     }
 
     setUpvoted(false);
     setDownVoted(!downvoted);
   }
 
+  
   const handleFavorites = () => {
+    let profile = {saves : []};
+    // FETCH associated profile data
+
     if (!favorite && !profile.saves.includes(post.id)){
       profile.saves.push(post.id);
     } else if (favorite && profile.saves.includes(post.id)){
@@ -98,10 +122,17 @@ function PostPage({postData, profile, setProfile}){
     }
 
     if (favorite)
-      setPost( values => ({...values, "favorites" : post.favorites - 1}));
-    else 
-      setPost( values => ({...values, "favorites" : post.favorites + 1}));
+      setPost( values => ({...values, 
+        "favorites" : post.favorites.filter((value) => {return true})
+      }));
+    else {
+      post.favorites.push("");
+      setPost( values => ({...values, 
+        "favorites" : post.favorites
+      }));
+    }
 
+    // PATCH profile 
     setProfile( values => ({...values, "saves" : profile.saves}));
     
     setFavorited(!favorite);
@@ -170,8 +201,8 @@ function PostPage({postData, profile, setProfile}){
             <input type="button" 
               className={`w-fit mr-5 hover:cursor-pointer text-3xl text-green-700 hover:text-green-500
               ${upvoted ? "font-extrabold" : "font-semibold"}`}
-              onClick={(e) => {handleUpvote(); e.target.value = post.upvotes}}
-              value={(upvoted ? "▲" : "△") + post.upvotes}
+              onClick={(e) => {handleUpvote();}}
+              value={(upvoted ? "▲" : "△") + post.upvotes.length}
             />
           </div>
 
@@ -179,8 +210,8 @@ function PostPage({postData, profile, setProfile}){
             <input type="button" 
               className={`w-fit mr-5 hover:cursor-pointer text-3xl text-red-700 hover:text-red-500
               ${downvoted ? "font-extrabold" : "font-semibold"}`}
-              onClick={(e) => {handleDownvotes(); e.target.value = post.downvotes}}
-              value={ (downvoted ? "▼" :  "▽") + post.downvotes}
+              onClick={(e) => {handleDownvotes();}}
+              value={ (downvoted ? "▼" :  "▽") + post.downvotes.length}
             />
           </div>
 
@@ -188,13 +219,13 @@ function PostPage({postData, profile, setProfile}){
             <input type="button" 
               className={`w-fit mr-5 hover:cursor-pointer text-3xl text-yellow-700 hover:text-yellow-500
               ${favorite ? "font-extrabold" : "font-semibold"}`}
-              onClick={(e) => {handleFavorites(); e.target.value = post.favorites}}
-              value={ (favorite ? "★" :  "☆") + post.favorites}
+              onClick={(e) => {handleFavorites(); e.target.value = post.favorites.length}}
+              value={ (favorite ? "★" :  "☆") + post.favorites.length}
             />
           </div>
 
           <div className="w-fit text-left text-3xl mr-1 text-gray-400">
-            <p className="font-bold"> {post.views}</p>
+            <p className="font-bold"> {post.views.length}</p>
           </div>
 
           <div className="w-fit text-right text-3xl  text-gray-400">
@@ -211,7 +242,6 @@ function PostPage({postData, profile, setProfile}){
         <div id="comment-section" className=" w-fit h-auto px-12" >
           {
             post.comments.map( (value) => {
-              console.log(value);
               return (
                 showing &&  
                 <div className="flex border-l-4 border-l-gray-500 my-2" key={value.id}>
