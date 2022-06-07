@@ -60,14 +60,14 @@ router.post('/upload', function(req, res, next) {
 
 /* PATCH post listing */
 // Query params: id
-router.patch('/', function(req, res, next) {
+router.patch('/edit', function(req, res, next) {
     Post.updateOne({ 'id': req.query.id }, req.body, (err) => {
         if (err){
             console.log(err);
-            res.send({message: "Failed to edit profile"});
+            res.send({message: "Failed to edit post"});
             res.end();
         } else {
-            res.send({message: "Successfully editted profile"})
+            res.send({message: "Successfully editted post"})
             res.end();
         }
     });

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 
 const defaultContext = {
-  username : " "
+  username : "Joaquin"
 }
 
 function App() {
