@@ -91,7 +91,7 @@ function PostPage({postData, context, setContext}){
       .catch((error) => {
         //console.log("Error in updating the Post\n" + error);
       })
-    },  [post.comments, reply, context, post]
+    },  [post.comments, context, post]
   )
 
   const handleUpvote = () => {

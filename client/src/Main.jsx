@@ -18,9 +18,9 @@ const Main = ({context, setProfile: setContext}) => {
           <Route path='/' element={<Feed/>}></Route>
           <Route path="/registration" element={<Registration/>}></Route>
           <Route path="/postpage/:postid" element={<PostPage context={context} setContext={setContext}/>}></Route>
-          <Route path="/login" element={<Login context={context} setProfile={setContext}/>}></Route>
+          <Route path="/login" element={<Login context={context} setContext={setContext}/>}></Route>
           <Route path="/login?" element={<Feed/>}></Route>
-          <Route path="/feed" element={<Feed/>}></Route>
+          <Route path="/feed" element={<Feed context={context} setContext={setContext} />}></Route>
           <Route path="/profile" element={<Profile/>}></Route>
           <Route path="/settings" element={<SettingsPage context={context} setContext={setContext}/>}></Route>
           <Route path="/dangerpage" element={<DangerPage context={context} setContext={setContext}/>}></Route>

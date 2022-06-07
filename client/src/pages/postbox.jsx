@@ -5,6 +5,7 @@ import parseDate from "../utils/date";
 // TODO:  Post Id should be assigned in the DB.
 // TODO upvotes and downvotes should correspond to the current state (i.e., loaded profile )
 
+const postURL = "/api/post/edit"
 
 const defaultPost = {
   "id": "",
@@ -22,7 +23,7 @@ const defaultPost = {
   "comments": []
 }
 
-function Postbox({ content }) {
+function Postbox({ content, context }) {
     const [post, setPost] = useState(defaultPost);  
     const [upvoted, setUpvoted] = useState(false);
     const [downvoted, setDownVoted] = useState(false);
@@ -36,48 +37,66 @@ function Postbox({ content }) {
         }
     }, [content]);
 
-    
+      
+      useEffect( () => {
+        // TODO: Make this more efficient by using a multi-part upload rather than a JSON.
+        fetch(postURL + "?id=" + post.id, {
+          method : "PATCH",
+          headers : {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(post)
+        })
+        .then((response) => {
+          return response.text();
+        })
+        .then((result) => {
+          //console.log(result);
+        })
+        .catch((error) => {
+          //console.log("Error in updating the Post\n" + error);
+        })
+      },  [post.comments, context, post]
+    )
+
     const handleUpvote = () => {
-      console.log(post.upvotes);
       if (upvoted) {
-        post.upvotes.push("");
         setPost( values => ({...values,
-          "upvotes" : post.upvotes
+          "upvotes" : post.upvotes.filter(((value) => {return value !== context.username;}))
         }))
       }
       else {
-        post.upvotes.push("");
+        post.upvotes.push(context.username);
         setPost( values => ({...values, 
-          "upvotes" : post.upvotes}
-        ))
+          "upvotes" : post.upvotes
+        }))
         if (downvoted) 
           setPost( values => ({...values, 
-          "downvotes" : post.downvotes.filter((val) => {return true;})
+          "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})
         }))
       }
-  
+      
       setDownVoted(false);
       setUpvoted(!upvoted);
     }
-  
+
     const handleDownvotes = () => {
       if (downvoted) {
-        post.downvotes.push("");
         setPost( values => ({...values, 
-          "downvotes" : post.downvotes
+          "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})
         }))
       }
       else {
-        post.downvotes.push("");
+        post.downvotes.push(context.username);
         setPost( values => ({...values, 
           "downvotes" : post.downvotes
         }))
         if (upvoted)
           setPost( values => ({...values, 
-            "upvotes" : post.upvotes.filter(((value) => {return true}))}
-          ))
+            "upvotes" : post.upvotes.filter(((value) => {return value !== context.username}))
+        }))
       }
-  
+
       setUpvoted(false);
       setDownVoted(!downvoted);
     }

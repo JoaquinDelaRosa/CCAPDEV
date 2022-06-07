@@ -8,7 +8,9 @@ import { useLocation, useSearchParams } from "react-router-dom";
 //       Trending tags should be fetched in DB
 const feedURL = '/api/post/feed'; 
 
-function Feed({context, setContext}) {
+
+
+function Feed({context}) {
   const [postList, setPostList] = useState([]);
 
   const [searchParams, ] = useSearchParams();
@@ -68,7 +70,7 @@ function Feed({context, setContext}) {
               
               return (
                 <div key ={index} className="flex">
-                  <Postbox content={element}/>
+                  <Postbox content={element} context={context}/>
                 </div>
               )}
             )
