@@ -38,6 +38,7 @@ function PostPage({postData, context, setContext}){
   const [reply, setReply] = useState("");
   const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username));
   const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.username));
+  const [observer, setObserver] = useState(false);
   const [favorite, setFavorited] = useState(false);
 
   let location = useLocation();
@@ -88,10 +89,13 @@ function PostPage({postData, context, setContext}){
       .then((result) => {
         //console.log(result);
       })
+      .then(() =>{
+        setObserver(false);
+      })
       .catch((error) => {
         //console.log("Error in updating the Post\n" + error);
       })
-    },  [post.comments, context, post]
+    },  [post.comments, context, post, observer]
   )
 
   const handleUpvote = () => {
@@ -273,7 +277,7 @@ function PostPage({postData, context, setContext}){
                 showing &&  
                 <div className="flex border-l-4 border-l-gray-500 my-2" key={index}>
                   <div className="w-5 h-full "> </div> 
-                  <Comment content={value} />
+                  <Comment content={value} context = {context} setObserver = {setObserver}/>
                 </div>
               )
             })

@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import parseDate from "../utils/date";
 import TextBox from "./textbox";
+import { hasDownvoted, hasUpvoted } from "../utils/voted";
 
-function Comment({ content, context , setContext}) {
+function Comment({ content, context , setContext, parent, setObserver}) {
   const [post, setPost] = useState({
     "id" : "",
     "title": "",
@@ -24,9 +25,13 @@ function Comment({ content, context , setContext}) {
   const [downvoted, setDownVoted] = useState(false);
   
   useEffect( () => {
-    if (content !== undefined)
+    if (content !== undefined) {
       setPost(content);
-  }, [content]);
+      setUpvoted(hasUpvoted(post, context.username));
+      setDownVoted(hasDownvoted(post, context.username));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content, context.username, post.id]);
 
   useEffect( () => {
     if (reply !== ""){
@@ -37,9 +42,9 @@ function Comment({ content, context , setContext}) {
             "mediaPath" : null,
             "mediaAlt" : "",
             "body" : reply, 
-            "upvotes" : 0,
-            "downvotes" : 0,
-            "views" : 0,
+            "upvotes" : [],
+            "downvotes" : [],
+            "views" : [],
             "comments" : []
           }
         )
@@ -49,50 +54,48 @@ function Comment({ content, context , setContext}) {
   )
 
   const handleUpvote = () => {
-    console.log(post.upvotes);
     if (upvoted) {
-      post.upvotes.push("");
       setPost( values => ({...values,
-        "upvotes" : post.upvotes
+        "upvotes" : post.upvotes.filter(((value) => {return value !== context.username;}))
       }))
     }
     else {
-      post.upvotes.push("");
+      post.upvotes.push(context.username);
       setPost( values => ({...values, 
-        "upvotes" : post.upvotes}
-      ))
+        "upvotes" : post.upvotes
+      }))
       if (downvoted) 
         setPost( values => ({...values, 
-        "downvotes" : post.downvotes.filter((val) => {return true;})
+        "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})
       }))
     }
-
+    
     setDownVoted(false);
     setUpvoted(!upvoted);
+    setObserver(true);
   }
 
   const handleDownvotes = () => {
     if (downvoted) {
-      post.downvotes.push("");
       setPost( values => ({...values, 
-        "downvotes" : post.downvotes
+        "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})
       }))
     }
     else {
-      post.downvotes.push("");
+      post.downvotes.push(context.username);
       setPost( values => ({...values, 
         "downvotes" : post.downvotes
       }))
       if (upvoted)
         setPost( values => ({...values, 
-          "upvotes" : post.upvotes.filter(((value) => {return true}))}
-        ))
+          "upvotes" : post.upvotes.filter(((value) => {return value !== context.username}))
+      }))
     }
 
     setUpvoted(false);
     setDownVoted(!downvoted);
+    setObserver(true);
   }
-
   return (
     <div className="pl-4 w-full">
       <div id="comment-box" className="w-full h-auto">
@@ -167,7 +170,7 @@ function Comment({ content, context , setContext}) {
                 showing &&
                 <div className="flex border-l-2 border-l-gray-400 ml-4 my-2 min-w-[10rem] h-full" key={value.id}>
                   <div className="w-2 h-full"> </div>
-                  <Comment content={value}/>
+                  <Comment content={value} context={context} parent={parent} setObserver = {setObserver}/>
                 </div>
               )
            })
