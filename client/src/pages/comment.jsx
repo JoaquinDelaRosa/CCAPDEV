@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import parseDate from "../utils/date";
 import TextBox from "./textbox";
 
-function Comment({ content, profile }) {
+function Comment({ content, context , setContext}) {
   const [post, setPost] = useState({
     "id" : "",
     "title": "",
@@ -32,7 +32,7 @@ function Comment({ content, profile }) {
     if (reply !== ""){
           post.comments.push({
             "id": Math.random() * 2<<20,      // Temporary hash for id
-            "author" : (profile) ? profile["username"] : "Anonymous",
+            "author" : (context) ? context["username"] : "Anonymous",
             "date": new Date(),
             "mediaPath" : null,
             "mediaAlt" : "",
@@ -45,7 +45,7 @@ function Comment({ content, profile }) {
         )
         setPost(values => ({...values, "comments" : post.comments}))
       }
-    },  [post.comments, reply, profile]
+    },  [post.comments, reply, context]
   )
 
   const handleUpvote = () => {

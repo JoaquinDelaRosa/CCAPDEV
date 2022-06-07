@@ -15,32 +15,28 @@ const loggedOutNavbar = {
   'SignUp': './registration'
 }
 
-function Navbar({profile, setProfile}){
-  
-
-
-
+function Navbar({context, setContext}){
   const logOut = (e) => {
       if (e !== null)
-        setProfile(null);
+        setContext(null);
   }
 
   useEffect(() => {
-    setProfile(profile);
-  }, [profile, setProfile]);
+    setContext(context);
+  }, [context, setContext]);
   
   const [navbar, setNavbar] = useState(loggedOutNavbar);
 
   
   useEffect(() => {
-      if(profile === null) {
+      if(context === null) {
         setNavbar(loggedOutNavbar) 
       } else {
-        loggedInNavbar.Profile = './profile?username=' + profile.username;
-        loggedInNavbar["Danger Zone"] = './dangerpage?username=' + profile.username;
+        loggedInNavbar.Profile = './profile?username=' + context.username;
+        loggedInNavbar["Danger Zone"] = './dangerpage?username=' + context.username;
         setNavbar(loggedInNavbar);
       }
-    }, [profile, setNavbar]
+    }, [context, setNavbar]
   )
 
   return (

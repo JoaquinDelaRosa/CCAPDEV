@@ -7,7 +7,7 @@ import defaultProfile from "../utils/defaultProfile";
 
 const userURL = '/api/user';
 
-function Profile(){
+function Profile({context, setContext}){
   
   console.log("Making Profile Default");
   const [profile, setProfile] = useState(defaultProfile);

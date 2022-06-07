@@ -6,7 +6,7 @@ import defaultProfile from "../utils/defaultProfile";
 const updateURL = '/api/user/update';
 const userURL = '/api/user';
 
-function SettingsPage(){
+function SettingsPage({context, setContext}){
   
   const [profile, setProfile] = useState(defaultProfile);
   const reader = new FileReader();

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 // TODO:    Account verification. Ensure the account exists by a query to the DB
 const loginURL = '/api/user/login';
 
-function Login({profile, setProfile}){
+function Login({context, setContext}){
     const defaultUserName = "ENTER USERNAME";
     const defaultPassword = "ENTER PASSWORD";
     const navigation = useNavigate();
@@ -47,8 +47,8 @@ function Login({profile, setProfile}){
     }
 
     useEffect(() => {
-      setProfile(profile);
-    }, [profile, setProfile])
+      setContext(context);
+    }, [context, setContext])
 
     const handleLogin = (e) => {
       console.log("handling login");
@@ -67,7 +67,7 @@ function Login({profile, setProfile}){
           return response.json()
         })
         .then((result) => {
-          setProfile(result);
+          setContext(result);
           navigation('../feed');
         }, (err) => {
           alert("Username or Password is incorrect");

@@ -12,7 +12,7 @@ import { useLocation } from "react-router-dom";
 //        Comments should be deletable / editable. This'll be handled in Phase 2
 //        Upvotes and downvotes should check if user has already liked / disliked. Replace the checks of the form if(upvoted) / if(Downvoted).
 
-function PostPage({postData, profile, setProfile}){
+function PostPage({postData, context, setContext}){
   const [post, setPost] = useState({
     "id" : "",
     "title": "",    
@@ -49,7 +49,7 @@ function PostPage({postData, profile, setProfile}){
       if (reply !== ""){
           post.comments.push({
             "id": Math.random() * 2<<20,      // Temporary hash for id
-            "author" : (profile) ? profile["username"]  :"Anonymous",
+            "author" : (context) ? context["username"]  :"Anonymous",
             "date": new Date(),
             "mediaPath" : null,
             "mediaAlt" : "",
@@ -62,7 +62,7 @@ function PostPage({postData, profile, setProfile}){
         )
         setPost(values => ({...values, "comments" : post.comments}))
       }
-    },  [post.comments, reply, profile]
+    },  [post.comments, reply, context]
   )
 
   const handleUpvote = () => {
@@ -133,7 +133,7 @@ function PostPage({postData, profile, setProfile}){
     }
 
     // PATCH profile 
-    setProfile( values => ({...values, "saves" : profile.saves}));
+    //setProfile( values => ({...values, "saves" : profile.saves}));
     
     setFavorited(!favorite);
   }

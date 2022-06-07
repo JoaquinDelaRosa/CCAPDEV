@@ -4,7 +4,7 @@ import TagLabel from "./taglabel";
 
 const postURL = '/api/post/upload';
 
-function UploadPage({profile}){
+function UploadPage({context, setContext}){
   const reader = new FileReader();
   const navigation = useNavigate();
 
@@ -54,7 +54,7 @@ function UploadPage({profile}){
   }
   
   const canPost = (() =>{
-    return profile !== null && post.body.length > 5 && post.title.length > 5 && post.mediaPath !== null;
+    return context !== null && post.body.length > 5 && post.title.length > 5 && post.mediaPath !== null;
   })
 
   const onSubmit = (e) => {

@@ -5,7 +5,7 @@ import defaultProfile from "../utils/defaultProfile";
 const deleteURL = '/api/user/delete';
 const userURL = '/api/user';
 
-function DangerPage(){
+function DangerPage({context, setContext}){
   const [profile, setProfile] = useState(defaultProfile);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [deleted, setDeleted] = useState(false);
