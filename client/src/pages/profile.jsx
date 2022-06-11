@@ -8,8 +8,6 @@ import defaultProfile from "../utils/defaultProfile";
 const userURL = '/api/user';
 
 function Profile({context, setContext}){
-  
-  console.log("Making Profile Default");
   const [profile, setProfile] = useState(defaultProfile);
   
   const [searchParams, ] = useSearchParams();
@@ -17,8 +15,6 @@ function Profile({context, setContext}){
 
   useEffect(
     () => {
-      console.log("Current Profile:");
-      console.log(profile);
       const username = searchParams.get("username");
       let data = fetch(userURL + "?username=" + username, { 
         method : "GET",

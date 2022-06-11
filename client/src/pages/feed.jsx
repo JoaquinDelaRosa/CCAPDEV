@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Postbox from "./postbox";
 import TagLabel from "./taglabel";
 import { useLocation, useSearchParams } from "react-router-dom";
+import SearchBar from "./searchbar";
 
 // TODO: Feed should fetch content from DB rather than content being hardcoded.
 //       Handle searching by title and by tag
@@ -48,12 +49,7 @@ function Feed({context}) {
 
   return (
     <div className="pt-2 bg-gray-800 text-white min-h-screen min-w-full">
-      <div className="flex w-full text-black px-10 pt-5">
-        <input type="search" 
-          className="w-5/6"
-          placeholder="Search for a post" 
-          onChange={event => {/* Handle search here*/ }}></input>
-      </div>
+      <SearchBar setPostList={setPostList}/>
 
       <div id="header" className="px-10 h-fit pt-5 ph-3 pb-5 w-full font-mono text-cyan-400">
         <h2 className="text-left font-semibold font-sans text-4xl align-baseline tracking-wider"> 

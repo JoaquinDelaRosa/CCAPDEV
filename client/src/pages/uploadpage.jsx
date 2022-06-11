@@ -24,15 +24,15 @@ function UploadPage({context, setContext}){
     "comments": []
   });
 
-  useEffect( (profile) => {
-    if (profile)
-      post.author = profile["username"];
+  useEffect( () => {
+    if (context)
+      post.author = context["username"];
     else 
       post.author = "Anonymous"
 
     post.id = Math.random() * (1 << 32 - 1);
     setPost(post);
-  }, [post])
+  }, [context, post])
     
   const inputHandler = (name, value) => {
     setPost( values => ({...values, [name] : value}))
