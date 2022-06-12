@@ -8,7 +8,7 @@ import SearchBar from "./searchbar";
 //       Handle searching by title and by tag
 //       Trending tags should be fetched in DB
 const feedURL = '/api/post/feed'; 
-
+const searchURL = '/api/post/search'
 
 
 function Feed({context}) {
@@ -17,35 +17,73 @@ function Feed({context}) {
   const [searchParams, ] = useSearchParams();
   let location = useLocation(); 
 
-    useEffect(
-      () => {  
-        let data = fetch(feedURL, {
-          method : "GET",
-          headers : {
-            'Content-type' : 'application/json'
-          },
-        })
-        
-        .then((response) => {
-          if (response) {
-            return response.json();
-          }
-        })
-        .catch((error) => {
-          console.log("Error in retrieving posts" + error)
-        });
-        
-        if (data) {
-          data.then( (postData) => {
-            if (postData) {
-              setPostList(postData);
-            } else{
-              setPostList([]);
-            }
-          });
+  const getComplete = () => {
+    let data = fetch(feedURL, {
+      method : "GET",
+      headers : {
+        'Content-type' : 'application/json'
+      },
+    })
+    
+    .then((response) => {
+      if (response) {
+        return response.json();
+      }
+    })
+    .catch((error) => {
+      console.log("Error in retrieving posts" + error)
+    });
+    
+    if (data) {
+      data.then( (postData) => {
+        if (postData) {
+          setPostList(postData);
+        } else{
+          setPostList([]);
         }
-      }, 
-      [location.search, searchParams]);
+      });
+    }
+
+
+  }
+
+  const getPartial = (query) => {
+    let data = fetch(searchURL + "?q=" + query, {
+      method : "GET",
+      headers : {
+        'Content-type' : 'application/json'
+      },
+    })
+    
+    .then((response) => {
+      if (response) {
+        return response.json();
+      }
+    })
+    .catch((error) => {
+      console.log("Error in retrieving posts" + error)
+    });
+    
+    if (data) {
+      data.then( (postData) => {
+        if (postData) {
+          setPostList(postData);
+        } else{
+          setPostList([]);
+        }
+      });
+    }
+  }
+
+  useEffect(
+    () => {  
+      const query = searchParams.get("q");
+      if (query == null)
+        getComplete();
+      else 
+        getPartial(query);
+    }, 
+    [location.search, searchParams]);
 
   return (
     <div className="pt-2 bg-gray-800 text-white min-h-screen min-w-full">

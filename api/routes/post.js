@@ -15,16 +15,52 @@ router.get('/', async function(req, res, next) {
     res.json(post);
 });
 
-// Body params: tags, name, 
+function parseQuery(q){
+  const tokens = q.split(' ')
+  const queryObject = {
+    authors : [],
+    tags: [],
+    contents: ""
+  }
+
+  tokens.forEach( (value) => {
+    if(value.startsWith("author:")){
+      queryObject.authors.push(value.replace('author:', ''));
+    } else if(value.startsWith("tag:")){
+      queryObject.authors.push(value.replace('tag:', ''));
+    } else {
+      queryObject.contents += (value + " ");
+    }
+  })
+
+  queryObject.contents = queryObject.contents.trim();
+
+  return queryObject;
+}
+
 router.get('/search', async function(req, res, next) {
-    const post = await Post
-        .find({
-            'title' : {$regex : '.*' + req.body.name + '.*'} ,
-            'tags' : {$all : req.body.tags}
-        })
-        .sort({ 'date': 'desc' })
-        .limit(LIMIT)
-    res.send(post);
+  const body = parseQuery(req.query.q);
+  let findQuery = {
+
+  };
+
+  if (body.authors.length !== 0){
+    findQuery["author"] = {$all : body.authors};
+  }
+  if (body.contents !== ""){
+    findQuery["title"] = body.contents;
+  }
+  if (body.tags.length !== 0){
+    findQuery["tags"] = {$all : body.tags};
+  }
+
+  const content = await Post.find(
+    findQuery
+  )
+    .sort({ 'date': 'desc' })
+    .limit(LIMIT);
+  
+  res.json(content);
 })
 
 // For feed
@@ -34,7 +70,7 @@ router.get('/search', async function(req, res, next) {
 // Limit: 100;
 router.get('/feed', async function(req, res, next) {
     const content = await Post.find({})
-        .sort({ 'datePosted': 'desc' })
+        .sort({ 'date': 'desc' })
         .limit(LIMIT);
     res.json(content);
 });

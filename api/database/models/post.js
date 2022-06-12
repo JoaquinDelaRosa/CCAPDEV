@@ -14,7 +14,8 @@ const PostSchema = new mongoose.Schema({
     views : Array,
     tags : [String],
     comments: Array
-})
+});
+PostSchema.index({title: 'text'})
 
 const Post = mongoose.model('Posts', PostSchema);
 
