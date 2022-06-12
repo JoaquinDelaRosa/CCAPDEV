@@ -46,10 +46,6 @@ function Login({context, setContext}){
       return !(isValid() && isComplete());
     }
 
-    useEffect(() => {
-      setContext(context);
-    }, [context, setContext])
-
     const handleLogin = (e) => {
       console.log("handling login");
       if (e !== null) {
@@ -67,13 +63,16 @@ function Login({context, setContext}){
           return response.json()
         })
         .then((result) => {
-          setContext(result);
+          console.log(context);
+          context.username = login["username"]
+          setContext(context);
           navigation('../feed');
         }, (err) => {
           alert("Username or Password is incorrect");
         })
         e.preventDefault();
       }
+
     }
 
     return (

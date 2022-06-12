@@ -27,9 +27,12 @@ function Registration(){
     }
 
     const isValid = () => {
-      // Input validation will go here later. For now just a placeholder will do
+      // Requirement:
+      // Username should be alphanumeric with no spaces. Refer to the regex below.
+      // Username should be unique. This is done with a query
       return registration.password === registration.confirmPassword && 
-      registration.email !== "" && registration.username !== "";
+      registration.email !== "" && registration.username !== "" && 
+      registration.username.match(/^[A-aZ-z0-9]+$/)
     }
 
     const isSubmitDisabled = () => {
