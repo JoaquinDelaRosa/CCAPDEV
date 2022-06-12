@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // TODO:    Account verification. Ensure the account exists by a query to the DB
@@ -18,7 +18,7 @@ function Login({context, setContext}){
       if(!isComplete() && isNotDefault())
         return (
           <div className="ml-2 text-red-500 text-xs italic hover:cursor-default pb-2">
-            missing/wrong username or password
+            Invalid username or password.
           </div>
       )
     }
@@ -47,7 +47,6 @@ function Login({context, setContext}){
     }
 
     const handleLogin = (e) => {
-      console.log("handling login");
       if (e !== null) {
         fetch(loginURL, {
           method : "POST",
@@ -63,9 +62,9 @@ function Login({context, setContext}){
           return response.json()
         })
         .then((result) => {
-          console.log(context);
           context.username = login["username"]
           setContext(context);
+
           navigation('../feed');
         }, (err) => {
           alert("Username or Password is incorrect");

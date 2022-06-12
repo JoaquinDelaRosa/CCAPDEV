@@ -140,7 +140,7 @@ function Postbox({ content, context }) {
 
           <div id="post-author-section" className="h-fit mb-5">
               <p className="text-left font-mono font-semibold mb-0"> 
-                By: {post.author}
+                By: {(post.author.length > 0) ? post.author : "<Anonymous>"}
               </p>            
               <p className="text-left font-mono"> 
                 Posted: {parseDate(new Date(post['date']))}

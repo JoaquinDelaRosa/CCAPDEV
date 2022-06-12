@@ -83,7 +83,7 @@ function Feed({context}) {
       else 
         getPartial(query);
     }, 
-    [location.search, searchParams]);
+    [searchParams]);
 
   return (
     <div className="pt-2 bg-gray-800 text-white min-h-screen min-w-full">

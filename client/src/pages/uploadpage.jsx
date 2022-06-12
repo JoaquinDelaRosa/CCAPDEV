@@ -28,7 +28,7 @@ function UploadPage({context, setContext}){
     if (context)
       post.author = context["username"];
     else 
-      post.author = "Anonymous"
+      post.author = ""
 
     post.id = Math.random() * (1 << 32 - 1);
     setPost(post);

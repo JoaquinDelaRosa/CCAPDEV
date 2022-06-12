@@ -37,7 +37,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
     if (reply !== ""){
           post.comments.push({
             "id": Math.random() * 2<<20,      // Temporary hash for id
-            "author" : (context) ? context["username"] : "Anonymous",
+            "author" : (context) ? context["username"] : "",
             "date": new Date(),
             "mediaPath" : null,
             "mediaAlt" : "",
@@ -101,7 +101,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
       <div id="comment-box" className="w-full h-auto">
         <div id="comment-author" className="h-fit mb-1">
           <p className="text-left font-mono text-lg font-semibold inline-flex">
-            {post.author} &nbsp; 
+            {(post.author.length > 0) ? post.author : "<Anonymous>"} &nbsp; 
           </p>         
           <p className="text-left font-mono text-gray-400 inline-flex"> 
             {parseDate(new Date(post['date']))}

@@ -58,7 +58,7 @@ function PostPage({postData, context, setContext}){
       if (reply !== ""){
           post.comments.push({
             "id": post.comments.length + 1, 
-            "author" : (context) ? context["username"]  :"Anonymous",
+            "author" : (context) ? context["username"]  :"",
             "date": new Date(),
             "mediaPath" : null,
             "mediaAlt" : "",
@@ -181,7 +181,7 @@ function PostPage({postData, context, setContext}){
 
           <div id="post-author-section" className="px-10 h-fit mb-5">
             <p className="text-left font-mono font-semibold mb-0"> 
-              By: {post.author}
+              By: {(post.author.length > 0) ? post.author : "<Anonymous>"}
             </p>            
             <p className="text-left font-mono"> 
               Posted: {parseDate(new Date(post['date']))}
