@@ -1,14 +1,16 @@
 ﻿import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import parseDate from "../utils/date";
+import defaultProfile from "../utils/defaultProfile";
 
 // TODO:  Post Id should be assigned in the DB.
 // TODO upvotes and downvotes should correspond to the current state (i.e., loaded profile )
 
 const postURL = "/api/post/edit"
+const userURL = '/api/user';
 
 const defaultPost = {
-  "id": "",
+  "id": Object,
   "title": "",
   "author": "",
   "date": new Date(),
@@ -28,6 +30,8 @@ function Postbox({ content, context }) {
     const [upvoted, setUpvoted] = useState(false);
     const [downvoted, setDownVoted] = useState(false);
     const [favorite, setFavorited] = useState(false);
+    const [profile, setProfile] = useState(defaultProfile);
+    const [searchParams, ] = useSearchParams();
 
     useEffect(() => {
         if (content !== undefined) {
@@ -103,8 +107,23 @@ function Postbox({ content, context }) {
   
     
     const handleFavorites = () => {
-      let profile = {saves : []};
+      //let profile = {saves : []};
       // FETCH associated profile data
+
+      // Work in Progress: FETCH still not working!
+      const username = searchParams.get("username");
+      let profile = fetch(userURL + "?username=" + username, { 
+        method : "GET",
+        headers : {
+          'Content-type': 'application/json'
+        },
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        console.log("Error in retrieving profile information");
+      }); 
   
       if (!favorite && !profile.saves.includes(post.id)){
         profile.saves.push(post.id);
@@ -112,19 +131,22 @@ function Postbox({ content, context }) {
         profile.saves.splice(profile.saves.indexOf(post.id));
       }
   
-      if (favorite)
+      if (favorite){
+        post.favorites.pop(context.username)
         setPost( values => ({...values, 
-          "favorites" : post.favorites.filter((value) => {return true})
+          "favorites" : post.favorites.filter((value) => {return value !== context.username})
         }));
+      }
+        
       else {
-        post.favorites.push("");
+        post.favorites.push(context.username);
         setPost( values => ({...values, 
           "favorites" : post.favorites
         }));
       }
   
       // PATCH profile 
-      // setProfile( values => ({...values, "saves" : profile.saves}));
+      setProfile( values => ({...values, "saves" : profile.saves}));
       
       setFavorited(!favorite);
     }
