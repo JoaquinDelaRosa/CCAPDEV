@@ -16,10 +16,10 @@ function UploadPage({context, setContext}){
     "mediaPath": null,
     "mediaAlt": "",
     "body": "",
-    "upvotes": 0,
-    "downvotes": 0,
-    "favorites" : 0,
-    "views" : 0,
+    "upvotes": [],
+    "downvotes": [],
+    "favorites" : [],
+    "views" : [],
     "tags" : [],
     "comments": []
   });
