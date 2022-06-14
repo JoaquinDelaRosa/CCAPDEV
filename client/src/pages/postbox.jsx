@@ -1,16 +1,18 @@
-﻿import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import parseDate from "../utils/date";
+import { hasDownvoted, hasUpvoted } from "../utils/voted";
 import defaultProfile from "../utils/defaultProfile";
+import {hasFavorited} from "../utils/voted";
 
 // TODO:  Post Id should be assigned in the DB.
 // TODO upvotes and downvotes should correspond to the current state (i.e., loaded profile )
 
 const postURL = "/api/post/edit"
-const userURL = '/api/user';
+const userURL = 'http://localhost:4000/api/user/update';
 
 const defaultPost = {
-  "id": Object,
+  "id": "",
   "title": "",
   "author": "",
   "date": new Date(),
@@ -27,15 +29,18 @@ const defaultPost = {
 
 function Postbox({ content, context }) {
     const [post, setPost] = useState(defaultPost);  
-    const [upvoted, setUpvoted] = useState(false);
-    const [downvoted, setDownVoted] = useState(false);
-    const [favorite, setFavorited] = useState(false);
+    const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username ));
+    const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.username ));
+    const [favorite, setFavorited] = useState(hasFavorited(post, context.username));
     const [profile, setProfile] = useState(defaultProfile);
     const [searchParams, ] = useSearchParams();
 
     useEffect(() => {
         if (content !== undefined) {
           setPost(content);
+          setUpvoted(hasUpvoted(post, context.username));
+          setDownVoted(hasDownvoted(post, context.username));
+          setFavorited(hasFavorited(post, context.username));
         } else {
           setPost(defaultPost);
         }
@@ -109,21 +114,33 @@ function Postbox({ content, context }) {
     const handleFavorites = () => {
       //let profile = {saves : []};
       // FETCH associated profile data
-
       // Work in Progress: FETCH still not working!
-      const username = searchParams.get("username");
-      let profile = fetch(userURL + "?username=" + username, { 
-        method : "GET",
+      //const username = searchParams.get("username");
+      let profile = fetch(userURL + "?username=" + context.username, { 
+        method : "PATCH",
         headers : {
           'Content-type': 'application/json'
         },
       })
       .then((response) => {
+        console.log(profile);
+        console.log(context);
         return response.json();
       })
       .catch((error) => {
         console.log("Error in retrieving profile information");
       }); 
+
+      if (profile) {
+        profile.then( (profileData) => {
+          if (profileData) {
+            setProfile(profileData);
+          } else{
+            setProfile(defaultProfile);
+          }
+        console.log(profile.username);
+        });
+      }
   
       if (!favorite && !profile.saves.includes(post.id)){
         profile.saves.push(post.id);
@@ -137,7 +154,6 @@ function Postbox({ content, context }) {
           "favorites" : post.favorites.filter((value) => {return value !== context.username})
         }));
       }
-        
       else {
         post.favorites.push(context.username);
         setPost( values => ({...values, 
