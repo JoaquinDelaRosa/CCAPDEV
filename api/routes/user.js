@@ -58,22 +58,6 @@ router.patch('/update', function(req, res, next) {
   })
 })
 
-router.patch('/upload', function(req, res, next) {
-  User.findOneAndUpdate({'username' : req.query.username}, {
-    '$push' : {posts : req.body.id}
-  }, (err) => {
-    if(err) {
-      console.log(err);
-      res.send({message: "Failed to edit profile"});
-      res.end();
-    }
-    else {
-      res.send({message: "Successfully editted profile"})
-      res.end();
-    }
-  })
-})
-
 /* DELETE users listing */
 router.delete('/delete', function(req, res, next) {
   User.deleteOne({'username' : req.query.username})

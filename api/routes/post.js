@@ -82,7 +82,10 @@ router.get('/feed', async function(req, res, next) {
 router.post('/upload', function(req, res, next) {
     console.log(req.body)
     Post.create(
-        req.body,
+        {
+          ...req.body,
+          id : uuid.v1()
+        },
         (error, user) => {
           if (error) {
             console.log(error);

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {v4} from "uuid"
 import TagLabel from "./taglabel";
 
 const postURL = '/api/post/upload';
-const userURL = '/api/user/upload';
 
 function UploadPage({context, setContext}){
   const reader = new FileReader();
@@ -61,14 +59,12 @@ function UploadPage({context, setContext}){
 
   const onSubmit = (e) => {
     // TODO: Make this more efficient by using a multi-part upload rather than a JSON.
-      const id = v4();
       fetch(postURL, {
       method : "POST",
       headers : {
         'Content-type': 'application/json'
       },
       body: JSON.stringify({
-        "id": id,
         "title": post.title,    
         "author": post.author,
         "date" : post.date,
@@ -89,36 +85,13 @@ function UploadPage({context, setContext}){
     .then((result) => {
       console.log(result);
     })
-
-    .catch((error) => {
-      console.log("Error in Uploading the Post\n" + error);
-    })
-
-    fetch(userURL + "?username=" + context.username , {
-      method : 'PATCH',
-      headers : {
-        'Content-type': 'application/json'
-      },
-      body : JSON.stringify({
-        'id' : id
-      })
-    })
-    .then((response) => {
-      return response.text();
-    })
-    .then((result) => {
-      console.log(result);
-    })
     .then(() => {
       navigation('/');
     })
     .catch((error) => {
       console.log("Error in Uploading the Post\n" + error);
     })
-
-    
     e.preventDefault();
-
   };
 
   return (
