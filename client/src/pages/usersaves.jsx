@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import parseDate from "../utils/date";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 const searchURL = '/api/post/favorited';
 
@@ -46,11 +46,18 @@ function UserSaves({username}){
                 {/* ASCENDING */}
                 <button className="tooltip text-orange-400 float-right hover:bg-gray-900 px-2 rounded-md" 
                 onClick={
-                (e) => {
-                    // sort by date (other categories can be added next time)
-                    postList.sort((a, b) => (a.date.getTime() > b.date.getTime()) ? 1 : -1);
-                    setPostList(postList);
-                }
+                  (e) => {
+                      // sort by date (other categories can be added next time)
+                      postList.sort((a, b) => {
+                        const d1 = new Date(a.date.toString())
+                        const d2 = new Date(b.date.toString())
+                        const t1 = d1.getTime()
+                        const t2 = d2.getTime();
+                        return (t1 > t2) ? 1 : -1
+                      });
+  
+                      setPostList(Array.from(postList))
+                  }
                 }>
                 &#129041;
                 <span className="tooltiptext opacity-90">
@@ -60,10 +67,17 @@ function UserSaves({username}){
                 {/* DESCENDING */}
                 <button className="tooltip text-orange-400 float-right hover:bg-gray-900 px-2 rounded-md" 
                 onClick={
-                (e) => {
-                    postList.sort((a, b) => (a.date.getTime() < b.date.getTime()) ? 1 : -1);
-                    setPostList(postList);
-                }
+                  (e) => {
+                      // sort by date (other categories can be added next time)
+                      postList.sort((a, b) => {
+                        const d1 = new Date(a.date.toString())
+                        const d2 = new Date(b.date.toString())
+                        const t1 = d1.getTime()
+                        const t2 = d2.getTime();
+                        return (t1 < t2) ? 1 : -1
+                      });
+                      setPostList(Array.from(postList));
+                  }
                 }>
                 &#129043;
                 <span className="tooltiptext opacity-90">
@@ -85,17 +99,17 @@ function UserSaves({username}){
                     !(postList.length === 0 || username === "") && 
                     postList.map(element => {
                       return (
-                      element && element.date && element.id && 
-                      <Link to={("/postpage/" + element.id)} state={{postData: element}}>
+                        element && element.date && element.id && 
                         <div className="border-b border-b-blue-200 pb-2 mb-2 flex items-start py-1 text-wText" key = {element.id} id={element.id}>
-                          <span className="pr-3" id={element.id + "image"}>
-                          <img src={element.mediaPath} alt={element.mediaAlt} className="w-16 h-16 rounded-sm" id={element.id + "img"}></img>
-                          </span>
-                          Title: {element.title}
-                          <br/>
-                          Date: {parseDate(new Date(element.date)).toString()}
+                          <Link to={("/postpage/" + element.id)} state={{postData: element}}>
+                            <span className="pr-3" id={element.id + "image"}>
+                              <img src={element.mediaPath} alt={element.mediaAlt} className="w-16 h-16 rounded-sm" id={element.id + "img"}></img>
+                              </span>
+                              Title: {element.title}
+                              <br/>
+                              Date: {parseDate(new Date(element.date)).toString()}
+                          </Link>
                         </div>
-                      </Link>
                       )
                   })
                 }
