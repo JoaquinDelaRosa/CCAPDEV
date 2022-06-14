@@ -38,6 +38,7 @@ function Postbox({ content, context }) {
         } else {
           setPost(defaultPost);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [content, context.username, post.id]);
 
       
