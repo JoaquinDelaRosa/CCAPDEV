@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import parseDate from "../utils/date";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import defaultProfile from "../utils/defaultProfile";
+import UserPosts from "./userposts";
+import UserSaves from "./usersaves";
 
 // TO-DO:   Posts should be fetched rather than hardcoded.
 
@@ -39,7 +41,7 @@ function Profile({context, setContext}){
         });
       }
     }
-  , [location.search, profile, searchParams]);
+  , [location.search, searchParams]);
 
   function SortByDate({postList, type}) { 
     // This function returns two buttons that sort the given array in ascending or descending order
@@ -144,28 +146,8 @@ function Profile({context, setContext}){
       </div>
       
       <div className="min-w-[67%] h-fit p-2" id="right-box">
-        <div className="pl-2 pb-1 text-cyan-400 select-none">
-          <b>POSTS</b>
-          <SortByDate postList={profile.posts} type={"posts"} />
-        </div>
-        <div className="py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
-          <div className="p-2">
-            <div className="py-2" id="right-posts" >
-              <ShowPosts postList={profile.posts} type={"posts"}/>
-            </div>
-          </div>
-        </div>
-        <div className="mt-5 pl-2 pb-1 text-cyan-400 select-none" >
-          <b>SAVED</b>
-          <SortByDate postList={profile.saves} type ={"saves"}/>
-        </div>
-        <div className="by-2 py-1 min-h-150 font-mono rounded-md ring-1 ring-gray-400 px-1 bg-gray-900">
-          <div className="p-2">
-              <div className="py-2" id="right-saves">
-                <ShowPosts postList={profile.saves} type={"saves"}/>
-              </div>
-          </div>
-        </div>
+        <UserPosts username={profile.username}/>
+        <UserSaves username={profile.username}/>
       </div>
     </div>
   )

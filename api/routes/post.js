@@ -78,6 +78,16 @@ router.get('/feed', async function(req, res, next) {
     res.json(content);
 });
 
+
+router.get('/favorited', async function(req, res, next){
+    const content = await Post.find({
+      favorites: req.query.username
+    })
+      .sort({'date' : 'desc'})
+      .limit(LIMIT);
+    res.json(content);
+})
+
 /* POST post listing */
 router.post('/upload', function(req, res, next) {
     console.log(req.body)

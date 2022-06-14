@@ -5,8 +5,6 @@ const defaultProfile = {
     "password": "",
     "about": "",
     "gender": "",
-    "saves": [],
-    "posts" : [],
     "dateJoined": new Date()
   };
 
