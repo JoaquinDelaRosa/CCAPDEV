@@ -9,3 +9,7 @@ export function hasDownvoted(post, user){
 export function hasViewed(post, user){
     return post.views.includes(user);
 }
+
+export function hasFavorited(post, user){
+    return post.favorites.includes(user);
+}

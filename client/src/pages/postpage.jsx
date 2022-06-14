@@ -6,12 +6,11 @@ import Comment from "./comment";
 import TextBox from "./textbox";
 import TagLabel from "./taglabel";
 import { useLocation } from "react-router-dom";
-import { hasDownvoted, hasUpvoted } from "../utils/voted";
+import { hasDownvoted, hasFavorited, hasUpvoted } from "../utils/voted";
 
-// TO-DO: Archived posts. Requires the DB
+// TO-DO: 
 //        Edit/ Delete posts. More convenient to do this with the DB
 //        Comments should be deletable / editable. This'll be handled in Phase 2
-//        Upvotes and downvotes should check if user has already liked / disliked. Replace the checks of the form if(upvoted) / if(Downvoted).
 
 const postURL = "/api/post/edit"
 
@@ -38,8 +37,8 @@ function PostPage({postData, context, setContext}){
   const [reply, setReply] = useState("");
   const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username));
   const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.username));
+  const [favorite, setFavorited] = useState(hasFavorited(post, context.username));
   const [observer, setObserver] = useState(false);
-  const [favorite, setFavorited] = useState(false);
 
   let location = useLocation();
 
@@ -49,6 +48,7 @@ function PostPage({postData, context, setContext}){
         setPost(location.state.postData)
         setUpvoted(hasUpvoted(post, context.username));
         setDownVoted(hasDownvoted(post, context.username));
+        setFavorited(hasFavorited(post, context.username));
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [context.username, location, post.id]
@@ -142,29 +142,18 @@ function PostPage({postData, context, setContext}){
 
   
   const handleFavorites = () => {
-    // TODO: Update this
-    let profile = {saves : []};
     // FETCH associated profile data
-
-    if (!favorite && !profile.saves.includes(post.id)){
-      profile.saves.push(post.id);
-    } else if (favorite && profile.saves.includes(post.id)){
-      profile.saves.splice(profile.saves.indexOf(post.id));
-    }
 
     if (favorite)
       setPost( values => ({...values, 
-        "favorites" : post.favorites.filter((value) => {return true})
+        "favorites" : post.favorites.filter((value) => {return value !== context.username})
       }));
     else {
-      post.favorites.push("");
+      post.favorites.push(context.username);
       setPost( values => ({...values, 
         "favorites" : post.favorites
       }));
     }
-
-    // PATCH profile 
-    //setProfile( values => ({...values, "saves" : profile.saves}));
     
     setFavorited(!favorite);
   }

@@ -1,7 +1,7 @@
 ﻿import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import parseDate from "../utils/date";
-import { hasDownvoted, hasUpvoted, hasViewed } from "../utils/voted";
+import { hasDownvoted, hasUpvoted, hasViewed, hasFavorited } from "../utils/voted";
 
 // TODO:  Post Id should be assigned in the DB.
 // TODO upvotes and downvotes should correspond to the current state (i.e., loaded profile )
@@ -28,13 +28,14 @@ function Postbox({ content, context }) {
     const [post, setPost] = useState(defaultPost);  
     const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username));
     const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.username));
-    const [favorite, setFavorited] = useState(false);
+    const [favorite, setFavorited] = useState(hasFavorited(post, context.username));
 
     useEffect(() => {
         if (content !== undefined) {
           setPost(content);
           setUpvoted(hasUpvoted(post, context.username));
           setDownVoted(hasDownvoted(post, context.username));
+          setFavorited(hasFavorited(post, context.username));
 
           handleView()
 
@@ -117,28 +118,18 @@ function Postbox({ content, context }) {
   
     
     const handleFavorites = () => {
-      let profile = {saves : []};
       // FETCH associated profile data
-  
-      if (!favorite && !profile.saves.includes(post.id)){
-        profile.saves.push(post.id);
-      } else if (favorite && profile.saves.includes(post.id)){
-        profile.saves.splice(profile.saves.indexOf(post.id));
-      }
   
       if (favorite)
         setPost( values => ({...values, 
-          "favorites" : post.favorites.filter((value) => {return true})
+          "favorites" : post.favorites.filter((value) => {return value !== context.username})
         }));
       else {
-        post.favorites.push("");
+        post.favorites.push(context.username);
         setPost( values => ({...values, 
           "favorites" : post.favorites
         }));
       }
-  
-      // PATCH profile 
-      // setProfile( values => ({...values, "saves" : profile.saves}));
       
       setFavorited(!favorite);
     }
