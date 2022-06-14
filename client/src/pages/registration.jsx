@@ -1,8 +1,6 @@
 import React, { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-//  TO-DO:    Registration should add to the DB
-
 const registerURL = '/api/user/register';
 
 function Registration(){

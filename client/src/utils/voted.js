@@ -5,3 +5,7 @@ export function hasUpvoted(post, user){
 export function hasDownvoted(post, user){
     return post.downvotes.includes(user);
 }
+
+export function hasViewed(post, user){
+    return post.views.includes(user);
+}
