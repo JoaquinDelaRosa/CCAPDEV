@@ -8,6 +8,7 @@ import Profile from './pages/profile'
 import SettingsPage from './pages/settingspage';
 import DangerPage from './pages/dangerzone';
 import UploadPage from './pages/uploadpage';
+import EditPost from './pages/edit';
 
 
 const Main = ({context, setContext}) => {
@@ -25,6 +26,7 @@ const Main = ({context, setContext}) => {
           <Route path="/settings" element={<SettingsPage context={context} setContext={setContext}/>}></Route>
           <Route path="/dangerpage" element={<DangerPage context={context} setContext={setContext}/>}></Route>
           <Route path="/upload" element={<UploadPage context={context}/>}> </Route>
+          <Route path="/edit" element={<EditPost context={context}/>}> </Route>
 
       </Routes>
     </div>
