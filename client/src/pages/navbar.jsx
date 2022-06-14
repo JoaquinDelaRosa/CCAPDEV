@@ -17,6 +17,7 @@ const loggedOutNavbar = {
 
 function Navbar({context, setContext}){
   const [navbar, setNavbar] = useState(loggedOutNavbar);
+  
   const logOut = (e) => {
       if (e !== null) {
         context.username = "";
@@ -25,12 +26,9 @@ function Navbar({context, setContext}){
       }
       e.preventDefault();
   }
-
-  useEffect( ()=> {
-    setContext(context);
-  })
   
   useEffect(() => {
+    console.log(context.username);
       if(context.username.length === 0) {
         setNavbar(loggedOutNavbar) ;
       } else {
@@ -38,7 +36,7 @@ function Navbar({context, setContext}){
         loggedInNavbar["Danger Zone"] = './dangerpage?username=' + context.username;
         setNavbar(loggedInNavbar);
       }
-    }, [context.username, navbar, setNavbar]
+    }, [context.username]
   )
 
   return (

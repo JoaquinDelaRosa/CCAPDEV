@@ -63,7 +63,7 @@ function Login({context, setContext}){
         })
         .then((result) => {
           context.username = login["username"]
-          setContext(context);
+          setContext({username : context.username});
 
           navigation('../feed');
         }, (err) => {
