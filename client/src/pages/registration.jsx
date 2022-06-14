@@ -50,6 +50,8 @@ function Registration(){
           "password": registration.password,
           "about": "",
           "gender": "",
+          "saves": [],
+          "posts": [],
           "dateJoined": new Date()
         })
       })
