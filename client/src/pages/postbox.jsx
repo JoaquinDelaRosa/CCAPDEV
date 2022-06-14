@@ -26,12 +26,12 @@ const defaultPost = {
 
 function Postbox({ content, context }) {
     const [post, setPost] = useState(defaultPost);  
-    const [upvoted, setUpvoted] = useState(false);
-    const [downvoted, setDownVoted] = useState(false);
+    const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username));
+    const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.username));
     const [favorite, setFavorited] = useState(false);
 
     useEffect(() => {
-        if (content !== undefined && context && context.username) {
+        if (content !== undefined) {
           setPost(content);
           setUpvoted(hasUpvoted(post, context.username));
           setDownVoted(hasDownvoted(post, context.username));
@@ -39,7 +39,7 @@ function Postbox({ content, context }) {
           setPost(defaultPost);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [content, context, post.id]);
+    }, [content, context.username, post.id]);
 
       
       useEffect( () => {
