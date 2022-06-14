@@ -16,7 +16,7 @@ const Main = ({context, setContext}) => {
     context && setContext &&
     <div>
       <Routes> 
-          <Route path='/' element={<Feed/>}></Route>
+          <Route path='/' element={<Feed context={context} setContext={setContext}/>}></Route>
           <Route path="/registration" element={<Registration/>}></Route>
           <Route path="/postpage/:postid" element={<PostPage context={context} setContext={setContext}/>}></Route>
           <Route path="/login" element={<Login context={context} setContext={setContext}/>}></Route>

@@ -110,7 +110,7 @@ function Feed({context}) {
             )
           }
         </div>
-
+{/* 
         <div id = "Sidebar" className="ml-32 mr-32 border-2 border-gray-700 p-4 h-fit w-full">
           <h2 className="font-bold font-mono text-3xl pb-2 w-full text-cyan-400"> Trending Tags</h2>
 
@@ -121,7 +121,7 @@ function Feed({context}) {
             <TagLabel content={"meme"} text="text-gray" bg="bg-green-600"/>
             <TagLabel content={"game"} text="text-gray" bg="bg-green-600"/>
           </ul>
-        </div>
+        </div> */}
 
       </div>
 

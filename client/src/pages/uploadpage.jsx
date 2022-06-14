@@ -65,7 +65,6 @@ function UploadPage({context, setContext}){
         'Content-type': 'application/json'
       },
       body: JSON.stringify({
-        "id" : post.id,
         "title": post.title,    
         "author": post.author,
         "date" : post.date,
