@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Postbox from "./postbox";
-import TagLabel from "./taglabel";
-import { useLocation, useSearchParams } from "react-router-dom";
+// import TagLabel from "./taglabel";
+import { useSearchParams } from "react-router-dom";
 import SearchBar from "./searchbar";
 
 // TODO: Feed should fetch content from DB rather than content being hardcoded.
@@ -15,7 +15,6 @@ function Feed({context}) {
   const [postList, setPostList] = useState([]);
 
   const [searchParams, ] = useSearchParams();
-  let location = useLocation(); 
 
   const getComplete = () => {
     let data = fetch(feedURL, {
