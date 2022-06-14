@@ -1,6 +1,7 @@
 ﻿import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import parseDate from "../utils/date";
+import { hasDownvoted, hasUpvoted } from "../utils/voted";
 
 // TODO:  Post Id should be assigned in the DB.
 // TODO upvotes and downvotes should correspond to the current state (i.e., loaded profile )
@@ -25,17 +26,19 @@ const defaultPost = {
 
 function Postbox({ content, context }) {
     const [post, setPost] = useState(defaultPost);  
-    const [upvoted, setUpvoted] = useState(false);
-    const [downvoted, setDownVoted] = useState(false);
+    const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username));
+    const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.username));
     const [favorite, setFavorited] = useState(false);
 
     useEffect(() => {
         if (content !== undefined) {
           setPost(content);
+          setUpvoted(hasUpvoted(post, context.username));
+          setDownVoted(hasDownvoted(post, context.username));
         } else {
           setPost(defaultPost);
         }
-    }, [content]);
+    }, [content, context.username, post.id]);
 
       
       useEffect( () => {

@@ -20,9 +20,8 @@ function Comment({ content, context , setContext, parent, setObserver}) {
   const [showing, setShowing] = useState(false);
   const [replying, setReplying] = useState(false);
   const [reply, setReply] = useState("");
-
-  const [upvoted, setUpvoted] = useState(false);
-  const [downvoted, setDownVoted] = useState(false);
+  const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username));
+  const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.userame));
   
   useEffect( () => {
     if (content !== undefined) {
