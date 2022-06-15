@@ -139,19 +139,4 @@ router.delete('/', function(req, res, next) {
     });;
 })
 
-/* PATCH edit post listing */
-// Query params: id
-router.patch('/editPost', function(req, res, next) {
-  Post.updateOne({ 'id': req.query.id }, req.body, (err) => {
-      if (err){
-          console.log(err);
-          res.send({message: "Failed to update post"});
-          res.end();
-      } else {
-          res.send({message: "Successfully update post"})
-          res.end();
-      }
-  });
-})
-
 module.exports = router;

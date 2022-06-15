@@ -5,8 +5,9 @@ import parseDate from "../utils/date";
 import Comment from "./comment";
 import TextBox from "./textbox";
 import TagLabel from "./taglabel";
-import { useLocation } from "react-router-dom";
+import { useLocation , useNavigate, Link} from "react-router-dom";
 import { hasDownvoted, hasFavorited, hasUpvoted } from "../utils/voted";
+import defaultPost from "../utils/defaultPost";
 
 // TO-DO: 
 //        Edit/ Delete posts. More convenient to do this with the DB
@@ -16,21 +17,7 @@ const postURL = "/api/post/edit"
 
 
 function PostPage({postData, context, setContext}){
-  const [post, setPost] = useState({
-    "id" : "",
-    "title": "",    
-    "author": "",
-    "date" : new Date(),
-    "mediaPath": null,
-    "mediaAlt": "",
-    "body": "",
-    "upvotes": [],
-    "downvotes": [],
-    "favorites": [],
-    "views" : [],
-    "tags" : [],
-    "comments": []
-  });
+  const [post, setPost] = useState(defaultPost);
 
   const [showing, setShowing] = useState(true);
   const [replying, setReplying] = useState(false);
@@ -41,6 +28,7 @@ function PostPage({postData, context, setContext}){
   const [observer, setObserver] = useState(false);
 
   let location = useLocation();
+  const navigation = useNavigate();
 
   useEffect(
     () => {
@@ -210,11 +198,28 @@ function PostPage({postData, context, setContext}){
             /> 
 
             <input type="button"
-            className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer"
+            className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointe mr-5"
             defaultValue={"Reply"}
             onClick = {() => {setReplying(!replying)}}
             />
+            {
+              context.username === post.author && 
+              <Link to={"../edit/" +post.id}  state={{postData : post}}>
+                <input type="button"
+                className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
+                defaultValue={"Edit"}
+                />
+              </Link>
+            }
 
+            {
+              context.username === post.author && 
+              <input type="button"
+              className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer"
+              defaultValue={"Delete"}
+              onClick = {() => {}}
+              />
+            }
           </div>
 
           <div>

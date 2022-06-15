@@ -26,7 +26,7 @@ const Main = ({context, setContext}) => {
           <Route path="/settings" element={<SettingsPage context={context} setContext={setContext}/>}></Route>
           <Route path="/dangerpage" element={<DangerPage context={context} setContext={setContext}/>}></Route>
           <Route path="/upload" element={<UploadPage context={context}/>}> </Route>
-          <Route path="/edit" element={<EditPost context={context}/>}> </Route>
+          <Route path="/edit/:postid" element={<EditPost context={context}/>}> </Route>
 
       </Routes>
     </div>

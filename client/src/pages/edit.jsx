@@ -1,32 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import TagLabel from "./taglabel";
+import defaultPost from "../utils/defaultPost";
 
-const editURL = '/api/post/editPost';
+const editURL = '/api/post/edit';
 
-function EditPost({context, setContext}){
+function EditPost({postData, context, setContext}){
   const reader = new FileReader();
   const navigation = useNavigate();
 
-  const [post, setPost] = useState({
-    "id" : "",
-    "title": "",    
-    "author": "",
-    "date" : new Date(),
-    "mediaPath": null,
-    "mediaAlt": "",
-    "body": "",
-    "upvotes": 0,
-    "downvotes": 0,
-    "favorites" : 0,
-    "views" : 0,
-    "tags" : [],
-    "comments": []
-  });
+  const [post, setPost] = useState(defaultPost);
 
-  useEffect( () => {
-    setPost(post);
-  }, [context, post])
+  let location = useLocation();
+
+  useEffect(
+    () => {
+      if (location.state && location.state.postData) {
+        setPost(location.state.postData)
+      }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [context.username, location, post.id]
+  )
     
   const inputHandler = (name, value) => {
     setPost( values => ({...values, [name] : value}))
@@ -58,7 +52,7 @@ function EditPost({context, setContext}){
 
   const onSubmit = (e) => {
     if(handlePermissions) {
-        fetch(editURL, {
+        fetch(editURL + "?id=" + post.id, {
         method : "PATCH",
         headers : {
         'Content-type': 'application/json'
@@ -86,7 +80,7 @@ function EditPost({context, setContext}){
         console.log(result);
         })
         .then(() => {
-        navigation('/');
+        navigation('/postpage/' + post.id, {state: {postData : post}});
         })
         .catch((error) => {
         console.log("Error in Updating the Post\n" + error);
@@ -114,7 +108,7 @@ function EditPost({context, setContext}){
                 e.target.style.height = `${e.target.scrollHeight}px`; 
             }}
             name = "text"
-            placeholder= "Title"
+            value = {post.title}
             required
             />
 
@@ -170,7 +164,7 @@ function EditPost({context, setContext}){
                 e.target.style.height = `${e.target.scrollHeight}px`; 
             }}
             name = "text"
-            placeholder= "Description"
+            value= {post.body}
             required
             />
 
