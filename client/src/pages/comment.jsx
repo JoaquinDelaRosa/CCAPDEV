@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import parseDate from "../utils/date";
 import TextBox from "./textbox";
 import { hasDownvoted, hasUpvoted } from "../utils/voted";
+import { Link} from "react-router-dom";
 
 function Comment({ content, context , setContext, parent, setObserver}) {
   const [post, setPost] = useState({
@@ -19,6 +20,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
   });
   const [showing, setShowing] = useState(false);
   const [replying, setReplying] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [reply, setReply] = useState("");
   const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username));
   const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.userame));
@@ -33,7 +35,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
   }, [content, context.username, post.id]);
 
   useEffect( () => {
-    if (reply !== ""){
+    if (reply !== "" && replying){
           post.comments.push({
             "id": Math.random() * 2<<20,      // Temporary hash for id
             "author" : (context) ? context["username"] : "",
@@ -48,8 +50,18 @@ function Comment({ content, context , setContext, parent, setObserver}) {
           }
         )
         setPost(values => ({...values, "comments" : post.comments}))
+        setObserver(true);
+        setReplying(false);
       }
-    },  [post.comments, reply, context]
+
+    else if (reply !== "" && editing){
+      post.body = reply;
+      setPost(values => ({...values, "body" : post.body}))
+      setEditing(false);
+      setObserver(true);
+    }
+
+    },  [post.comments, reply, context, replying, editing, post, setObserver]
   )
 
   const handleUpvote = () => {
@@ -135,6 +147,24 @@ function Comment({ content, context , setContext, parent, setObserver}) {
               defaultValue={"Reply"}
               onClick = {() => {setReplying(!replying)}}
             />
+
+            {
+                context.username === post.author && 
+                  <input type="button"
+                  className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
+                  defaultValue={"Edit"}
+                  onClick = {() => setEditing(!editing)}
+                  />
+              }
+  
+              {
+                context.username === post.author && 
+                <input type="button"
+                className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer"
+                defaultValue={"Delete"}
+                onClick = {() => {}}
+                />
+              }
           </div>
 
           <div className="align-middle">
@@ -155,11 +185,12 @@ function Comment({ content, context , setContext, parent, setObserver}) {
             />
           </div>
 
+
         </div>
 
         <div id="reply-box" className="w-full mt-2, mb-1">
           {
-            replying && <TextBox reply = {reply} setReply={setReply}/>
+            (replying || editing) && <TextBox reply = {reply} setReply={setReply}/>
           }
         </div>
         <div id="comment-section" className=" w-full h-auto " >

@@ -5,7 +5,7 @@ import parseDate from "../utils/date";
 import Comment from "./comment";
 import TextBox from "./textbox";
 import TagLabel from "./taglabel";
-import { useLocation , useNavigate, Link} from "react-router-dom";
+import { useLocation , Link} from "react-router-dom";
 import { hasDownvoted, hasFavorited, hasUpvoted } from "../utils/voted";
 import defaultPost from "../utils/defaultPost";
 
@@ -28,7 +28,6 @@ function PostPage({postData, context, setContext}){
   const [observer, setObserver] = useState(false);
 
   let location = useLocation();
-  const navigation = useNavigate();
 
   useEffect(
     () => {
@@ -58,6 +57,7 @@ function PostPage({postData, context, setContext}){
           }
         )
         setPost(values => ({...values, "comments" : post.comments}))
+        setReplying(false);
       }
     },  [post.comments, reply, context]
   )
