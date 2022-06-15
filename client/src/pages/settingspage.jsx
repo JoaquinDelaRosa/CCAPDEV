@@ -100,7 +100,7 @@ function SettingsPage({context, setContext}){
         Object.assign(profile, editted); 
         setProfile(profile);
         setEditted(profile);
-        navigation('../settings?username=' + profile.username); // highly coupled to profile url syntax
+        navigation('../profile?username=' + profile.username);
       }, (err) => {
         alert("An Error Occured During Profile Change");
       })

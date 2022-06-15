@@ -61,6 +61,7 @@ function DangerPage({context, setContext}){
       })
       .then((res) => {
         alert(res.message);  
+        setContext({username : ""})
       })
       .then(() => {
         navigation('../feed');

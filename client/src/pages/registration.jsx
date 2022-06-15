@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const registerURL = '/api/user/register';
 
-function Registration(){
+function Registration({context, setContext}){
 
     const [registration, setRegistration] = useState({
       "email" : "",
@@ -60,6 +60,7 @@ function Registration(){
       })
       .then((result) => {
         alert(result.message);
+        setContext({username : registration.username})
         navigation('../feed');
       }, (err) => {
         alert("Invalid Registration!");
