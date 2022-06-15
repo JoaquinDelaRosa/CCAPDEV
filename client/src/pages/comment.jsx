@@ -20,6 +20,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
   const [showing, setShowing] = useState(false);
   const [replying, setReplying] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [reply, setReply] = useState("");
   const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username));
   const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.userame));
@@ -64,7 +65,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
   )
 
   const handleUpvote = () => {
-    if (context.username === "")
+    if (context.username === "" || post === null)
       return;
       
     if (upvoted) {
@@ -89,9 +90,9 @@ function Comment({ content, context , setContext, parent, setObserver}) {
   }
 
   const handleDownvotes = () => {
-    if (context.username === "")
+    if (context.username === "" || post === null)
       return;
-      
+
     if (downvoted) {
       setPost( values => ({...values, 
         "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})
@@ -112,7 +113,15 @@ function Comment({ content, context , setContext, parent, setObserver}) {
     setDownVoted(!downvoted);
     setObserver(true);
   }
+
+  const handleDelete = () => {
+    parent.comments = parent.comments.filter((value, index) => {return value.id !== post.id})
+    setObserver(true);
+    setDeleting(false);
+  }
+
   return (
+    post && 
     <div className="pl-4 w-full">
       <div id="comment-box" className="w-full h-auto">
         <div id="comment-author" className="h-fit mb-1">
@@ -162,14 +171,25 @@ function Comment({ content, context , setContext, parent, setObserver}) {
                   />
               }
   
-              {
-                context.username === post.author && 
-                <input type="button"
-                className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer"
-                defaultValue={"Delete"}
-                onClick = {() => {}}
-                />
-              }
+
+            {
+              context.username === post.author && 
+              <input type="button"
+              className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
+              defaultValue={"Delete"}
+              onClick = {() => {
+                setDeleting(!deleting)}}
+              />
+            }
+
+            {
+              deleting === true && 
+              <input type="button"
+              className="text-xl font-semibold text-red-500 hover:text-red-700 hover:cursor-pointer"
+              defaultValue={"CLick here to delete this post. This cannot be undone."}
+              onClick = {() => {handleDelete()}}
+              />
+            }
           </div>
 
           <div className="align-middle">
@@ -205,7 +225,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
                 showing &&
                 <div className="flex border-l-2 border-l-gray-400 ml-4 my-2 min-w-[10rem] h-full" key={value.id}>
                   <div className="w-2 h-full"> </div>
-                  <Comment content={value} context={context} parent={parent} setObserver = {setObserver}/>
+                  <Comment content={value} context={context} parent={post} setObserver = {setObserver}/>
                 </div>
               )
            })

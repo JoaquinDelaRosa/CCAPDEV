@@ -310,7 +310,7 @@ function PostPage({postData, context, setContext}){
                 showing &&  
                 <div className="flex border-l-4 border-l-gray-500 my-2" key={index}>
                   <div className="w-5 h-full "> </div> 
-                  <Comment content={value} context = {context} setObserver = {setObserver}/>
+                  <Comment content={value} context = {context} parent={post} setObserver = {setObserver} />
                 </div>
               )
             })
