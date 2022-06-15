@@ -5,7 +5,7 @@ import parseDate from "../utils/date";
 import Comment from "./comment";
 import TextBox from "./textbox";
 import TagLabel from "./taglabel";
-import { useLocation , Link} from "react-router-dom";
+import { useLocation ,useNavigate, Link, Navigate} from "react-router-dom";
 import { hasDownvoted, hasFavorited, hasUpvoted } from "../utils/voted";
 import defaultPost from "../utils/defaultPost";
 
@@ -14,6 +14,7 @@ import defaultPost from "../utils/defaultPost";
 //        Comments should be deletable / editable. This'll be handled in Phase 2
 
 const postURL = "/api/post/edit"
+const deleteURL = "/api/post/delete"
 
 
 function PostPage({postData, context, setContext}){
@@ -25,9 +26,11 @@ function PostPage({postData, context, setContext}){
   const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username));
   const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.username));
   const [favorite, setFavorited] = useState(hasFavorited(post, context.username));
+  const [deleting, setDeleting] = useState(false);
   const [observer, setObserver] = useState(false);
 
   let location = useLocation();
+  const navigation = useNavigate();
 
   useEffect(
     () => {
@@ -136,10 +139,9 @@ function PostPage({postData, context, setContext}){
 
   
   const handleFavorites = () => {
-    // FETCH associated profile data
     if (context.username === "")
       return;
-      
+
     if (favorite)
       setPost( values => ({...values, 
         "favorites" : post.favorites.filter((value) => {return value !== context.username})
@@ -154,6 +156,26 @@ function PostPage({postData, context, setContext}){
     setFavorited(!favorite);
   }
 
+  const handleDelete = () => {
+    if (context.username === "")
+      return;
+
+    fetch(deleteURL + "?id=" + post.id, {
+      method : "DELETE",
+      headers : {
+        'Content-type': 'application/json'
+      }
+    })
+    .then((response) => {
+      return response.text();
+    })
+    .then(() => {
+      navigation("../feed");
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   return (
       <div className="bg-gray-800 text-white">
@@ -223,9 +245,18 @@ function PostPage({postData, context, setContext}){
             {
               context.username === post.author && 
               <input type="button"
-              className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer"
+              className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
               defaultValue={"Delete"}
-              onClick = {() => {}}
+              onClick = {() => {setDeleting(!deleting)}}
+              />
+            }
+
+            {
+              deleting === true && 
+              <input type="button"
+              className="text-xl font-semibold text-red-500 hover:text-blue-700 hover:cursor-pointer"
+              defaultValue={"Are you sure? This cannot be undone."}
+              onClick = {() => {handleDelete()}}
               />
             }
           </div>

@@ -8,7 +8,7 @@ import Profile from './pages/profile'
 import SettingsPage from './pages/settingspage';
 import DangerPage from './pages/dangerzone';
 import UploadPage from './pages/uploadpage';
-import EditPost from './pages/edit';
+import EditPost from './pages/editpost';
 
 
 const Main = ({context, setContext}) => {

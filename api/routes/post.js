@@ -124,7 +124,7 @@ router.patch('/edit', function(req, res, next) {
 
 /* DELETE post listing */
 // Query params: id
-router.delete('/', function(req, res, next) {
+router.delete('/delete', function(req, res, next) {
     Post.deleteOne({ 'id': req.query.id })
     .then((delRes) => {
         if(delRes.deletedCount <= 0)
