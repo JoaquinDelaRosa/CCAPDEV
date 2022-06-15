@@ -5,7 +5,7 @@ import parseDate from "../utils/date";
 import Comment from "./comment";
 import TextBox from "./textbox";
 import TagLabel from "./taglabel";
-import { useLocation ,useNavigate, Link, Navigate} from "react-router-dom";
+import { useLocation ,useNavigate, Link} from "react-router-dom";
 import { hasDownvoted, hasFavorited, hasUpvoted } from "../utils/voted";
 import defaultPost from "../utils/defaultPost";
 
