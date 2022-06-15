@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import parseDate from "../utils/date";
 import TextBox from "./textbox";
 import { hasDownvoted, hasUpvoted } from "../utils/voted";
-import { Link} from "react-router-dom";
 
 function Comment({ content, context , setContext, parent, setObserver}) {
   const [post, setPost] = useState({
@@ -65,6 +64,9 @@ function Comment({ content, context , setContext, parent, setObserver}) {
   )
 
   const handleUpvote = () => {
+    if (context.username === "")
+      return;
+      
     if (upvoted) {
       setPost( values => ({...values,
         "upvotes" : post.upvotes.filter(((value) => {return value !== context.username;}))
@@ -87,6 +89,9 @@ function Comment({ content, context , setContext, parent, setObserver}) {
   }
 
   const handleDownvotes = () => {
+    if (context.username === "")
+      return;
+      
     if (downvoted) {
       setPost( values => ({...values, 
         "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})

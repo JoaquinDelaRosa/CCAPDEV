@@ -87,6 +87,9 @@ function PostPage({postData, context, setContext}){
   )
 
   const handleUpvote = () => {
+    if (context.username === "")
+      return;
+
     if (upvoted) {
       setPost( values => ({...values,
         "upvotes" : post.upvotes.filter(((value) => {return value !== context.username;}))
@@ -108,6 +111,9 @@ function PostPage({postData, context, setContext}){
   }
 
   const handleDownvotes = () => {
+    if (context.username === "")
+      return;
+
     if (downvoted) {
       setPost( values => ({...values, 
         "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})
@@ -131,7 +137,9 @@ function PostPage({postData, context, setContext}){
   
   const handleFavorites = () => {
     // FETCH associated profile data
-
+    if (context.username === "")
+      return;
+      
     if (favorite)
       setPost( values => ({...values, 
         "favorites" : post.favorites.filter((value) => {return value !== context.username})

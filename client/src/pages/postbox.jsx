@@ -68,6 +68,9 @@ function Postbox({ content, context }) {
     )
 
     const handleView = () => {
+      if (context.username === "")
+        return;
+
       if (!hasViewed(post, context.username)){
         post.views.push(context.username);
       }
@@ -75,6 +78,9 @@ function Postbox({ content, context }) {
 
 
     const handleUpvote = () => {
+      if (context.username === "")
+        return;
+
       if (upvoted) {
         setPost( values => ({...values,
           "upvotes" : post.upvotes.filter(((value) => {return value !== context.username;}))
@@ -96,6 +102,9 @@ function Postbox({ content, context }) {
     }
 
     const handleDownvotes = () => {
+      if (context.username === "")
+        return;
+
       if (downvoted) {
         setPost( values => ({...values, 
           "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})
@@ -119,6 +128,8 @@ function Postbox({ content, context }) {
     
     const handleFavorites = () => {
       // FETCH associated profile data
+      if (context.username === "")
+        return;
   
       if (favorite)
         setPost( values => ({...values, 
