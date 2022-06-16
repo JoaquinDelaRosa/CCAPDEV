@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import parseDate from "../utils/date";
 import TextBox from "./textbox";
 import { hasDownvoted, hasUpvoted } from "../utils/voted";
+import Author from "./author";
 
 function Comment({ content, context , setContext, parent, setObserver}) {
   const [post, setPost] = useState({
@@ -126,7 +127,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
       <div id="comment-box" className="w-full h-auto">
         <div id="comment-author" className="h-fit mb-1">
           <p className="text-left font-mono text-lg font-semibold inline-flex">
-            {(post.author.length > 0) ? post.author : "<Anonymous>"} &nbsp; 
+            <Author context={context} author={post.author} /> &nbsp; 
           </p>         
           <p className="text-left font-mono text-gray-400 inline-flex"> 
             {parseDate(new Date(post['date']))}

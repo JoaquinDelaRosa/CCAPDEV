@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import parseDate from "../utils/date";
 import { hasDownvoted, hasUpvoted, hasViewed, hasFavorited } from "../utils/voted";
+import Author from "./author";
 
 // TODO:  Post Id should be assigned in the DB.
 // TODO upvotes and downvotes should correspond to the current state (i.e., loaded profile )
@@ -156,7 +157,7 @@ function Postbox({ content, context }) {
 
           <div id="post-author-section" className="h-fit mb-5">
               <p className="text-left font-mono font-semibold mb-0"> 
-                By: {(post.author.length > 0) ? post.author : "<Anonymous>"}
+                By: <Author context={context} author={post.author} />
               </p>            
               <p className="text-left font-mono"> 
                 Posted: {parseDate(new Date(post['date']))}

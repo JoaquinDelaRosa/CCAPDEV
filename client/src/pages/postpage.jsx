@@ -8,6 +8,7 @@ import TagLabel from "./taglabel";
 import { useLocation ,useNavigate, Link} from "react-router-dom";
 import { hasDownvoted, hasFavorited, hasUpvoted } from "../utils/voted";
 import defaultPost from "../utils/defaultPost";
+import Author from "./author";
 
 // TO-DO: 
 //        Edit/ Delete posts. More convenient to do this with the DB
@@ -188,7 +189,7 @@ function PostPage({postData, context, setContext}){
 
           <div id="post-author-section" className="px-10 h-fit mb-5">
             <p className="text-left font-mono font-semibold mb-0"> 
-              By: {(post.author.length > 0) ? post.author : "<Anonymous>"}
+              By: <Author context={context} author={post.author} />
             </p>            
             <p className="text-left font-mono"> 
               Posted: {parseDate(new Date(post['date']))}
