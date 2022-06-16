@@ -203,11 +203,10 @@ function UploadPage({context, setContext}){
 
             <span className="pt-1 flex justify-start items-center">
                 <input type="submit" value="Post!" disabled={!canPost()}
-                  className= {"py-1 px-8 rounded-full w-auto font-mono  text-2xl font-semibold hover:cursor-pointer text-white " + 
-                  (canPost() ? "bg-blue-200" : "bg-orange-500 " +
-                  (canPost() ? "hover:bg-blue-400" : "hover:bg-orange-600"))}
-
-                onClick = {(e) => (onSubmit(e))}
+                  className= {"py-1 px-8 rounded-full w-auto font-mono  text-2xl font-semibold text-white " + 
+                  (!canPost() ? "bg-blue-200 hover:cursor-not-allowed" : "bg-orange-500 hover:bg-orange-600 hover:cursor-pointer")
+                  }
+                  onClick = {(e) => (onSubmit(e))}
                 />
             </span>
 
