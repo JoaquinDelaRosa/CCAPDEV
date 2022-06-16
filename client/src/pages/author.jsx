@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 
 function Author({context, author}) {
     return (
-    <Link to={"../profile?username=" + author}>
-        {(author.length > 0) ? author : "<Anonymous>"}
-    </Link>
+    <span className="hover:text-blue-300">
+        <Link to={"../profile?username=" + author}>
+            {(author.length > 0) ? author : "<Anonymous>"}
+        </Link>
+    </span>
     )
 }
 

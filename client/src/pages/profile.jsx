@@ -46,9 +46,12 @@ function Profile({context, setContext}){
   return (
     <div className="flex flex-auto p-8 bg-gray-800 text-white h-screen" id="main">
       <div className="max-w-[25%] w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="left-box">
-        <Link to={"../settings?username=" + profile.username} className="absolute pl-2">
-          &#9965;
-        </Link>
+        {
+          profile && profile.username && context && profile.username === context.username && 
+          <Link to={"../settings?username=" + profile.username} className="absolute pl-2">
+            &#9965;
+          </Link>
+        }
         <div className="justify-center flex pt-3 pb-1" id="pfp-section">  
           <span className="mt-3 w-32 h-32">
             <img 
