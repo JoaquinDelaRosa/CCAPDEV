@@ -3,6 +3,7 @@ import parseDate from "../utils/date";
 import TextBox from "./textbox";
 import { hasDownvoted, hasUpvoted } from "../utils/voted";
 import Author from "./author";
+import {v4} from "uuid"
 
 function Comment({ content, context , setContext, parent, setObserver}) {
   const [post, setPost] = useState({
@@ -38,7 +39,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
   useEffect( () => {
     if (reply !== "" && replying){
           post.comments.push({
-            "id": Math.random() * 2<<20,      // Temporary hash for id
+            "id": v4(),     
             "author" : (context) ? context["username"] : "",
             "date": new Date(),
             "mediaPath" : null,

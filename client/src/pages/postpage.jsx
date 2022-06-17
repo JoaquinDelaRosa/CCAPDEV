@@ -9,6 +9,7 @@ import { useLocation ,useNavigate, Link} from "react-router-dom";
 import { hasDownvoted, hasFavorited, hasUpvoted } from "../utils/voted";
 import defaultPost from "../utils/defaultPost";
 import Author from "./author";
+import {v4} from "uuid"
 
 // TO-DO: 
 //        Edit/ Delete posts. More convenient to do this with the DB
@@ -48,7 +49,7 @@ function PostPage({postData, context, setContext}){
     useEffect( () => {
       if (reply !== ""){
           post.comments.push({
-            "id": post.comments.length + 1, 
+            "id": v4(), 
             "author" : (context) ? context["username"]  :"",
             "date": new Date(),
             "mediaPath" : null,
