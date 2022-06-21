@@ -34,8 +34,8 @@ function SettingsPage({context, setContext}){
   let location = useLocation(defaultProfile);
 
   useEffect(() => {
-    const username = searchParams.get("username");
-      let data = fetch(userURL + "?username=" + username, {
+    const id = searchParams.get("id");
+      let data = fetch(userURL + "?id=" + id, {
         method : "GET",
         headers : {
           'Content-type': 'application/json'
