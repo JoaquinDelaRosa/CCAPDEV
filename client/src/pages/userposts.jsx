@@ -34,7 +34,22 @@ function UserPosts({username}){
             });
           }
     }, [username])
+    
+    function sortDateAsc(a, b) {
+      const d1 = new Date(a.date.toString())
+      const d2 = new Date(b.date.toString())
+      const t1 = d1.getTime()
+      const t2 = d2.getTime();
+      return (t1 > t2) ? 1 : -1
+    }
 
+    function sortDateDesc(a, b) {
+      const d1 = new Date(a.date.toString())
+      const d2 = new Date(b.date.toString())
+      const t1 = d1.getTime()
+      const t2 = d2.getTime();
+      return (t1 < t2) ? 1 : -1
+    }
 
     return (
       <span>
@@ -47,11 +62,7 @@ function UserPosts({username}){
                 (e) => {
                     // sort by date (other categories can be added next time)
                     postList.sort((a, b) => {
-                      const d1 = new Date(a.date.toString())
-                      const d2 = new Date(b.date.toString())
-                      const t1 = d1.getTime()
-                      const t2 = d2.getTime();
-                      return (t1 > t2) ? 1 : -1
+                      return sortDateAsc(a, b);
                     });
 
                     setPostList(Array.from(postList))
@@ -68,11 +79,7 @@ function UserPosts({username}){
                 (e) => {
                     // sort by date (other categories can be added next time)
                     postList.sort((a, b) => {
-                      const d1 = new Date(a.date.toString())
-                      const d2 = new Date(b.date.toString())
-                      const t1 = d1.getTime()
-                      const t2 = d2.getTime();
-                      return (t1 < t2) ? 1 : -1
+                      return sortDateDesc(a, b);
                     });
                     setPostList(Array.from(postList));
                 }
@@ -87,6 +94,9 @@ function UserPosts({username}){
                 onClick={
                 (e) => {
                     postList.sort((a, b) => {
+                      // if two posts have the same length then sort by most recent post
+                      if(a.upvotes.length === b.upvotes.length)
+                        return sortDateDesc(a, b);
                       return (a.upvotes.length > b.upvotes.length) ? 1 : -1
                     });
                     setPostList(Array.from(postList));
@@ -102,6 +112,8 @@ function UserPosts({username}){
                 onClick={
                 (e) => {
                     postList.sort((a, b) => {
+                      if(a.upvotes.length === b.upvotes.length)
+                        return sortDateDesc(a, b);
                       return (a.upvotes.length < b.upvotes.length) ? 1 : -1
                     });
                     setPostList(Array.from(postList));
@@ -117,6 +129,8 @@ function UserPosts({username}){
                 onClick={
                 (e) => {
                     postList.sort((a, b) => {
+                      if(a.downvotes.length === b.downvotes.length)
+                        return sortDateDesc(a, b);
                       return (a.downvotes.length > b.downvotes.length) ? 1 : -1
                     });
                     setPostList(Array.from(postList));
@@ -132,6 +146,8 @@ function UserPosts({username}){
                 onClick={
                 (e) => {
                     postList.sort((a, b) => {
+                      if(a.downvotes.length === b.downvotes.length)
+                        return sortDateDesc(a, b);
                       return (a.downvotes.length < b.downvotes.length) ? 1 : -1
                     });
                     setPostList(Array.from(postList));

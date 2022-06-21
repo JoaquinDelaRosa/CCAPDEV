@@ -35,7 +35,21 @@ function UserSaves({username}){
           }
     }, [username])
 
+    function sortDateAsc(a, b) {
+      const d1 = new Date(a.date.toString())
+      const d2 = new Date(b.date.toString())
+      const t1 = d1.getTime()
+      const t2 = d2.getTime();
+      return (t1 > t2) ? 1 : -1
+    }
 
+    function sortDateDesc(a, b) {
+      const d1 = new Date(a.date.toString())
+      const d2 = new Date(b.date.toString())
+      const t1 = d1.getTime()
+      const t2 = d2.getTime();
+      return (t1 < t2) ? 1 : -1
+    }
 
 
     return (
@@ -89,6 +103,8 @@ function UserSaves({username}){
                 onClick={
                 (e) => {
                     postList.sort((a, b) => {
+                      if(a.upvotes.length === b.upvotes.length)
+                        return sortDateDesc(a, b);
                       return (a.upvotes.length > b.upvotes.length) ? 1 : -1
                     });
                     setPostList(Array.from(postList));
@@ -104,6 +120,8 @@ function UserSaves({username}){
                 onClick={
                 (e) => {
                     postList.sort((a, b) => {
+                      if(a.upvotes.length === b.upvotes.length)
+                        return sortDateDesc(a, b);
                       return (a.upvotes.length < b.upvotes.length) ? 1 : -1
                     });
                     setPostList(Array.from(postList));
@@ -119,6 +137,8 @@ function UserSaves({username}){
                 onClick={
                 (e) => {
                     postList.sort((a, b) => {
+                      if(a.downvotes.length === b.downvotes.length)
+                        return sortDateDesc(a, b);
                       return (a.downvotes.length > b.downvotes.length) ? 1 : -1
                     });
                     setPostList(Array.from(postList));
@@ -134,6 +154,8 @@ function UserSaves({username}){
                 onClick={
                 (e) => {
                     postList.sort((a, b) => {
+                      if(a.downvotes.length === b.downvotes.length)
+                        return sortDateDesc(a, b);
                       return (a.downvotes.length < b.downvotes.length) ? 1 : -1
                     });
                     setPostList(Array.from(postList));
