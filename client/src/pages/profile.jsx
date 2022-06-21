@@ -35,10 +35,11 @@ function Profile({context, setContext}){
         },
       })
       .then((response) => {
+        console.log(response);
         return response.json();
       })
       .catch((error) => {
-        console.log("Error in retrieving profile information");
+        console.log("Error in retrieving profile information" + error);
       });
 
       if (data) {
