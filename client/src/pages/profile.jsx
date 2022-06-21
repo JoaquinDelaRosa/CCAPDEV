@@ -14,6 +14,16 @@ function Profile({context, setContext}){
   
   const [searchParams, ] = useSearchParams();
   let location = useLocation(defaultProfile);
+  
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+  const [usernameQuery, setUsernameQuery] = useState(params.username);
+
+  useEffect(() => {
+    setUsernameQuery(params.username);
+  }
+  , [context, setContext, params.username])
 
   useEffect(
     () => {
@@ -47,7 +57,7 @@ function Profile({context, setContext}){
     <div className="flex flex-auto p-8 bg-gray-800 text-white h-screen" id="main">
       <div className="max-w-[25%] w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="left-box">
         {
-          profile && profile.username && context && profile.username === context.username && 
+          usernameQuery === context.username && 
           <Link to={"../settings?username=" + profile.username} className="absolute pl-2">
             &#9965;
           </Link>
