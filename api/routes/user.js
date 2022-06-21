@@ -12,6 +12,11 @@ router.get('/', async function(req, res, next) {
   res.send(profile[0]);
 });
 
+router.get('/getUsername', async function(req, res, next) {
+  const profile = await User.find({ 'username': req.query.username })
+  res.json(profile[0]);
+});
+
 router.post('/login', async function(req, res, next) {
   // Send only the first match
   console.log("in backend login");

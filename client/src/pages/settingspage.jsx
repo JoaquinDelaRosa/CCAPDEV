@@ -83,7 +83,7 @@ function SettingsPage({context, setContext}){
   const handleSubmit = (event) => {
     if (canSubmit()){
       event.preventDefault();
-      isAlreadyUser(profile.id).then((val) => {
+      isAlreadyUser(editted.username).then((val) => {
         if (!val){
           const query = updateURL + "?id=" + profile.id
           
