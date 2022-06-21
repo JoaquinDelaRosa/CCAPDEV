@@ -154,16 +154,21 @@ function Postbox({ content, context }) {
                 {post.title}
             </strong>
           </div>
+        </Link>
 
           <div id="post-author-section" className="h-fit mb-5">
               <p className="text-left font-mono font-semibold mb-0"> 
                 By: <Author context={context} author={post.author} />
-              </p>            
+              </p>
+              
+            <Link to={("/postpage/" + post.id)} state={{postData: post}}>       
               <p className="text-left font-mono"> 
                 Posted: {parseDate(new Date(post['date']))}
               </p>
+            </Link>
           </div>
 
+        <Link to={("/postpage/" + post.id)} state={{postData: post}}>
           <div className="px-10 h-fit w-full pb-5 flex justify-center">
             <img src={post.mediaPath} alt={post.mediaAlt} className="self-center max-w-[40rem] max-h-[40rem]"/>
           </div>
