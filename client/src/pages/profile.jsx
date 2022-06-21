@@ -25,11 +25,10 @@ function Profile({context, setContext}){
         },
       })
       .then((response) => {
-        console.log(response);
         return response.json();
       })
       .catch((error) => {
-        console.log("Error in retrieving profile information" + error);
+        console.log("Error in retrieving profile information" );
       });
 
       if (data) {
@@ -48,7 +47,7 @@ function Profile({context, setContext}){
     <div className="flex flex-auto p-8 bg-gray-800 text-white h-screen" id="main">
       <div className="max-w-[25%] w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="left-box">
         {
-          profile && profile.username && context && profile.username === context.username && 
+          profile && context && profile.username === context.username &&
           <Link to={"../settings?username=" + profile.username} className="absolute pl-2">
             &#9965;
           </Link>
