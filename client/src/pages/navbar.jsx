@@ -5,7 +5,7 @@ const loggedInNavbar = {
   'Feed': './feed',
   'Upload': './upload', 
   'Profile': './profile',
-  'Log Out': './feed',
+  'Log Out': './',
   "Danger Zone": "./dangerpage" 
 }
 
