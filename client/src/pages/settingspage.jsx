@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
+import isAlreadyUser from "../utils/checkIfPresent";
 import defaultProfile from "../utils/defaultProfile";
 
 // TO-DO:   Settings should update Profile info in the DB
@@ -82,30 +83,34 @@ function SettingsPage({context, setContext}){
   const handleSubmit = (event) => {
     if (canSubmit()){
       event.preventDefault();
-      const query = updateURL + "?username=" + profile.username
-      
-      // Update DB
-      fetch(query, {
-        method: "PATCH",
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(editted)
-      })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        alert(res.message);
-        Object.assign(profile, editted); 
-        setProfile(profile);
-        setEditted(profile);
-        navigation('../profile?username=' + profile.username);
-      }, (err) => {
-        alert("An Error Occured During Profile Change");
-      })
-      event.preventDefault();
-    }
+      isAlreadyUser(profile.username).then((val) => {
+        if (!val){
+          const query = updateURL + "?username=" + profile.username
+          
+          // Update DB
+          fetch(query, {
+            method: "PATCH",
+            headers: {
+              'Content-type': 'application/json'
+            },
+            body: JSON.stringify(editted)
+          })
+          .then((res) => {
+            return res.json();
+          })
+          .then((res) => {
+            alert(res.message);
+            Object.assign(profile, editted); 
+            setProfile(profile);
+            setEditted(profile);
+            navigation('../profile?username=' + profile.username);
+          }, (err) => {
+            alert("An Error Occured During Profile Change");
+          })
+          event.preventDefault();
+        }
+      }
+    )}
   }
 
   return (

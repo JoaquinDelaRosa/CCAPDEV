@@ -1,5 +1,6 @@
 import React, { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
+import isAlreadyUser from "../utils/checkIfPresent";
 
 const registerURL = '/api/user/register';
 
@@ -33,39 +34,49 @@ function Registration({context, setContext}){
       registration.username.match(/^[A-aZ-z0-9]+$/)
     }
 
+
     const isSubmitDisabled = () => {
       return !(isValid() && isComplete());
     }
 
     const onSubmit = (e) => {
-      fetch(registerURL, {
-        method : "POST",
-        headers : {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          "pfp": "None",
-          "email": registration.email,
-          "username": registration.username,
-          "password": registration.password,
-          "about": "",
-          "gender": "",
-          "saves": [],
-          "posts": [],
-          "dateJoined": new Date()
-        })
+      isAlreadyUser(registration.username).then((ex) =>{
+        if (ex){
+          alert("User " + registration.username +" already exists!")
+          e.preventDefault();
+          return;
+        }
+        else {
+          fetch(registerURL, {
+            method : "POST",
+            headers : {
+              'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+              "pfp": "None",
+              "email": registration.email,
+              "username": registration.username,
+              "password": registration.password,
+              "about": "",
+              "gender": "",
+              "saves": [],
+              "posts": [],
+              "dateJoined": new Date()
+            })
+          })
+          .then((response) => {
+            return response.json()
+          })
+          .then((result) => {
+            alert(result.message);
+            setContext({username : registration.username})
+            navigation('../feed');
+          }, (err) => {
+            alert("Invalid Registration!");
+          })
+          e.preventDefault();
+        }
       })
-      .then((response) => {
-        return response.json()
-      })
-      .then((result) => {
-        alert(result.message);
-        setContext({username : registration.username})
-        navigation('../feed');
-      }, (err) => {
-        alert("Invalid Registration!");
-      })
-      e.preventDefault();
     }    
 
     return (
