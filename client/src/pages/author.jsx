@@ -44,7 +44,7 @@ function Author({context, author}) {
         </Link>
         }
 
-        { author.length <= 0 &&
+        { username.length <= 0 &&
           "<Anonymous>"
         }
     </span>
