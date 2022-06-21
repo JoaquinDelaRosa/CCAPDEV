@@ -36,13 +36,11 @@ function UserPosts({username}){
     }, [username])
 
 
-
-
     return (
       <span>
           <div className="pl-2 pb-1 text-cyan-400 select-none">
             <b>POSTS</b>
-            <span>
+            <span name="Sorters">
                 {/* ASCENDING */}
                 <button className="tooltip text-orange-400 float-right hover:bg-gray-900 px-2 rounded-md" 
                 onClick={
@@ -82,6 +80,66 @@ function UserPosts({username}){
                 &#129043;
                 <span className="tooltiptext opacity-90">
                     sort desc date
+                </span>
+                </button>
+                {/* Sort by Upvote ASCENDING*/}
+                <button className="tooltip text-green-700 float-right hover:bg-gray-900 px-2 rounded-md" 
+                onClick={
+                (e) => {
+                    postList.sort((a, b) => {
+                      return (a.upvotes.length > b.upvotes.length) ? 1 : -1
+                    });
+                    setPostList(Array.from(postList));
+                }
+                }>
+                △
+                <span className="tooltiptext opacity-90">
+                    sort asc upvotes
+                </span>
+                </button>
+                {/* Sort by Upvote DESCENDING*/}
+                <button className="tooltip text-green-700 float-right hover:bg-gray-900 px-2 rounded-md" 
+                onClick={
+                (e) => {
+                    postList.sort((a, b) => {
+                      return (a.upvotes.length < b.upvotes.length) ? 1 : -1
+                    });
+                    setPostList(Array.from(postList));
+                }
+                }>
+                ▽
+                <span className="tooltiptext opacity-90">
+                    sort desc upvotes
+                </span>
+                </button>
+              {/* Sort by Downvote ASCENDING*/}
+              <button className="tooltip text-red-700 float-right hover:bg-gray-900 px-2 rounded-md" 
+                onClick={
+                (e) => {
+                    postList.sort((a, b) => {
+                      return (a.downvotes.length > b.downvotes.length) ? 1 : -1
+                    });
+                    setPostList(Array.from(postList));
+                }
+                }>
+                △
+                <span className="tooltiptext opacity-90">
+                    sort asc downvotes
+                </span>
+                </button>
+                {/* Sort by Downvote DESCENDING*/}
+                <button className="tooltip text-red-700 float-right hover:bg-gray-900 px-2 rounded-md" 
+                onClick={
+                (e) => {
+                    postList.sort((a, b) => {
+                      return (a.downvotes.length < b.downvotes.length) ? 1 : -1
+                    });
+                    setPostList(Array.from(postList));
+                }
+                }>
+                ▽
+                <span className="tooltiptext opacity-90">
+                    sort desc downvotes
                 </span>
                 </button>
             </span>
