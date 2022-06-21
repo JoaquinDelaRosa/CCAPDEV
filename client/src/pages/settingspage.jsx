@@ -65,7 +65,6 @@ function SettingsPage({context, setContext}){
       setEditted(profile);
     }
   }, [setEditted, profile]);
-
     
   const inputHandler = (name, value) => {
     if (value === null || value === "")
@@ -80,37 +79,48 @@ function SettingsPage({context, setContext}){
     return true;
   }
 
+  function updateDatabase() {
+    console.log("Changing");
+    const query = updateURL + "?id=" + profile.id
+    
+    // Update DB
+    fetch(query, {
+      method: "PATCH",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(editted)
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      alert(res.message);
+      Object.assign(profile, editted); 
+      setProfile(profile);
+      setEditted(profile);
+      navigation('../profile?id=' + profile.id);
+    }, (err) => {
+      alert("An Error Occured During Profile Change");
+    })
+  }
+
   const handleSubmit = (event) => {
     if (canSubmit()){
       event.preventDefault();
-      isAlreadyUser(editted.username).then((val) => {
-        if (!val){
-          const query = updateURL + "?id=" + profile.id
-          
-          // Update DB
-          fetch(query, {
-            method: "PATCH",
-            headers: {
-              'Content-type': 'application/json'
-            },
-            body: JSON.stringify(editted)
-          })
-          .then((res) => {
-            return res.json();
-          })
-          .then((res) => {
-            alert(res.message);
-            Object.assign(profile, editted); 
-            setProfile(profile);
-            setEditted(profile);
-            navigation('../profile?id=' + profile.id);
-          }, (err) => {
-            alert("An Error Occured During Profile Change");
-          })
-          event.preventDefault();
-        }
+      if (profile.username === editted.username){
+        updateDatabase();
       }
-    )}
+      else {
+        isAlreadyUser(editted.username).then((val) => {
+          if(!val){
+            updateDatabase();
+          }else{
+            alert("Username Taken");
+          }
+        });
+      }
+    }
   }
 
   return (
