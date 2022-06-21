@@ -1,5 +1,6 @@
 import React, { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {v4} from "uuid"
 import isAlreadyUser from "../utils/checkIfPresent";
 
 const registerURL = '/api/user/register';
@@ -47,6 +48,7 @@ function Registration({context, setContext}){
           return;
         }
         else {
+          const id = v4()
           fetch(registerURL, {
             method : "POST",
             headers : {
@@ -54,6 +56,7 @@ function Registration({context, setContext}){
             },
             body: JSON.stringify({
               "pfp": "None",
+              "id" : id,
               "email": registration.email,
               "username": registration.username,
               "password": registration.password,
@@ -65,14 +68,15 @@ function Registration({context, setContext}){
             })
           })
           .then((response) => {
+            console.log("This ran");
             return response.json()
           })
           .then((result) => {
             alert(result.message);
-            setContext({username : registration.username})
+            setContext({id : id})
             navigation('../feed');
           }, (err) => {
-            alert("Invalid Registration!");
+            console.log(err)
           })
           e.preventDefault();
         }
