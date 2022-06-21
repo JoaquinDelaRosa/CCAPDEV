@@ -1,5 +1,5 @@
 import React, { useEffect, useState }  from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 
 const loggedInNavbar = {
   'Feed': './feed',
@@ -17,12 +17,14 @@ const loggedOutNavbar = {
 
 function Navbar({context, setContext}){
   const [navbar, setNavbar] = useState(loggedOutNavbar);
+  const navigation = useNavigate();
   
   const logOut = (e) => {
       if (e !== null) {
         context.username = "";
         setContext(context);
         setNavbar(loggedOutNavbar);
+        navigation('./')
       }
       e.preventDefault();
   }
