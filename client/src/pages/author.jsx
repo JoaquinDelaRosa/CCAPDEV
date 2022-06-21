@@ -6,7 +6,7 @@ function Author({context, author}) {
     return (
     <span className={(author.length > 0 ? "hover:text-blue-300" : "")}>
         { author.length > 0  && 
-        <Link to={"../profile?username=" + author}>
+        <Link to={"../profile?id=" + author}>
             {(author.length > 0) ? author : "<Anonymous>"}
         </Link>
         }

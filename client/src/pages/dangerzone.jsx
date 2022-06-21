@@ -15,8 +15,8 @@ function DangerPage({context, setContext}){
   const navigation = useNavigate();
 
   useEffect(() => {
-    const username = searchParams.get("username");
-      let data = fetch(userURL + "?username=" + username, { 
+    const id = searchParams.get("id");
+      let data = fetch(userURL + "?id=" + id, { 
         method : "GET",
         headers : {
           'Content-type': 'application/json'
@@ -49,7 +49,7 @@ function DangerPage({context, setContext}){
 
   const handleSubmit = (event) => {
     if (canSubmit()){
-      fetch(deleteURL + "?username=" + profile["username"], {
+      fetch(deleteURL + "?id=" + profile["id"], {
         method: "DELETE",
         headers: {
           'Content-type': 'application/json'
@@ -61,7 +61,7 @@ function DangerPage({context, setContext}){
       })
       .then((res) => {
         alert(res.message);  
-        setContext({username : ""})
+        setContext({id : ""})
       })
       .then(() => {
         navigation('../feed');

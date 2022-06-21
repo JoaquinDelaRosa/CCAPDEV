@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 const searchURL = '/api/post/search';
 
-function UserPosts({username}){
+function UserPosts({id}){
     const [postList, setPostList] = useState([])
     
     useEffect( () => {
-        let data = fetch(searchURL + "?q=author:" + username, {
+        let data = fetch(searchURL + "?q=author:" + id, {
             method : "GET",
             headers : {
               'Content-type' : 'application/json'
@@ -33,7 +33,7 @@ function UserPosts({username}){
               }
             });
           }
-    }, [username])
+    }, [id])
     
     function sortDateAsc(a, b) {
       const d1 = new Date(a.date.toString())
@@ -164,13 +164,13 @@ function UserPosts({username}){
             <div className="p-2">
               <div className="py-2" id="right-posts" >
                 { 
-                    (postList.length === 0 || username === "")  && 
+                    (postList.length === 0 || id === "")  && 
                     <span className="flex justify-center items-center">
                         Mmm... Pretty quiet here.
                     </span>
                 }
                 {
-                    !(postList.length === 0 || username === "") && 
+                    !(postList.length === 0 || id === "") && 
                     postList.map(element => {
                         return (
                         element && element.date && element.id && 

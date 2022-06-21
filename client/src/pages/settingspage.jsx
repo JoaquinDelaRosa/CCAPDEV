@@ -83,9 +83,9 @@ function SettingsPage({context, setContext}){
   const handleSubmit = (event) => {
     if (canSubmit()){
       event.preventDefault();
-      isAlreadyUser(profile.username).then((val) => {
+      isAlreadyUser(profile.id).then((val) => {
         if (!val){
-          const query = updateURL + "?username=" + profile.username
+          const query = updateURL + "?id=" + profile.id
           
           // Update DB
           fetch(query, {
@@ -103,7 +103,7 @@ function SettingsPage({context, setContext}){
             Object.assign(profile, editted); 
             setProfile(profile);
             setEditted(profile);
-            navigation('../profile?username=' + profile.username);
+            navigation('../profile?id=' + profile.id);
           }, (err) => {
             alert("An Error Occured During Profile Change");
           })

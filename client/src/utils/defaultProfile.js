@@ -1,5 +1,6 @@
 const defaultProfile = {
     "pfp": null,
+    "id" : "",
     "email": "",
     "username": "",
     "password": "",

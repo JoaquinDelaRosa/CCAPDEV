@@ -19,7 +19,7 @@ function EditPost({postData, context, setContext}){
         setPost(location.state.postData)
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [context.username, location, post.id]
+    }, [context.id, location, post.id]
   )
     
   const inputHandler = (name, value) => {
@@ -47,7 +47,7 @@ function EditPost({postData, context, setContext}){
 
   const handlePermissions = () => {
     // Make sure the post editor has permissions to edit the post
-    return context["username"] === post.author;
+    return context["id"] === post.author;
   }
 
   const onSubmit = (e) => {

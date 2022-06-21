@@ -4,11 +4,11 @@ import { Link} from "react-router-dom";
 
 const searchURL = '/api/post/favorited';
 
-function UserSaves({username}){
+function UserSaves({id}){
     const [postList, setPostList] = useState([])
     
     useEffect( () => {
-        let data = fetch(searchURL + "?username=" + username, {
+        let data = fetch(searchURL + "?id=" + id, {
             method : "GET",
             headers : {
               'Content-type' : 'application/json'
@@ -33,7 +33,7 @@ function UserSaves({username}){
               }
             });
           }
-    }, [username])
+    }, [id])
 
     function sortDateAsc(a, b) {
       const d1 = new Date(a.date.toString())
@@ -172,13 +172,13 @@ function UserSaves({username}){
             <div className="p-2">
               <div className="py-2" id="right-posts" >
                 { 
-                    (postList.length === 0 || username === "")  && 
+                    (postList.length === 0 || id === "")  && 
                     <span className="flex justify-center items-center">
                         Mmm... Pretty quiet here.
                     </span>
                 }
                 {
-                    !(postList.length === 0 || username === "") && 
+                    !(postList.length === 0 || id === "") && 
                     postList.map(element => {
                       return (
                         element && element.date && element.id && 

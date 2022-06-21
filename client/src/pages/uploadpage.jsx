@@ -28,7 +28,7 @@ function UploadPage({context, setContext}){
 
   useEffect( () => {
     if (context)
-      post.author = context["username"];
+      post.author = context["id"];
     else 
       post.author = ""
 
@@ -94,7 +94,7 @@ function UploadPage({context, setContext}){
       console.log("Error in Uploading the Post\n" + error);
     })
 
-    fetch(userURL + "?username=" + context.username , {
+    fetch(userURL + "?id=" + context.id , {
       method : 'PATCH',
       headers : {
         'Content-type': 'application/json'

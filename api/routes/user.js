@@ -8,7 +8,7 @@ const User = require('../database/models/users');
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
   // Send only the first match
-  const profile = await User.find(({'username' : req.query.username}));
+  const profile = await User.find(({'id' : req.query.id}));
   res.send(profile[0]);
 });
 
@@ -45,7 +45,7 @@ router.post('/register', function(req, res, next) {
 
 /* PATCH users listing */
 router.patch('/update', function(req, res, next) {
-  User.updateOne({'username' : req.query.username}, req.body, (err) => {
+  User.updateOne({'id' : req.query.id}, req.body, (err) => {
     if(err) {
       console.log(err);
       res.send({message: "Failed to edit profile"});
@@ -59,7 +59,7 @@ router.patch('/update', function(req, res, next) {
 })
 
 router.patch('/upload', function(req, res, next) {
-  User.findOneAndUpdate({'username' : req.query.username}, {
+  User.findOneAndUpdate({'id' : req.query.id}, {
     '$push' : {posts : req.body.id}
   }, (err) => {
     if(err) {
@@ -76,7 +76,7 @@ router.patch('/upload', function(req, res, next) {
 
 /* DELETE users listing */
 router.delete('/delete', function(req, res, next) {
-  User.deleteOne({'username' : req.query.username})
+  User.deleteOne({'id' : req.query.id})
     .then((delRes) => {
         if(delRes.deletedCount <= 0)
           res.send({message: "No Account Matched in Database"})

@@ -62,8 +62,8 @@ function Login({context, setContext}){
           return response.json()
         })
         .then((result) => {
-          context.username = login["username"]
-          setContext({username : context.username});
+          context.id = result["id"]
+          setContext({id : context.id});
 
           navigation('../feed');
         }, (err) => {

@@ -17,8 +17,8 @@ function Profile({context, setContext}){
 
   useEffect(
     () => {
-      const username = searchParams.get("username");
-      let data = fetch(userURL + "?username=" + username, { 
+      const id = searchParams.get("id");
+      let data = fetch(userURL + "?id=" + id, { 
         method : "GET",
         headers : {
           'Content-type': 'application/json'
@@ -47,8 +47,8 @@ function Profile({context, setContext}){
     <div className="flex flex-auto p-8 bg-gray-800 text-white h-screen" id="main">
       <div className="max-w-[25%] w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="left-box">
         {
-          profile && context && profile.username === context.username &&
-          <Link to={"../settings?username=" + profile.username} className="absolute pl-2">
+          profile && context && profile.id === context.id &&
+          <Link to={"../settings?id=" + profile.id} className="absolute pl-2">
             &#9965;
           </Link>
         }
@@ -56,7 +56,7 @@ function Profile({context, setContext}){
           <span className="mt-3 w-32 h-32">
             <img 
                 src={profile["pfp"]} 
-                alt={profile["username"] + "'s profile picture"}
+                alt={profile["id"] + "'s profile picture"}
                 className = "w-full h-full object-cover rounded-full overflow-hidden hover:opacity-80 hover:cursor-pointer"
             />
           </span>
@@ -85,8 +85,8 @@ function Profile({context, setContext}){
       </div>
       
       <div className="min-w-[67%] h-fit p-2" id="right-box">
-        <UserPosts username={profile.username}/>
-        <UserSaves username={profile.username}/>
+        <UserPosts id={profile.id}/>
+        <UserSaves id={profile.id}/>
       </div>
     </div>
   )

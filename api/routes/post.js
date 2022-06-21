@@ -81,7 +81,7 @@ router.get('/feed', async function(req, res, next) {
 
 router.get('/favorited', async function(req, res, next){
     const content = await Post.find({
-      favorites: req.query.username
+      favorites: req.query.id
     })
       .sort({'date' : 'desc'})
       .limit(LIMIT);

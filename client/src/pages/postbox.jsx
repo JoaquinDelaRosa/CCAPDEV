@@ -27,16 +27,16 @@ const defaultPost = {
 
 function Postbox({ content, context }) {
     const [post, setPost] = useState(defaultPost);  
-    const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username));
-    const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.username));
-    const [favorite, setFavorited] = useState(hasFavorited(post, context.username));
+    const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.id));
+    const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.id));
+    const [favorite, setFavorited] = useState(hasFavorited(post, context.id));
 
     useEffect(() => {
         if (content !== undefined) {
           setPost(content);
-          setUpvoted(hasUpvoted(post, context.username));
-          setDownVoted(hasDownvoted(post, context.username));
-          setFavorited(hasFavorited(post, context.username));
+          setUpvoted(hasUpvoted(post, context.id));
+          setDownVoted(hasDownvoted(post, context.id));
+          setFavorited(hasFavorited(post, context.id));
 
           handleView()
 
@@ -44,7 +44,7 @@ function Postbox({ content, context }) {
           setPost(defaultPost);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [content, context.username, post.id]);
+    }, [content, context.id, post.id]);
 
       
       useEffect( () => {
@@ -69,32 +69,32 @@ function Postbox({ content, context }) {
     )
 
     const handleView = () => {
-      if (context.username === "")
+      if (context.id === "")
         return;
 
-      if (!hasViewed(post, context.username)){
-        post.views.push(context.username);
+      if (!hasViewed(post, context.id)){
+        post.views.push(context.id);
       }
     }
 
 
     const handleUpvote = () => {
-      if (context.username === "")
+      if (context.id === "")
         return;
 
       if (upvoted) {
         setPost( values => ({...values,
-          "upvotes" : post.upvotes.filter(((value) => {return value !== context.username;}))
+          "upvotes" : post.upvotes.filter(((value) => {return value !== context.id;}))
         }))
       }
       else {
-        post.upvotes.push(context.username);
+        post.upvotes.push(context.id);
         setPost( values => ({...values, 
           "upvotes" : post.upvotes
         }))
         if (downvoted) 
           setPost( values => ({...values, 
-          "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})
+          "downvotes" : post.downvotes.filter((value) => {return value !== context.id;})
         }))
       }
       
@@ -103,22 +103,22 @@ function Postbox({ content, context }) {
     }
 
     const handleDownvotes = () => {
-      if (context.username === "")
+      if (context.id === "")
         return;
 
       if (downvoted) {
         setPost( values => ({...values, 
-          "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})
+          "downvotes" : post.downvotes.filter((value) => {return value !== context.id;})
         }))
       }
       else {
-        post.downvotes.push(context.username);
+        post.downvotes.push(context.id);
         setPost( values => ({...values, 
           "downvotes" : post.downvotes
         }))
         if (upvoted)
           setPost( values => ({...values, 
-            "upvotes" : post.upvotes.filter(((value) => {return value !== context.username}))
+            "upvotes" : post.upvotes.filter(((value) => {return value !== context.id}))
         }))
       }
 
@@ -129,15 +129,15 @@ function Postbox({ content, context }) {
     
     const handleFavorites = () => {
       // FETCH associated profile data
-      if (context.username === "")
+      if (context.id === "")
         return;
   
       if (favorite)
         setPost( values => ({...values, 
-          "favorites" : post.favorites.filter((value) => {return value !== context.username})
+          "favorites" : post.favorites.filter((value) => {return value !== context.id})
         }));
       else {
-        post.favorites.push(context.username);
+        post.favorites.push(context.id);
         setPost( values => ({...values, 
           "favorites" : post.favorites
         }));

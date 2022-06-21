@@ -1,8 +1,8 @@
 
 const userURL = '/api/user';
 
-async function isAlreadyUser(username){
-    const ans =  fetch(userURL + "?username=" + username, { 
+async function isAlreadyUser(id){
+    const ans =  fetch(userURL + "?id=" + id, { 
         method : "GET",
         headers : {
           'Content-type': 'application/json'
@@ -12,7 +12,7 @@ async function isAlreadyUser(username){
         return response.json();
       })
       .then((response) => {
-        if (response.username === username)
+        if (response.id === id)
             return true;
         return false;
       })

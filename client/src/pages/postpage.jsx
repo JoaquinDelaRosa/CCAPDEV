@@ -25,9 +25,9 @@ function PostPage({postData, context, setContext}){
   const [showing, setShowing] = useState(true);
   const [replying, setReplying] = useState(false);
   const [reply, setReply] = useState("");
-  const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.username));
-  const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.username));
-  const [favorite, setFavorited] = useState(hasFavorited(post, context.username));
+  const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.id));
+  const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.id));
+  const [favorite, setFavorited] = useState(hasFavorited(post, context.id));
   const [deleting, setDeleting] = useState(false);
   const [observer, setObserver] = useState(false);
 
@@ -38,19 +38,19 @@ function PostPage({postData, context, setContext}){
     () => {
       if (location.state && location.state.postData) {
         setPost(location.state.postData)
-        setUpvoted(hasUpvoted(post, context.username));
-        setDownVoted(hasDownvoted(post, context.username));
-        setFavorited(hasFavorited(post, context.username));
+        setUpvoted(hasUpvoted(post, context.id));
+        setDownVoted(hasDownvoted(post, context.id));
+        setFavorited(hasFavorited(post, context.id));
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [context.username, location, post.id]
+    }, [context.id, location, post.id]
   )
 
     useEffect( () => {
       if (reply !== ""){
           post.comments.push({
             "id": v4(), 
-            "author" : (context) ? context["username"]  :"",
+            "author" : (context) ? context["id"]  :"",
             "date": new Date(),
             "mediaPath" : null,
             "mediaAlt" : "",
@@ -92,22 +92,22 @@ function PostPage({postData, context, setContext}){
   )
 
   const handleUpvote = () => {
-    if (context.username === "")
+    if (context.id === "")
       return;
 
     if (upvoted) {
       setPost( values => ({...values,
-        "upvotes" : post.upvotes.filter(((value) => {return value !== context.username;}))
+        "upvotes" : post.upvotes.filter(((value) => {return value !== context.id;}))
       }))
     }
     else {
-      post.upvotes.push(context.username);
+      post.upvotes.push(context.id);
       setPost( values => ({...values, 
         "upvotes" : post.upvotes
       }))
       if (downvoted) 
         setPost( values => ({...values, 
-        "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})
+        "downvotes" : post.downvotes.filter((value) => {return value !== context.id;})
       }))
     }
     
@@ -116,22 +116,22 @@ function PostPage({postData, context, setContext}){
   }
 
   const handleDownvotes = () => {
-    if (context.username === "")
+    if (context.id === "")
       return;
 
     if (downvoted) {
       setPost( values => ({...values, 
-        "downvotes" : post.downvotes.filter((value) => {return value !== context.username;})
+        "downvotes" : post.downvotes.filter((value) => {return value !== context.id;})
       }))
     }
     else {
-      post.downvotes.push(context.username);
+      post.downvotes.push(context.id);
       setPost( values => ({...values, 
         "downvotes" : post.downvotes
       }))
       if (upvoted)
         setPost( values => ({...values, 
-          "upvotes" : post.upvotes.filter(((value) => {return value !== context.username}))
+          "upvotes" : post.upvotes.filter(((value) => {return value !== context.id}))
       }))
     }
 
@@ -141,15 +141,15 @@ function PostPage({postData, context, setContext}){
 
   
   const handleFavorites = () => {
-    if (context.username === "")
+    if (context.id === "")
       return;
 
     if (favorite)
       setPost( values => ({...values, 
-        "favorites" : post.favorites.filter((value) => {return value !== context.username})
+        "favorites" : post.favorites.filter((value) => {return value !== context.id})
       }));
     else {
-      post.favorites.push(context.username);
+      post.favorites.push(context.id);
       setPost( values => ({...values, 
         "favorites" : post.favorites
       }));
@@ -159,7 +159,7 @@ function PostPage({postData, context, setContext}){
   }
 
   const handleDelete = () => {
-    if (context.username === "")
+    if (context.id === "")
       return;
 
     fetch(deleteURL + "?id=" + post.id, {
@@ -235,7 +235,7 @@ function PostPage({postData, context, setContext}){
             onClick = {() => {setReplying(!replying)}}
             />
             {
-              context.username === post.author && 
+              context.id === post.author && 
               <Link to={"../edit/" +post.id}  state={{postData : post}}>
                 <input type="button"
                 className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
@@ -245,7 +245,7 @@ function PostPage({postData, context, setContext}){
             }
 
             {
-              context.username === post.author && 
+              context.id === post.author && 
               <input type="button"
               className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
               defaultValue={"Delete"}
