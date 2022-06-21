@@ -13,7 +13,8 @@ var app = express();
 
 // mongodb
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://admin:admin@ccapdev-database.xdgjy.mongodb.net/data',
+const uri = 'mongodb+srv://admin:admin@ccapdev-database.xdgjy.mongodb.net/data';
+mongoose.connect(uri,
   {useNewURLParser: true, useUnifiedTopology: true}
 );
 const connection = mongoose.connection;
