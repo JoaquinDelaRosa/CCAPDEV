@@ -31,7 +31,7 @@ function parseQuery(q){
     if(value.startsWith("author:")){
       queryObject.authors.push(value.replace('author:', ''));
     } else if(value.startsWith("tag:")){
-      queryObject.authors.push(value.replace('tag:', ''));
+      queryObject.tags.push(value.replace('tag:', ''));
     } else {
       queryObject.contents += (value + " ");
     }
@@ -55,7 +55,7 @@ router.get('/search', async function(req, res, next) {
     findQuery["title"] = { $regex: '.*' + body.contents + '.*' , $options: 'i'}
   }
   if (body.tags.length !== 0){
-    findQuery["tags"] = {$all : body.tags};
+    findQuery["tags"] = {$all: body.tags};
   }
 
   const content = await Post.find(
@@ -64,6 +64,7 @@ router.get('/search', async function(req, res, next) {
     .sort({ 'date': 'desc' })
     .limit(LIMIT);
   
+
   res.json(content);
 })
 
