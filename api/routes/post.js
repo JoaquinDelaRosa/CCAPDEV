@@ -52,7 +52,7 @@ router.get('/search', async function(req, res, next) {
     findQuery["author"] = {$all : body.authors};
   }
   if (body.contents !== ""){
-    findQuery["title"] = body.contents;
+    findQuery["title"] = { $regex: '.*' + body.contents + '.*' , $options: 'i'}
   }
   if (body.tags.length !== 0){
     findQuery["tags"] = {$all : body.tags};
