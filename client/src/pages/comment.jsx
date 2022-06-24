@@ -188,7 +188,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
               deleting === true && 
               <input type="button"
               className="text-xl font-semibold text-red-500 hover:text-red-700 hover:cursor-pointer"
-              defaultValue={"CLick here to delete this post. This cannot be undone."}
+              defaultValue={"CLick here to delete this comment. This cannot be undone."}
               onClick = {() => {handleDelete()}}
               />
             }
