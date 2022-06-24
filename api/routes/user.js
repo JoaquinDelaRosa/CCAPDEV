@@ -3,6 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 const app = require('../app');
 const User = require('../database/models/users');
+const { v4 } = require('node-uuid');
 
 
 /* GET users listing. */

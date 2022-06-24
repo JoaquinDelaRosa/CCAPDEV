@@ -67,12 +67,7 @@ function Registration({context, setContext}){
               "dateJoined": new Date()
             })
           })
-          .then((response) => {
-            console.log("This ran");
-            return response.json()
-          })
           .then((result) => {
-            alert(result.message);
             setContext({id : id})
             navigation('../feed');
           }, (err) => {
@@ -138,7 +133,7 @@ function Registration({context, setContext}){
               </div>
 
               <span className="flex justify-center items-center pt-1">
-                  <input type="submit" value="Create Account" disabled={isSubmitDisabled()}
+                  <input type="button" value="Create Account" disabled={isSubmitDisabled()}
                   className= {"py-1 px-5 rounded-full w-auto text-white " + 
                   (isSubmitDisabled() ? "bg-blue-200" : "bg-orange-500 hover:cursor-pointer hover:bg-orange-600")}
                   onClick = {(e) => onSubmit(e)}

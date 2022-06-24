@@ -9,7 +9,7 @@ const userURL = '/api/user';
 function Author({context, author}) {
     const [username, setUsername] = useState("");
     useEffect(() => {
-        if (author != ""){
+        if (author !== ""){
             let data = fetch(userURL + "?id=" + author, { 
                 method : "GET",
                 headers : {
