@@ -4,8 +4,8 @@ var router = express.Router();
 
 /* GET post listing. */
 // Query params: id
-router.get('/', async function(req, res, next) {
-    res.sendFile("../client/src/index.js");
+router.get('/*', async function(req, res, next) {
+    res.sendFile("../client/build/index.html");
 });
 
 module.exports = router;
