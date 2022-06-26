@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var userRouter = require('./routes/user');
 var postRouter = require('./routes/post');
+var indexRouter = require('./routes/index');
+
 var cors = require("cors");
 const fileUpload = require('express-fileupload');
 
@@ -31,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 app.use(cors());
 
+app.use('/', indexRouter);
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 
