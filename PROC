@@ -1,0 +1,5 @@
+web: cd api
+     npm run start-server
+     cd ../
+     cd client
+     npm run start
