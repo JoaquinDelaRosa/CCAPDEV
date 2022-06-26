@@ -89,3 +89,11 @@ function onListening() {
   console.log("Listening on" + port);
   debug('Listening on ' + bind);
 }
+
+
+// Send index.html of client
+const path = require("path");
+const { dirname } = require('path');
+app.get('*', (req, res)=> {
+  res.sendFile(path.resolve("../", "client", "public", "index.html"));
+})
