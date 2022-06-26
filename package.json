@@ -5,9 +5,9 @@
   "scripts": {
     "start-server": "node ./bin/www",
     "start": "concurrently \" npm run server\" \"cd ../client && npm start \"",
-    "server": "nodemon ./bin/www --ignore client",
+    "server": "node ./bin/www --ignore client",
     "start-client": "cd ../client && npm start",
-    "dev": "nodemon ./bin/www"
+    "dev": "node ./bin/www"
   },
   "dependencies": {
     "concurrently": "^7.2.1",
