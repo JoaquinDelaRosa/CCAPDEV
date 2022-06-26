@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', (req, res, next) => {
-    res.sendFile("../../client/public/index.js")
+router.get('/', async function(req, res, next) {
+    res.render("../../client/public/index.js", {title: "index"})
 })
+
+module.exports = router;
