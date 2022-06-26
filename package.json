@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start-server": "node api/bin/www",
-    "start": "concurrently \" npm run server\" \"cd /client && npm start \"",
+    "start": "concurrently \" npm run server\" \"cd client && npm start \"",
     "server": "node api/bin/www --ignore client",
-    "start-client": "cd /client && npm start",
+    "start-client": "cd client && npm start",
     "dev": "node api/bin/www"
   },
   "dependencies": {
