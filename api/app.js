@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var userRouter = require('./routes/index');
-var indexRouter = require('./routes/user');
+var userRouter = require('./routes/user');
+var indexRouter = require('./routes/index');
 var postRouter = require('./routes/post');
 
 var cors = require("cors");
@@ -53,5 +53,8 @@ app.use(function(err, req, res, next) {
   //res.render('error');
 });
 
+
+// React render
+app.use(express.static(path.join(__dirname, "./build")))
 
 module.exports = app;
