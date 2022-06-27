@@ -33,9 +33,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 app.use(cors());
 
-app.use('/', indexRouter);
+// React render: !! Do not move this code. It needs to run before setting up the routes.
+const ppath = path.join(__dirname, "/build");
+console.log(ppath);
+app.use(express.static(ppath));
+// End of react stuff
+
+
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
+
+// React entry point
+// !!! This goes here. Do not move this code
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -53,8 +65,5 @@ app.use(function(err, req, res, next) {
   //res.render('error');
 });
 
-
-// React render
-app.use(express.static(path.join(__dirname, "./build")))
 
 module.exports = app;
