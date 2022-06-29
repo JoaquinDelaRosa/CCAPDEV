@@ -1,11 +1,15 @@
+import { useState } from "react";
+
 function SearchBar({setPostList}){
+  const [query, setQuery] = useState("");
+
   return (
   <div className="flex w-full text-black px-10 pt-5" >
-    <form className="w-screen" method = "GET" action={"../feed"}>
+    <form className="w-screen" method = "GET" action={"/#/feed?q=" + query }>
       <input type="text" 
         placeholder="Search for a post" 
         className="w-5/6"
-        name="q"
+        onChange={(e) => {setQuery(e.target.value)}}
       />
 
       <input type = "submit"

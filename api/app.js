@@ -46,7 +46,7 @@ app.use('/api/post', postRouter);
 // React entry point
 // !!! This goes here. Do not move this code
 app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, '/../client/build', 'index.html'));
 });
 
 // catch 404 and forward to error handler
