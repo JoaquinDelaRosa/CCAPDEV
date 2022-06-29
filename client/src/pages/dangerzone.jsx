@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import defaultProfile from "../utils/defaultProfile";
@@ -61,7 +62,7 @@ function DangerPage({context, setContext}){
       })
       .then((res) => {
         alert(res.message);  
-        setContext({id : ""})
+        Cookies.set("id", "");
       })
       .then(() => {
         navigation('../feed');

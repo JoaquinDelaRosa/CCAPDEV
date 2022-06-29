@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useEffect, useState }  from "react";
 import { Link , useNavigate} from "react-router-dom";
 
@@ -17,12 +18,12 @@ const loggedOutNavbar = {
 
 function Navbar({context, setContext}){
   const [navbar, setNavbar] = useState(loggedOutNavbar);
+  const id = Cookies.get("id");
   const navigation = useNavigate();
   
   const logOut = (e) => {
       if (e !== null) {
-        context.id = "";
-        setContext(context);
+        Cookies.set("id", "")
         setNavbar(loggedOutNavbar);
         navigation('./')
       }
@@ -30,15 +31,15 @@ function Navbar({context, setContext}){
   }
   
   useEffect(() => {
-    console.log(context.id);
-      if(context.id.length === 0) {
+    console.log(Cookies.get("id"));
+      if(Cookies.get("id").length === 0) {
         setNavbar(loggedOutNavbar) ;
       } else {
-        loggedInNavbar.Profile = './profile?id=' + context.id;
-        loggedInNavbar["Danger Zone"] = './dangerpage?id=' + context.id;
+        loggedInNavbar.Profile = './profile?id=' + Cookies.get("id");
+        loggedInNavbar["Danger Zone"] = './dangerpage?id=' + Cookies.get("id");
         setNavbar(loggedInNavbar);
       }
-    }, [context.id]
+    }, [id]
   )
 
   return (

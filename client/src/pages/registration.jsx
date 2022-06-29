@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {v4} from "uuid"
@@ -68,7 +69,7 @@ function Registration({context, setContext}){
             })
           })
           .then((result) => {
-            setContext({id : id})
+            Cookies.set("id", id);
             navigation('../feed');
           }, (err) => {
             console.log(err)

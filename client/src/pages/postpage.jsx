@@ -10,6 +10,7 @@ import { hasDownvoted, hasFavorited, hasUpvoted } from "../utils/voted";
 import defaultPost from "../utils/defaultPost";
 import Author from "./author";
 import {v4} from "uuid"
+import Cookies from "js-cookie";
 
 // TO-DO: 
 //        Edit/ Delete posts. More convenient to do this with the DB
@@ -25,9 +26,9 @@ function PostPage({postData, context, setContext}){
   const [showing, setShowing] = useState(true);
   const [replying, setReplying] = useState(false);
   const [reply, setReply] = useState("");
-  const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.id));
-  const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.id));
-  const [favorite, setFavorited] = useState(hasFavorited(post, context.id));
+  const [upvoted, setUpvoted] = useState(hasUpvoted(post, Cookies.get("id")));
+  const [downvoted, setDownVoted] = useState(hasDownvoted(post, Cookies.get("id")));
+  const [favorite, setFavorited] = useState(hasFavorited(post, Cookies.get("id")));
   const [deleting, setDeleting] = useState(false);
   const [observer, setObserver] = useState(false);
 
@@ -38,19 +39,19 @@ function PostPage({postData, context, setContext}){
     () => {
       if (location.state && location.state.postData) {
         setPost(location.state.postData)
-        setUpvoted(hasUpvoted(post, context.id));
-        setDownVoted(hasDownvoted(post, context.id));
-        setFavorited(hasFavorited(post, context.id));
+        setUpvoted(hasUpvoted(post, Cookies.get("id")));
+        setDownVoted(hasDownvoted(post, Cookies.get("id")));
+        setFavorited(hasFavorited(post, Cookies.get("id")));
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [context.id, location, post.id]
+    }, [Cookies.get("id"), location, post.id]
   )
 
     useEffect( () => {
       if (reply !== ""){
           post.comments.push({
             "id": v4(), 
-            "author" : (context) ? context["id"]  :"",
+            "author" : (Cookies.get("id")) ? Cookies.get("id")  :"",
             "date": new Date(),
             "mediaPath" : null,
             "mediaAlt" : "",
@@ -92,22 +93,22 @@ function PostPage({postData, context, setContext}){
   )
 
   const handleUpvote = () => {
-    if (context.id === "")
+    if (Cookies.get("id") === "")
       return;
 
     if (upvoted) {
       setPost( values => ({...values,
-        "upvotes" : post.upvotes.filter(((value) => {return value !== context.id;}))
+        "upvotes" : post.upvotes.filter(((value) => {return value !== Cookies.get("id");}))
       }))
     }
     else {
-      post.upvotes.push(context.id);
+      post.upvotes.push(Cookies.get("id"));
       setPost( values => ({...values, 
         "upvotes" : post.upvotes
       }))
       if (downvoted) 
         setPost( values => ({...values, 
-        "downvotes" : post.downvotes.filter((value) => {return value !== context.id;})
+        "downvotes" : post.downvotes.filter((value) => {return value !== Cookies.get("id");})
       }))
     }
     
@@ -116,22 +117,22 @@ function PostPage({postData, context, setContext}){
   }
 
   const handleDownvotes = () => {
-    if (context.id === "")
+    if (Cookies.get("id") === "")
       return;
 
     if (downvoted) {
       setPost( values => ({...values, 
-        "downvotes" : post.downvotes.filter((value) => {return value !== context.id;})
+        "downvotes" : post.downvotes.filter((value) => {return value !== Cookies.get("id");})
       }))
     }
     else {
-      post.downvotes.push(context.id);
+      post.downvotes.push(Cookies.get("id"));
       setPost( values => ({...values, 
         "downvotes" : post.downvotes
       }))
       if (upvoted)
         setPost( values => ({...values, 
-          "upvotes" : post.upvotes.filter(((value) => {return value !== context.id}))
+          "upvotes" : post.upvotes.filter(((value) => {return value !== Cookies.get("id")}))
       }))
     }
 
@@ -141,15 +142,15 @@ function PostPage({postData, context, setContext}){
 
   
   const handleFavorites = () => {
-    if (context.id === "")
+    if (Cookies.get("id") === "")
       return;
 
     if (favorite)
       setPost( values => ({...values, 
-        "favorites" : post.favorites.filter((value) => {return value !== context.id})
+        "favorites" : post.favorites.filter((value) => {return value !== Cookies.get("id")})
       }));
     else {
-      post.favorites.push(context.id);
+      post.favorites.push(Cookies.get("id"));
       setPost( values => ({...values, 
         "favorites" : post.favorites
       }));
@@ -159,7 +160,7 @@ function PostPage({postData, context, setContext}){
   }
 
   const handleDelete = () => {
-    if (context.id === "")
+    if (Cookies.get("id") === "")
       return;
 
     fetch(deleteURL + "?id=" + post.id, {
@@ -235,7 +236,7 @@ function PostPage({postData, context, setContext}){
             onClick = {() => {setReplying(!replying)}}
             />
             {
-              context.id === post.author && 
+              Cookies.get("id") === post.author && 
               <Link to={"../edit/" +post.id}  state={{postData : post}}>
                 <input type="button"
                 className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
@@ -245,7 +246,7 @@ function PostPage({postData, context, setContext}){
             }
 
             {
-              context.id === post.author && 
+              Cookies.get("id") === post.author && 
               <input type="button"
               className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
               defaultValue={"Delete"}

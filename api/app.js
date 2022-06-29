@@ -29,12 +29,13 @@ app.use(logger('dev'));
 app.use(express.json({limit : '50mb'}));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 app.use(cors());
 
 // React render: !! Do not move this code. It needs to run before setting up the routes.
-const ppath = path.join(__dirname, "/build");
+const ppath = path.join(__dirname, "/../client/build");
 console.log(ppath);
 app.use(express.static(ppath));
 // End of react stuff

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import parseDate from "../utils/date";
 import { hasDownvoted, hasUpvoted, hasViewed, hasFavorited } from "../utils/voted";
 import Author from "./author";
+import Cookies from "js-cookie";
 
 // TODO:  Post Id should be assigned in the DB.
 // TODO upvotes and downvotes should correspond to the current state (i.e., loaded profile )
@@ -27,16 +28,16 @@ const defaultPost = {
 
 function Postbox({ content, context }) {
     const [post, setPost] = useState(defaultPost);  
-    const [upvoted, setUpvoted] = useState(hasUpvoted(post, context.id));
-    const [downvoted, setDownVoted] = useState(hasDownvoted(post, context.id));
-    const [favorite, setFavorited] = useState(hasFavorited(post, context.id));
+    const [upvoted, setUpvoted] = useState(hasUpvoted(post, Cookies.get("id")));
+    const [downvoted, setDownVoted] = useState(hasDownvoted(post, Cookies.get("id")));
+    const [favorite, setFavorited] = useState(hasFavorited(post, Cookies.get("id")));
 
     useEffect(() => {
         if (content !== undefined) {
           setPost(content);
-          setUpvoted(hasUpvoted(post, context.id));
-          setDownVoted(hasDownvoted(post, context.id));
-          setFavorited(hasFavorited(post, context.id));
+          setUpvoted(hasUpvoted(post, Cookies.get("id")));
+          setDownVoted(hasDownvoted(post, Cookies.get("id")));
+          setFavorited(hasFavorited(post, Cookies.get("id")));
 
           handleView()
 
@@ -44,7 +45,7 @@ function Postbox({ content, context }) {
           setPost(defaultPost);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [content, context.id, post.id]);
+    }, [content, Cookies.get("id"), post.id]);
 
       
       useEffect( () => {
@@ -69,32 +70,32 @@ function Postbox({ content, context }) {
     )
 
     const handleView = () => {
-      if (context.id === "")
+      if (Cookies.get("id") === "")
         return;
 
-      if (!hasViewed(post, context.id)){
-        post.views.push(context.id);
+      if (!hasViewed(post, Cookies.get("id"))){
+        post.views.push(Cookies.get("id"));
       }
     }
 
 
     const handleUpvote = () => {
-      if (context.id === "")
+      if (Cookies.get("id") === "")
         return;
 
       if (upvoted) {
         setPost( values => ({...values,
-          "upvotes" : post.upvotes.filter(((value) => {return value !== context.id;}))
+          "upvotes" : post.upvotes.filter(((value) => {return value !== Cookies.get("id");}))
         }))
       }
       else {
-        post.upvotes.push(context.id);
+        post.upvotes.push(Cookies.get("id"));
         setPost( values => ({...values, 
           "upvotes" : post.upvotes
         }))
         if (downvoted) 
           setPost( values => ({...values, 
-          "downvotes" : post.downvotes.filter((value) => {return value !== context.id;})
+          "downvotes" : post.downvotes.filter((value) => {return value !== Cookies.get("id");})
         }))
       }
       
@@ -103,22 +104,22 @@ function Postbox({ content, context }) {
     }
 
     const handleDownvotes = () => {
-      if (context.id === "")
+      if (Cookies.get("id") === "")
         return;
 
       if (downvoted) {
         setPost( values => ({...values, 
-          "downvotes" : post.downvotes.filter((value) => {return value !== context.id;})
+          "downvotes" : post.downvotes.filter((value) => {return value !== Cookies.get("id");})
         }))
       }
       else {
-        post.downvotes.push(context.id);
+        post.downvotes.push(Cookies.get("id"));
         setPost( values => ({...values, 
           "downvotes" : post.downvotes
         }))
         if (upvoted)
           setPost( values => ({...values, 
-            "upvotes" : post.upvotes.filter(((value) => {return value !== context.id}))
+            "upvotes" : post.upvotes.filter(((value) => {return value !== Cookies.get("id")}))
         }))
       }
 
@@ -129,15 +130,15 @@ function Postbox({ content, context }) {
     
     const handleFavorites = () => {
       // FETCH associated profile data
-      if (context.id === "")
+      if (Cookies.get("id") === "")
         return;
   
       if (favorite)
         setPost( values => ({...values, 
-          "favorites" : post.favorites.filter((value) => {return value !== context.id})
+          "favorites" : post.favorites.filter((value) => {return value !== Cookies.get("id")})
         }));
       else {
-        post.favorites.push(context.id);
+        post.favorites.push(Cookies.get("id"));
         setPost( values => ({...values, 
           "favorites" : post.favorites
         }));

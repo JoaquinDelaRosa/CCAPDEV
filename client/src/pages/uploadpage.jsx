@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {v4} from "uuid"
@@ -27,14 +28,14 @@ function UploadPage({context, setContext}){
   });
 
   useEffect( () => {
-    if (context)
-      post.author = context["id"];
+    if (Cookies.get("id"))
+      post.author = Cookies.get("id");
     else 
       post.author = ""
 
     post.id = Math.random() * (1 << 32 - 1);
     setPost(post);
-  }, [context, post])
+  }, [Cookies.get("id"), post])
     
   const inputHandler = (name, value) => {
     setPost( values => ({...values, [name] : value}))
@@ -56,7 +57,7 @@ function UploadPage({context, setContext}){
   }
   
   const canPost = (() =>{
-    return context !== null && post.body.length > 5 && post.title.length > 5 && post.mediaPath !== null;
+    return Cookies.get("id") !== null && Cookies.get("id") !== "" && post.body.length > 5 && post.title.length > 5 && post.mediaPath !== null;
   })
 
   const onSubmit = (e) => {
@@ -94,7 +95,7 @@ function UploadPage({context, setContext}){
       console.log("Error in Uploading the Post\n" + error);
     })
 
-    fetch(userURL + "?id=" + context.id , {
+    fetch(userURL + "?id=" +Cookies.get("id") , {
       method : 'PATCH',
       headers : {
         'Content-type': 'application/json'

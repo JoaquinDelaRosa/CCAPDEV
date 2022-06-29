@@ -4,6 +4,7 @@ import { Link, useLocation, useSearchParams } from "react-router-dom";
 import defaultProfile from "../utils/defaultProfile";
 import UserPosts from "./userposts";
 import UserSaves from "./usersaves";
+import Cookies from "js-cookie";
 
 // TO-DO:   Posts should be fetched rather than hardcoded.
 
@@ -47,7 +48,7 @@ function Profile({context, setContext}){
     <div className="flex flex-auto p-8 bg-gray-800 text-white h-screen" id="main">
       <div className="max-w-[25%] w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="left-box">
         {
-          profile && context && profile.id === context.id &&
+          profile && context && profile.id === Cookies.get("id") &&
           <Link to={"../settings?id=" + profile.id} className="absolute pl-2">
             &#9965;
           </Link>

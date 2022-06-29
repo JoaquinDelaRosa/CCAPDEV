@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import TagLabel from "./taglabel";
 import defaultPost from "../utils/defaultPost";
+import Cookies from "js-cookie";
 
 const editURL = '/api/post/edit';
 
@@ -19,7 +20,7 @@ function EditPost({postData, context, setContext}){
         setPost(location.state.postData)
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [context.id, location, post.id]
+    }, [Cookies.get("id"), location, post.id]
   )
     
   const inputHandler = (name, value) => {
@@ -42,12 +43,12 @@ function EditPost({postData, context, setContext}){
   }
   
   const canPost = (() =>{
-    return context !== null && post.body.length > 5 && post.title.length > 5 && post.mediaPath !== null;
+    return Cookies.get("id") !== null && Cookies.get("id") !== "" && post.body.length > 5 && post.title.length > 5 && post.mediaPath !== null;
   })
 
   const handlePermissions = () => {
     // Make sure the post editor has permissions to edit the post
-    return context["id"] === post.author;
+    return Cookies.get("id") === post.author;
   }
 
   const onSubmit = (e) => {

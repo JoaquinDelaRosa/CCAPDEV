@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 // TODO:    Account verification. Ensure the account exists by a query to the DB
 const loginURL = '/api/user/login';
@@ -62,8 +63,7 @@ function Login({context, setContext}){
           return response.json()
         })
         .then((result) => {
-          context.id = result["id"]
-          setContext({id : context.id});
+          Cookies.set("id", result.id);
 
           navigation('../feed');
         }, (err) => {
