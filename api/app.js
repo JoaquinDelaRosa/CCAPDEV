@@ -40,7 +40,6 @@ console.log(ppath);
 app.use(express.static(ppath));
 // End of react stuff
 
-
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 

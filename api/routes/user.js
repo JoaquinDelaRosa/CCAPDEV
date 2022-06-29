@@ -27,8 +27,6 @@ router.post('/login', async function(req, res, next) {
         {'password': req.body.password}
       ]
     });
-  if (profile && profile[0])
-    res.cookie('userid', profile[0]['id']);
   res.json(profile[0]);
   res.end();
 });
@@ -49,7 +47,6 @@ router.post('/register', function(req, res, next) {
       }
     }
   )
-  res.cookie('userid', req.body['id']);
 })
 
 /* PATCH users listing */

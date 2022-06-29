@@ -43,6 +43,7 @@ function parseQuery(q){
 }
 
 router.get('/search', async function(req, res, next) {
+  console.log("This ran");
   const body = parseQuery(req.query.q);
   let findQuery = {
 
@@ -66,6 +67,7 @@ router.get('/search', async function(req, res, next) {
   
 
   res.json(content);
+  res.end();
 })
 
 // For feed

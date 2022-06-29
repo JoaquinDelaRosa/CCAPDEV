@@ -3,17 +3,17 @@ import React, { useEffect, useState }  from "react";
 import { Link , useNavigate} from "react-router-dom";
 
 const loggedInNavbar = {
-  'Feed': './feed',
-  'Upload': './upload', 
-  'Profile': './profile',
-  'Log Out': './',
-  "Danger Zone": "./dangerpage" 
+  'Feed': '/feed',
+  'Upload': '/upload', 
+  'Profile': '/profile',
+  'Log Out': '/',
+  "Danger Zone": "/dangerpage" 
 }
 
 const loggedOutNavbar = {
-  'Feed': './feed',
-  'Login': './login',
-  'SignUp': './registration'
+  'Feed': '/feed',
+  'Login': '/login',
+  'SignUp': '/registration'
 }
 
 function Navbar({context, setContext}){

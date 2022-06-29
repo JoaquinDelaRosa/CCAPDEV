@@ -77,10 +77,12 @@ function Feed({context}) {
   useEffect(
     () => {  
       const query = searchParams.get("q");
-      if (query == null)
+      if (query == null) {
         getComplete();
-      else 
+      }
+      else {
         getPartial(query);
+      }
     }, 
     [searchParams]);
 
