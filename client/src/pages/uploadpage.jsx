@@ -51,8 +51,8 @@ function UploadPage({context, setContext}){
   }
 
   const handleTags = (tag) => {
-    if (!post.tags.includes(tag))
-      post.tags.push(tag); 
+    if (!post.tags.includes(tag.trim()))
+      post.tags.push(tag.trim()); 
     inputHandler("tags", post.tags);
   }
   
