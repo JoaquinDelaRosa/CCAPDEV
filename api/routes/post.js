@@ -3,6 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 const app = require('../app');
 const Post = require('../database/models/post');
+const User = require('../database/models/users');
 
 const uuid = require('node-uuid');
 
@@ -19,7 +20,7 @@ router.get('/', async function(req, res, next) {
 });
 
 
-function parseQuery(q){
+async function parseQuery(q){
   const tokens = q.split(' ')
   const queryObject = {
     authors : [],
@@ -27,47 +28,47 @@ function parseQuery(q){
     contents: ""
   }
 
-  tokens.forEach( (value) => {
+  for (value of tokens) {
     if(value.startsWith("author:")){
-      queryObject.authors.push(value.replace('author:', ''));
+      const author = value.replace('author:', '')
+      const profiles = await User.find({'username' : author})
+      if (profiles[0]) {
+        queryObject.authors.push(profiles[0].id);
+      }
     } else if(value.startsWith("tag:")){
       queryObject.tags.push(value.replace('tag:', ''));
     } else {
       queryObject.contents += (value + " ");
     }
-  })
-
+  }
   queryObject.contents = queryObject.contents.trim();
-
-  return queryObject;
+  return Promise.resolve(queryObject)
 }
 
 router.get('/search', async function(req, res, next) {
-  console.log("This ran");
-  const body = parseQuery(req.query.q);
-  let findQuery = {
+  const query = parseQuery(req.query.q);
+  query.then(async (body) => {
+    let findQuery = {
 
-  };
+    };
+    if (body.authors.length !== 0){
+      findQuery["author"] = {$all : body.authors};
+    }
+    if (body.contents !== ""){
+      findQuery["title"] = { $regex: '.*' + body.contents + '.*' , $options: 'i'}
+    }
+    if (body.tags.length !== 0){
+      findQuery["tags"] = {$all: body.tags};
+    }
+    const content = await Post.find(
+      findQuery
+    )
+      .sort({ 'date': 'desc' })
+      .limit(LIMIT);
 
-  if (body.authors.length !== 0){
-    findQuery["author"] = {$all : body.authors};
-  }
-  if (body.contents !== ""){
-    findQuery["title"] = { $regex: '.*' + body.contents + '.*' , $options: 'i'}
-  }
-  if (body.tags.length !== 0){
-    findQuery["tags"] = {$all: body.tags};
-  }
-
-  const content = await Post.find(
-    findQuery
-  )
-    .sort({ 'date': 'desc' })
-    .limit(LIMIT);
-  
-
-  res.json(content);
-  res.end();
+    res.json(content);
+    res.end();
+  })
 })
 
 // For feed
