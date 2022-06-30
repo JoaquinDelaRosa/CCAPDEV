@@ -16,11 +16,12 @@ import Cookies from "js-cookie";
 //        Edit/ Delete posts. More convenient to do this with the DB
 //        Comments should be deletable / editable. This'll be handled in Phase 2
 
+const getURL = "/api/post/get"
 const postURL = "/api/post/edit"
 const deleteURL = "/api/post/delete"
 
 
-function PostPage({postData, context, setContext}){
+function PostPage({context, setContext}){
   const [post, setPost] = useState(defaultPost);
 
   const [showing, setShowing] = useState(true);
@@ -37,11 +38,25 @@ function PostPage({postData, context, setContext}){
 
   useEffect(
     () => {
-      if (location.state && location.state.postData) {
-        setPost(location.state.postData)
-        setUpvoted(hasUpvoted(post, Cookies.get("id")));
-        setDownVoted(hasDownvoted(post, Cookies.get("id")));
-        setFavorited(hasFavorited(post, Cookies.get("id")));
+      if (location.state && location.state.id) {
+        const id = location.state.id; 
+
+        fetch(getURL + "?id=" + id, {
+          method : "GET",
+          headers : {
+            'Content-type': 'application/json'
+          }
+        })
+        .then((res) => {
+          return res.json();
+        })
+        .then((p) => 
+        {
+          setPost(p);
+          setUpvoted(hasUpvoted(post, Cookies.get("id")));
+          setDownVoted(hasDownvoted(post, Cookies.get("id")));
+          setFavorited(hasFavorited(post, Cookies.get("id")));
+        })
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [Cookies.get("id"), location, post.id]

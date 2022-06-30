@@ -14,9 +14,9 @@ const LIMIT = 100;
 
 /* GET post listing. */
 // Query params: id
-router.get('/', async function(req, res, next) {
+router.get('/get', async function(req, res, next) {
   const post = await Post.find({ 'id': req.query.id }).sort({ 'date': 'desc' })
-  res.json(post);
+  res.json(post[0]);
 });
 
 

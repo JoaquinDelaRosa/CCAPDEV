@@ -183,7 +183,7 @@ function UserSaves({id}){
                       return (
                         element && element.date && element.id && 
                         <div className="border-b border-b-blue-200 pb-2 mb-2 flex items-start py-1 text-wText" key = {element.id} id={element.id}>
-                          <Link to={("/postpage/" + element.id)} state={{postData: element}}>
+                          <Link to={("/postpage/" + element.id)} state={{id: element.id}}>
                             <span className="pr-3" id={element.id + "image"}>
                               <img src={element.mediaPath} alt={element.mediaAlt} className="w-16 h-16 rounded-sm" id={element.id + "img"}></img>
                               </span>

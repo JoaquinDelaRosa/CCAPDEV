@@ -81,7 +81,7 @@ function EditPost({postData, context, setContext}){
         console.log(result);
         })
         .then(() => {
-        navigation('/postpage/' + post.id, {state: {postData : post}});
+        navigation('/postpage/' + post.id, {state: {id : post.id}});
         })
         .catch((error) => {
         console.log("Error in Updating the Post\n" + error);

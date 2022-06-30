@@ -149,7 +149,7 @@ function Postbox({ content, context }) {
 
     return (
       <div className= "w-full h-auto border-gray-800 bg-gray-700 hover:bg-gray-500 px-4 py-2 border-2 mb-3">
-        <Link to={("/postpage/" + post.id)} state={{postData: post}}>
+        <Link to={("/postpage/" + post.id)} state={{id: post.id}}>
           <div className="">
             <strong className="text-left font-extrabold font-sans text-2xl align-baseline tracking-wider"> 
                 {post.title}
@@ -162,14 +162,14 @@ function Postbox({ content, context }) {
                 By: <Author context={context} author={post.author} />
               </p>
               
-            <Link to={("/postpage/" + post.id)} state={{postData: post}}>       
+            <Link to={("/postpage/" + post.id)} state={{id: post.id}}>       
               <p className="text-left font-mono"> 
                 Posted: {parseDate(new Date(post['date']))}
               </p>
             </Link>
           </div>
 
-        <Link to={("/postpage/" + post.id)} state={{postData: post}}>
+        <Link to={("/postpage/" + post.id)} state={{id: post.id}}>
           <div className="px-10 h-fit w-full pb-5 flex justify-center">
             <img src={post.mediaPath} alt={post.mediaAlt} className="self-center max-w-[40rem] max-h-[40rem]"/>
           </div>
