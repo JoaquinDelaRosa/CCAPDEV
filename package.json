@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start-server": "node api/bin/www",
+    "deploy" : "git add . && git commit -m \"heroku deploy\" && git push heroku main && npm run start",
     "start": "cd client && npm run build && cd ../ && npm run server",
     "server": "node api/bin/www --ignore client",
     "start-client": "cd client && npm start",

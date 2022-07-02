@@ -6,7 +6,7 @@ import UserPosts from "./userposts";
 import UserSaves from "./usersaves";
 import Cookies from "js-cookie";
 
-const anonymous = require("../images/anon")
+const anonymous = require("../images/anon.webp")
 
 // TO-DO:   Posts should be fetched rather than hardcoded.
 
