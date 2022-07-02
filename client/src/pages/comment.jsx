@@ -166,7 +166,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
             />
 
             {
-                Cookies.get("id") === post.author && 
+                Cookies.get("id") === post.author && post.author !== "" && 
                   <input type="button"
                   className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
                   defaultValue={"Edit"}
@@ -176,7 +176,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
   
 
             {
-              Cookies.get("id") === post.author && 
+              Cookies.get("id") === post.author && post.author !== "" && 
               <input type="button"
               className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
               defaultValue={"Delete"}

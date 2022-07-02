@@ -251,7 +251,7 @@ function PostPage({context, setContext}){
             onClick = {() => {setReplying(!replying)}}
             />
             {
-              Cookies.get("id") === post.author && 
+              Cookies.get("id") === post.author && post.author !== "" &&
               <Link to={"../edit/" +post.id}  state={{postData : post}}>
                 <input type="button"
                 className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
@@ -261,7 +261,7 @@ function PostPage({context, setContext}){
             }
 
             {
-              Cookies.get("id") === post.author && 
+              Cookies.get("id") === post.author && post.author !== "" && 
               <input type="button"
               className="text-xl font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer mr-5"
               defaultValue={"Delete"}
