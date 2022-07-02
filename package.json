@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start-server": "node api/bin/www",
-    "start": "npm run server",
+    "start": "cd client && npm run build && cd ../ && npm run server",
     "server": "node api/bin/www --ignore client",
     "start-client": "cd client && npm start",
     "dev": "node api/bin/www"
