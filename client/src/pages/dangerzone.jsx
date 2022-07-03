@@ -66,7 +66,7 @@ function DangerPage({context, setContext}){
       })
     } 
     setCanSubmit(true);
-  }, [])
+  }, [confirmPassword, deleted, profile])
 
   const handleSubmit = (event) => {
     if (canSubmit()){
