@@ -5,10 +5,12 @@ import defaultProfile from "../utils/defaultProfile";
 
 const deleteURL = '/api/user/delete';
 const userURL = '/api/user';
+const loginURL = '/api/user/login';
 
 function DangerPage({context, setContext}){
   const [profile, setProfile] = useState(defaultProfile);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [canSubmit, setCanSubmit] = useState(false);
   const [deleted, setDeleted] = useState(false);
 
   const [searchParams, ] = useSearchParams();
@@ -42,11 +44,29 @@ function DangerPage({context, setContext}){
     }
   , [location.search, searchParams]);
 
-  const canSubmit = () => {
-    if (deleted) 
-      return (confirmPassword === profile["password"]);
-    return false;
-  }
+  useEffect(() => {
+    if (deleted) {
+      fetch(loginURL, {
+        method : "POST",
+        headers : {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          "username": profile["username"],
+          "password": confirmPassword
+        })
+      })
+      .then((response) => {
+        return response.json()
+      })
+      .then((result) => {
+        setCanSubmit(true);
+      }, (err) => {
+        setCanSubmit(false);
+      })
+    } 
+    setCanSubmit(true);
+  }, [])
 
   const handleSubmit = (event) => {
     if (canSubmit()){
@@ -121,9 +141,9 @@ function DangerPage({context, setContext}){
           <div id="submit" hidden={!deleted}>
             <input type="submit"
               value={"Delete Account"}
-              disabled ={!canSubmit()}
+              disabled ={!canSubmit}
               className= {"py-1 px-8 rounded-full w-auto text-white " + 
-              (canSubmit() ? "bg-orange-500 hover:cursor-pointer hover:bg-orange-600" : "bg-blue-200 hover:cursor-not-allowed")}
+              (canSubmit ? "bg-orange-500 hover:cursor-pointer hover:bg-orange-600" : "bg-blue-200 hover:cursor-not-allowed")}
             />
           </div>
         </form>
