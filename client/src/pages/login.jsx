@@ -63,9 +63,12 @@ function Login({context, setContext}){
           return response.json()
         })
         .then((result) => {
-          Cookies.set("id", result.id);
-
-          navigation('../feed');
+          if (result === null){
+            alert("Username or Password is incorrect")
+          } else {
+            Cookies.set("id", result.id);
+            navigation('../feed');
+          }
         }, (err) => {
           alert("Username or Password is incorrect");
         })

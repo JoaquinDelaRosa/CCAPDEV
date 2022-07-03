@@ -6,6 +6,7 @@ import defaultProfile from "../utils/defaultProfile";
 // TO-DO:   Settings should update Profile info in the DB
 const updateURL = '/api/user/update';
 const userURL = '/api/user';
+const loginURL = '/api/user/login';
 
 function SettingsPage({context, setContext}){
   
@@ -74,13 +75,42 @@ function SettingsPage({context, setContext}){
   }
 
   const canSubmit = () => {
-    if (passwordEdited) 
-      return (confirmOldPassword === profile["password"]) && (newPassword === confirmNewPassword);
-    return true;
+    if (passwordEdited) {
+      if (confirmNewPassword !== newPassword)
+        return false 
+      
+      let res = false;
+      fetch(loginURL, {
+          method : "POST",
+          headers : {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            "username": profile["username"],
+            "password": confirmOldPassword
+          })
+        })
+        .then((response) => {
+          return response.json()
+        })
+        .then((result) => {
+          if (result.id === profile.id){
+            res = true;
+          }
+        }, (err) => {
+          console.log(err);
+        })
+
+      return res;
+
+    } else {
+      return true;
+    }
   }
 
   function updateDatabase() {
     console.log("Changing");
+    return;
     const query = updateURL + "?id=" + profile.id
     
     // Update DB

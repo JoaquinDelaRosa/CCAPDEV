@@ -43,9 +43,9 @@ UserSchema.pre("save", function(next) {
     });
 })
 
-UserSchema.methods.comparePassword = function(other, callback) {
+UserSchema.methods.comparePassword = async function(other, callback) {
     bcrypt.compare(other, this.password, function(err, success) {
-        if (err) return cb(err);
+        if (err) return callback(err);
         callback(null, success);
     });
 };

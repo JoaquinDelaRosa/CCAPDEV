@@ -20,26 +20,26 @@ router.get('/getUsername', async function(req, res, next) {
 
 router.post('/login', async function(req, res, next) {
   // Send only the first match
-  User.findOne({ 'username': req.body.username}, function(err, user) {
-    if (err){
-      res.send(null);
+  User.findOne({ 'username': req.body.username}, async function(err, user) {
+    if (err || user == null){
       res.end();
     }
-
+    else {
     // test a matching password
-    user.comparePassword(req.body.password, function(err, isMatch) {
-        if (err) {
-          res.send(null);
-          res.end();
-        }
-        if (isMatch){
-          res.json(user);
-          res.end();
-        } else {
-          res.send(null);
-          res.end();
-        }
-    });
+      await user.comparePassword(req.body.password, function(err, isMatch) {
+          if (err) {
+            console.log("Error");
+            res.end();
+          }
+          if (isMatch){
+            res.json(user);
+            res.end();
+          } else {
+            console.log(user);
+            res.end();
+          }
+      });
+    }
   });
 });
 
@@ -63,6 +63,7 @@ router.post('/register', function(req, res, next) {
 
 /* PATCH users listing */
 router.patch('/update', function(req, res, next) {
+  let b = req.body;
   User.updateOne({'id' : req.query.id}, req.body, (err) => {
     if(err) {
       console.log(err);
@@ -86,9 +87,15 @@ router.patch('/upload', function(req, res, next) {
       res.end();
     }
     else {
-      res.send({message: "Successfully editted profile"})
+      res.send({message: "Successfully editted profile"});
       res.end();
     }
+  }, function(err, user){
+      if (err || user == null){
+        res.send({message: "Failed to edit profile"});
+      } else {
+        user.save();
+      }
   })
 })
 
