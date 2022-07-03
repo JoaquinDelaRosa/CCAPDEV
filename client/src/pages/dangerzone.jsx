@@ -69,7 +69,7 @@ function DangerPage({context, setContext}){
   }, [confirmPassword, deleted, profile])
 
   const handleSubmit = (event) => {
-    if (canSubmit()){
+    if (canSubmit){
       fetch(deleteURL + "?id=" + profile["id"], {
         method: "DELETE",
         headers: {
