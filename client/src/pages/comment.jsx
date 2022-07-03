@@ -54,6 +54,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
         )
         setPost(values => ({...values, "comments" : post.comments}))
         setObserver(true);
+        setReply("");
         setReplying(false);
       }
 
@@ -61,6 +62,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
       post.body = reply;
       setPost(values => ({...values, "body" : post.body}))
       setEditing(false);
+      setReply("");
       setObserver(true);
     }
 
@@ -157,7 +159,7 @@ function Comment({ content, context , setContext, parent, setObserver}) {
             <input type="button"
               className="text-base mr-3 pt-1 font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer"
               defaultValue={showing ? "Hide Comments ▲" : "Show Comments ▼"}
-              onClick = {() => {setShowing(!showing)}}
+              onClick = {() => {setShowing(!showing);}}
             />
             }
             {

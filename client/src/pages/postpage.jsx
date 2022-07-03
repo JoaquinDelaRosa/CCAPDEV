@@ -63,7 +63,7 @@ function PostPage({context, setContext}){
   )
 
     useEffect( () => {
-      if (reply !== ""){
+      if (reply !== "" && replying){
           post.comments.push({
             "id": v4(), 
             "author" : (Cookies.get("id")) ? Cookies.get("id")  :"",
@@ -79,8 +79,9 @@ function PostPage({context, setContext}){
         )
         setPost(values => ({...values, "comments" : post.comments}))
         setReplying(false);
+        setReply("");
       }
-    },  [post.comments, reply, context]
+    },  [post.comments, reply, replying, context]
   )
 
   useEffect( () => {
