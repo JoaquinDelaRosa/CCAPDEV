@@ -56,7 +56,7 @@ function Profile({context, setContext}){
         <div className="justify-center flex pt-3 pb-1" id="pfp-section">  
           <span className="mt-3 w-32 h-32">
             <img 
-                src={profile["pfp"] !==null ? profile["pfp"] : require("../images/anon.png")} 
+                src={profile["pfp"]} 
                 alt={profile["username"] + "'s profile picture"}
                 className = "w-full h-full object-cover rounded-full overflow-hidden hover:opacity-80 hover:cursor-pointer"
             />
