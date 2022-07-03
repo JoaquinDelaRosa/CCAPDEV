@@ -4,7 +4,7 @@ The files found in the "main" branch are the final submission for the CCAPDEV Ap
 
 To run simply type npm run start. The client will be built based on the latest version and the server will run afterwards. 
 
-A deployed version in Heroku is also available.
+A deployed version in Heroku is also available: https://dashboard.heroku.com/apps/trendbytes/deploy/heroku-git (may need to be personally invited first for access).
 
 # Getting Started with Create React App
 
