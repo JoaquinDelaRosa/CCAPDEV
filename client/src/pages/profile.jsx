@@ -87,7 +87,7 @@ function Profile({context, setContext}){
       
       <div className="min-w-[67%] h-fit p-2" id="right-box">
         <UserPosts id={profile.username}/>
-        <UserSaves id={profile.username}/>
+        <UserSaves id={profile.id}/>
       </div>
     </div>
   )
