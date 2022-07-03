@@ -95,7 +95,6 @@ router.get('/favorited', async function(req, res, next){
 
 /* POST post listing */
 router.post('/upload', function(req, res, next) {
-    console.log(req.body)
     Post.create(
         req.body,
         (error, user) => {
