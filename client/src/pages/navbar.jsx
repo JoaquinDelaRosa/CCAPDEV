@@ -7,13 +7,15 @@ const loggedInNavbar = {
   'Upload': '/upload', 
   'Profile': '/profile',
   'Log Out': '/',
-  "Danger Zone": "/dangerpage" 
+  "Danger Zone": "/dangerpage" ,
+  'About' : '/about'
 }
 
 const loggedOutNavbar = {
   'Feed': '/feed',
   'Login': '/login',
-  'SignUp': '/registration'
+  'SignUp': '/registration',
+  'About' : '/about'
 }
 
 function Navbar({context, setContext}){
