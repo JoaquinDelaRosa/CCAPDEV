@@ -1,6 +1,8 @@
 # Submission Details
 
-The files found in the "main" branch are the submission for Phase 1 of the CCAPDEV Application. 
+The files found in the "main" branch are the final submission for the CCAPDEV Application. 
+
+To run simply type npm run start. The client will be built based on the latest version and the server will run afterwards. 
 
 Files for Phase 2 are found in the "backend" branch, and will be pulled to main after checking of Phase 1 is finished
 
