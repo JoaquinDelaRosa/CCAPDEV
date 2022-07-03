@@ -56,7 +56,7 @@ function Registration({context, setContext}){
               'Content-type': 'application/json'
             },
             body: JSON.stringify({
-              "pfp": require("../images/anon.png"),
+              "pfp": "",
               "id" : id,
               "email": registration.email,
               "username": registration.username,

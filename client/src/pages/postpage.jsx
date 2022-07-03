@@ -196,7 +196,7 @@ function PostPage({context, setContext}){
   }
 
   return (
-      <div className="bg-gray-800 text-white">
+      <div className="bg-gray-800 text-white min-h-full">
         <div id="post-section" className= "w-full h-auto">
           <div id="post-title-section" className="px-10 h-fit pt-5 pb-3">
             <strong className="text-left font-extrabold font-sans text-4xl align-baseline tracking-wider"> 

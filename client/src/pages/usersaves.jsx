@@ -8,6 +8,9 @@ function UserSaves({id}){
     const [postList, setPostList] = useState([])
     
     useEffect( () => {
+      if (id === "")
+        return;
+        
         let data = fetch(searchURL + "?id=" + id, {
             method : "GET",
             headers : {

@@ -8,6 +8,9 @@ function UserPosts({id}){
     const [postList, setPostList] = useState([])
     
     useEffect( () => {
+      if (id === "")
+        return;
+      
         let data = fetch(searchURL + "?q=author:" + id, {
             method : "GET",
             headers : {

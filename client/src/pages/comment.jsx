@@ -153,18 +153,20 @@ function Comment({ content, context , setContext, parent, setObserver}) {
 
         <div id="rating-bar" className="flex h-fit mb-2">
           <div className="w-fit mr-3 ">
+            {
             <input type="button"
               className="text-base mr-3 pt-1 font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer"
               defaultValue={showing ? "Hide Comments ▲" : "Show Comments ▼"}
               onClick = {() => {setShowing(!showing)}}
             />
-
+            }
+            {
             <input type="button"
               className="text-base mr-3 pt-1 font-semibold text-gray-400 hover:text-blue-200 hover:cursor-pointer"
               defaultValue={"Reply"}
               onClick = {() => {setReplying(!replying)}}
             />
-
+            }
             {
                 Cookies.get("id") === post.author && post.author !== "" && 
                   <input type="button"

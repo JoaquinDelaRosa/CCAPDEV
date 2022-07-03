@@ -45,7 +45,7 @@ function Profile({context, setContext}){
   , [location.search, searchParams]);
 
   return (
-    <div className="flex flex-auto p-8 bg-gray-800 text-white h-screen" id="main">
+    <div className="flex flex-auto p-8 bg-gray-800 text-white min-h-screen" id="main">
       <div className="max-w-[25%] w-fit h-fit p-2 mx-4 bg-gray-700 rounded-lg" id="left-box">
         {
           profile && context && profile.id === Cookies.get("id") &&
@@ -86,8 +86,8 @@ function Profile({context, setContext}){
       </div>
       
       <div className="min-w-[67%] h-fit p-2" id="right-box">
-        <UserPosts id={profile.id}/>
-        <UserSaves id={profile.id}/>
+        <UserPosts id={profile.username}/>
+        <UserSaves id={profile.username}/>
       </div>
     </div>
   )

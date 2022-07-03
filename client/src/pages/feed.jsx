@@ -8,7 +8,7 @@ import SearchBar from "./searchbar";
 //       Handle searching by title and by tag
 //       Trending tags should be fetched in DB
 const feedURL = '/api/post/feed'; 
-const searchURL = '/api/post/search'
+const searchURL = '/api/post/search';
 
 
 function Feed({context}) {
