@@ -30,7 +30,7 @@ function SettingsPage({context, setContext}){
   const [confirmNewPassword, setconfirmNewPassword] = useState(""); // User inputs new password again
   const [confirmOldPassword, setConfirmOldPassword] = useState(""); // User inputs their old password
 
-  
+  const [canSubmit, setCanSubmit] = useState(true);
   const [searchParams, ] = useSearchParams();
   let location = useLocation(defaultProfile);
 
@@ -74,12 +74,32 @@ function SettingsPage({context, setContext}){
     setEditted( values => ({...values, [name] : value}))
   }
 
-  const canSubmit = () => {
+  useEffect(() => {
     if (passwordEdited) {
-      return confirmNewPassword === newPassword ;
+      if(confirmNewPassword !== newPassword){
+        setCanSubmit(false);
+      }
+      fetch(loginURL, {
+        method : "POST",
+        headers : {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          "username": profile["username"],
+          "password": confirmOldPassword
+        })
+      })
+      .then((response) => {
+        return response.json()
+      })
+      .then((result) => {
+        setCanSubmit(true);
+      }, (err) => {
+        setCanSubmit(false);
+      })
     } 
-    return true;
-  }
+    setCanSubmit(true);
+  }, [confirmNewPassword, confirmOldPassword, newPassword, passwordEdited, profile])
 
   function updateDatabase() {
     console.log("Changing");
@@ -108,7 +128,7 @@ function SettingsPage({context, setContext}){
   }
 
   const handleSubmit = (event) => {
-    if (canSubmit()){
+    if (canSubmit){
       event.preventDefault();
       if (profile.username === editted.username){
         updateDatabase();
@@ -277,9 +297,9 @@ function SettingsPage({context, setContext}){
           <div id="submit">
             <input type="submit"
               value={"Save Changes"}
-              disabled={!canSubmit()}
+              disabled={!canSubmit}
               className= {"py-1 px-8 rounded-full w-auto text-white " + 
-              (canSubmit() ? "bg-orange-500 hover:cursor-pointer hover:bg-orange-600" : "bg-blue-200 hover:cursor-not-allowed")}
+              (canSubmit ? "bg-orange-500 hover:cursor-pointer hover:bg-orange-600" : "bg-blue-200 hover:cursor-not-allowed")}
             />
           </div>
         </form>
