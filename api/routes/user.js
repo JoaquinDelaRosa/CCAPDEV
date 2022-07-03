@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 const app = require('../app');
-const User = require('../database/models/users');
+const User = require('../database/models/user');
 const { v4 } = require('node-uuid');
 
 
@@ -20,15 +20,27 @@ router.get('/getUsername', async function(req, res, next) {
 
 router.post('/login', async function(req, res, next) {
   // Send only the first match
-  console.log("in backend login");
-  const profile = await User.find({
-      $and: [
-        {'username': req.body.username},
-        {'password': req.body.password}
-      ]
+  User.findOne({ 'username': req.body.username}, function(err, user) {
+    if (err){
+      res.send(null);
+      res.end();
+    }
+
+    // test a matching password
+    user.comparePassword(req.body.password, function(err, isMatch) {
+        if (err) {
+          res.send(null);
+          res.end();
+        }
+        if (isMatch){
+          res.json(user);
+          res.end();
+        } else {
+          res.send(null);
+          res.end();
+        }
     });
-  res.json(profile[0]);
-  res.end();
+  });
 });
 
 /* POST users listing */ 

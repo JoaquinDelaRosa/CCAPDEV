@@ -2,7 +2,7 @@ const mongoose = require("mongoose"),
     bcrypt = require('bcrypt'),
     SALT_WORK_FACTOR = 10;
 
-const UsersSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     pfp : String,
     id : {
         type: String,
@@ -25,7 +25,7 @@ const UsersSchema = new mongoose.Schema({
     }
 })
 
-UsersSchema.pre("save", function(next) {
+UserSchema.pre("save", function(next) {
     var user = this;
 
     // only hash the password if it has been modified (or is new)
@@ -43,13 +43,13 @@ UsersSchema.pre("save", function(next) {
     });
 })
 
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+UserSchema.methods.comparePassword = function(other, callback) {
+    bcrypt.compare(other, this.password, function(err, success) {
         if (err) return cb(err);
-        cb(null, isMatch);
+        callback(null, success);
     });
 };
 
-const User = mongoose.model('Users', UsersSchema);
+const User = mongoose.model('Users', UserSchema);
 
 module.exports = User;
