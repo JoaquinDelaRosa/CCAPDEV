@@ -28,14 +28,12 @@ router.post('/login', async function(req, res, next) {
     // test a matching password
       await user.comparePassword(req.body.password, function(err, isMatch) {
           if (err) {
-            console.log("Error");
             res.end();
           }
           if (isMatch){
             res.json(user);
             res.end();
           } else {
-            console.log(user);
             res.end();
           }
       });
@@ -63,8 +61,7 @@ router.post('/register', function(req, res, next) {
 
 /* PATCH users listing */
 router.patch('/update', function(req, res, next) {
-  let b = req.body;
-  User.updateOne({'id' : req.query.id}, req.body, (err) => {
+  User.findOneAndUpdate({'id' : req.query.id}, req.body, (err) => {
     if(err) {
       console.log(err);
       res.send({message: "Failed to edit profile"});
@@ -90,12 +87,6 @@ router.patch('/upload', function(req, res, next) {
       res.send({message: "Successfully editted profile"});
       res.end();
     }
-  }, function(err, user){
-      if (err || user == null){
-        res.send({message: "Failed to edit profile"});
-      } else {
-        user.save();
-      }
   })
 })
 

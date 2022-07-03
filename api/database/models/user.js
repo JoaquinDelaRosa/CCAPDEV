@@ -43,6 +43,30 @@ UserSchema.pre("save", function(next) {
     });
 })
 
+
+UserSchema.pre('findOneAndUpdate', async function () {
+    this._update.password = await bcrypt.hash(this._update.password, SALT_WORK_FACTOR)
+  })
+
+
+UserSchema.post("save", function(next) {
+    var user = this;
+
+    // only hash the password if it has been modified (or is new)
+    if (!user.isModified('password')) return next();
+
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+        if (err) return next(err);
+
+        // hash the password using our new salt
+        bcrypt.hash(user.password, salt, function(err, hash) {
+            if (err) return next(err);
+            user.password = hash;
+            next();
+        });
+    });
+})
+
 UserSchema.methods.comparePassword = async function(other, callback) {
     bcrypt.compare(other, this.password, function(err, success) {
         if (err) return callback(err);

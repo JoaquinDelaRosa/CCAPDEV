@@ -76,41 +76,13 @@ function SettingsPage({context, setContext}){
 
   const canSubmit = () => {
     if (passwordEdited) {
-      if (confirmNewPassword !== newPassword)
-        return false 
-      
-      let res = false;
-      fetch(loginURL, {
-          method : "POST",
-          headers : {
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify({
-            "username": profile["username"],
-            "password": confirmOldPassword
-          })
-        })
-        .then((response) => {
-          return response.json()
-        })
-        .then((result) => {
-          if (result.id === profile.id){
-            res = true;
-          }
-        }, (err) => {
-          console.log(err);
-        })
-
-      return res;
-
-    } else {
-      return true;
-    }
+      return confirmNewPassword === newPassword ;
+    } 
+    return true;
   }
 
   function updateDatabase() {
     console.log("Changing");
-    return;
     const query = updateURL + "?id=" + profile.id
     
     // Update DB
